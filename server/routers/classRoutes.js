@@ -1,0 +1,10 @@
+const express = require("express")
+const router = express.Router()
+const classController=require("../controller/classController")
+router.get("/",classController.getClasses)
+router.get("/active",classController.getActiveClasses)
+//router.get("/:id", classController.getClasses)
+router.post("/",classController.createNewClass)
+router.delete("/",classController.deleteClass)
+router.put("/",classController.updateClass)
+module.exports = router
