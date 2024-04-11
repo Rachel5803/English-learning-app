@@ -1,0 +1,34 @@
+.single-class-container{
+    margin-top: 20px;
+}
+.single-class-form-container{
+    background-color: var(--bgSoft);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.single-class-form{
+    display: flex;
+    flex-direction: column;
+}
+.single-class-form input{
+    padding: 20px;
+    border: solid 2px #2e374a;
+    background-color: var(--bg);
+    color: var(--text);
+    margin:10px 0px;
+}
+.single-class-form label{
+    font-size:12px;
+}
+.single-class-form button{
+    width: 100%;
+    padding: 20px;
+    background-color: teal;
+    color:var(--text);
+    border:none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+
+}

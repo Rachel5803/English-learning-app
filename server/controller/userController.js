@@ -3,7 +3,8 @@ const bcrypt = require('bcrypt')
 //const Dictation = require("../models/Dictation")
 const getUsersForSpecificClass = async (req, res) => {
     const {classId}=req.body
-    const users = await User.find({ school: req.body.school, grade: req.body.grade, gradeNumber: req.body.gradeNumber }, {_id:0 , name:1, dictations:1}).lean()
+    const users = await User.find({ class:classId}, {_id:0 , name:1, dictations:1}).lean()
+    //const users = await User.find({ school: req.body.school, grade: req.body.grade, gradeNumber: req.body.gradeNumber }, {_id:0 , name:1, dictations:1}).lean()
     if (!users.length) {
         return res.status(400).json({ massage: 'No users found' })
     }
@@ -122,4 +123,4 @@ const updateUser = async (req, res) => {
 
 
 
-module.exports = { getUsers, createNewUser,getUserById, updateUser }
+module.exports = { getUsers, createNewUser,getUserById, updateUser,getUsersForSpecificClass }

@@ -14,12 +14,13 @@ const getClasses = async (req, res) => {
         data: classes
     })
 }
-const getActiveClasses = async (req, res) => {
-    const classes = await Class.find({active:true}).lean()
+const getClassesByYear = async (req, res) => {
+    const {schoolYear} = req.body
+    const classes = await Class.find({schoolYear}).lean()
     if (!classes.length) {
         return res.status(400).json({
             error: true,
-            massage: 'No  active classes found',
+            massage: 'No classes found',
             data: null
         })
     }
@@ -39,15 +40,15 @@ const getActiveClasses = async (req, res) => {
 
 // }
 const createNewClass = async (req, res) => {
-    const { school, grade, gradeNumber, active } = req.body
-    if (!school||!grade || !gradeNumber) {
+    const { school, grade, gradeNumber,schoolYear} = req.body
+    if (!school||!grade || !gradeNumber||!schoolYear) {
         return res.status(400).json({
             error: true,
-            massage: 'You need to press school, grade and grade number',
+            massage: 'You need to press school, grade ,grade number and school year',
             data: null
         })
     }
-    const checkDouble = await Class.findOne({ school: school, grade: grade, gradeNumber: gradeNumber, active: true }).lean()
+    const checkDouble = await Class.findOne({ school: school, grade: grade, gradeNumber: gradeNumber, schoolYear:schoolYear }).lean()
     if (checkDouble.length != 0) {
         return res.status(400).json({
             error: true,
@@ -56,7 +57,7 @@ const createNewClass = async (req, res) => {
         })
 
     }
-    const classCreate = await Class.create({ school, grade, gradeNumber, active })
+    const classCreate = await Class.create({ school, grade, gradeNumber,schoolYear })
     if (classCreate) {
         return res.json({
             error: false,
@@ -73,11 +74,11 @@ const createNewClass = async (req, res) => {
     }
 }
 const updateClass = async (req, res) => {
-    const { id, school, grade, gradeNumber, active } = req.body
-    if (!id || !school || !grade || !gradeNumber) {
+    const { id, school, grade, gradeNumber,schoolYear } = req.body
+    if (!id || !school || !grade || !gradeNumber||!schoolYear) {
         return res.status(400).json({
             error: true,
-            massage: 'Id, school, grade and grade number are required',
+            massage: 'Id, school, grade ,grade number and school year are required',
             data: null
         })
     }
@@ -92,7 +93,7 @@ const updateClass = async (req, res) => {
     foundClass.school = school
     foundClass.grade = grade
     foundClass.gradeNumber = gradeNumber
-    foundClass.active = active
+    foundClass.schoolYear= schoolYear
     const updateClass = await foundClass.save();
     res.json({
         error: false,
@@ -124,4 +125,4 @@ const deleteClass = async (req, res) => {
         data: result
     })
 }
-module.exports = { getClasses,getActiveClasses, createNewClass, updateClass, deleteClass }
+module.exports = { getClasses,getClassesByYear, createNewClass, updateClass, deleteClass }

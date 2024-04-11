@@ -1,0 +1,63 @@
+.single-user-container {
+    display: flex;
+    gap: 50px;
+    margin-top: 20px;
+  }
+  
+  .single-user-info {
+    flex: 1;
+    background-color: var(--bgSoft);
+    padding: 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: var(--textSoft);
+    height: max-content;
+  }
+  
+  .single-user-img-container{
+    width: 100%;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .single-user-img-container img{
+   object-fit: contain;
+   width: 100% !important;
+  }
+  
+  .single-user-form-container {
+    flex: 3;
+    background-color: var(--bgSoft);
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .single-user-form{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .single-user-form input, .single-user-form textarea, .single-user-form select{
+    padding: 20px;
+    border: 2px solid #2e374a;
+    border-radius: 5px;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 10px 0px;
+  }
+  
+  .single-user-form label{
+    font-size: 12px;
+  }
+  
+  .single-user-form button{
+    width: 100%;
+    padding: 20px;
+    background-color: teal;
+    color: var(--text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }

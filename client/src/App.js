@@ -1,21 +1,32 @@
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Layout from "./components/common/Layout";
-import AddDetailsDictation from "./components/dictations/AddDetailsDictation";
-import AddWordsDictation from "./components/dictations/AddWordsDictation";
-import ConvertDictToPdf from "./components/dictations/ConvertDictToPdf";
+import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
+import SiteLayout from "./components/layout/site/SiteLayout";
+import DashLayout from "./components/layout/dash/DashLayout";
+import { ClassesList } from "./features/classes/list/ClassesList";
+import UsersList from "./features/users/list/UsersList";
+import AddUser from "./features/users/add/AddUser";
+import AddClass from "./features/classes/add/AddClass";
+import SingleClass from "./features/classes/view/SingleClass";
+import SingleUser from "./features/users/view/SingleUser";
 function App() {
   return (
     <div >
       <Router>
         <Routes >
-          <Route path='/' element={<Layout />}>
-            <Route index element={<h1>Home page</h1>} />
-            <Route path="/personalArea" element={<h1>אזור אישי</h1>} />
-            <Route path="/dictation/create" element={<AddDetailsDictation />} />
-            <Route path="/dictation/update/words/:id" element={<AddWordsDictation/>}/>
-            <Route path="/dictation/convert" element={<ConvertDictToPdf/>}/>
-            <Route path="/StudentData" element={<h1>נתוני תלמידים</h1>} />
+          <Route path="/" element={<SiteLayout />}>
+            <Route index element={<h1>site</h1>} />
+            <Route path="/dash" element={<DashLayout />}>
+              <Route index element={<h1>dashboard</h1>} />
+              <Route path="users" element={<Outlet />}>
+              <Route index element={<UsersList />} />
+              <Route path="add" element={<AddUser/>} />
+              <Route path=":id" element={<SingleUser/>} />
+            </Route>
+              <Route path="classes" element={<Outlet />}>
+                <Route index element={<ClassesList />} />
+                <Route path="add" element={<AddClass/>} />
+                <Route path=":id" element={<SingleClass/>} />
+              </Route>
+            </Route>
           </Route>
         </Routes>
       </Router>

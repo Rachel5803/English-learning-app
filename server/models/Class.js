@@ -12,9 +12,13 @@ const classSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    active: {
-        type: Boolean,
-        default: true
+    // active: {
+    //     type: Boolean,
+    //     default: true
+    // },
+    schoolYear:{
+        type: String,
+        required: true
     }
 }, {
     timestamps: true
