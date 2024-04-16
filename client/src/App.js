@@ -19,12 +19,12 @@ function App() {
               <Route path="users" element={<Outlet />}>
               <Route index element={<UsersList />} />
               <Route path="add" element={<AddUser/>} />
-              <Route path=":id" element={<SingleUser/>} />
+              <Route path=":userId" element={<SingleUser/>} />
             </Route>
               <Route path="classes" element={<Outlet />}>
                 <Route index element={<ClassesList />} />
                 <Route path="add" element={<AddClass/>} />
-                <Route path=":id" element={<SingleClass/>} />
+                <Route path=":classId" element={<SingleClass/>} />
               </Route>
             </Route>
           </Route>

@@ -1,10 +1,35 @@
 import "./single-user.css"
+import { useNavigate, useParams } from "react-router-dom";
+import { useGetAllClassesQuery } from "../../classes/classesApiSlice";
+import { useGetAllUsersQuery, useUpdateUserMutation } from "../usersApiSlice";
+import { useEffect } from "react";
 
 const SingleUser = () => {
-    const user = { _id: 1, username: "12345678", name: "טלי", class: { school: "מכלול", grade: "יג", gradeNumber: 6 }, roles: 'Student', active: true }
-    const classes = [
-        { _id: 1, school: "מכלול", grade: "יג", gradeNumber: 6, schoolYear: 2023 }
-    ]
+    const { userId } = useParams()
+    const { data: usersObject, isError, error, isLoading, isSuccess } = useGetAllUsersQuery()
+    const { data: classes, isLoading: isClassesLoading } = useGetAllClassesQuery()
+    const [updateUser, { isSuccess: isUpdateSuccess }] = useUpdateUserMutation()
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (isUpdateSuccess) {
+            navigate("/dash/users")
+        }
+    }, [isUpdateSuccess])
+    const formSubmit = (e) => {
+        e.preventDefault()
+        const data = new FormData(e.target)
+        const userObject = Object.fromEntries(data.entries())
+        console.log(userObject);
+        updateUser(userObject)
+
+    }
+
+
+    if (isLoading || isClassesLoading) return <h1> Loading ...</h1>
+    if (isError) return <h1>{JSON.stringify(error)}</h1>
+    const user = usersObject.data.find(u => u._id === userId)
+    if (!user) return <h1>{"Not found"}</h1>
+
     return (
         <div className="single-user-container">
             <div className="single-user-info">
@@ -14,7 +39,7 @@ const SingleUser = () => {
                 {user.name}
             </div>
             <div className="single-user-form-container">
-                <form  className="single-user-form">
+                <form onSubmit={formSubmit} className="single-user-form">
                     <input name="_id" defaultValue={user._id} type="hidden" />
                     <label>שם משתמש</label>
                     <input readOnly={true} type="text" name="username" defaultValue={user.username} />
@@ -23,11 +48,14 @@ const SingleUser = () => {
                     <label>שם מלא</label>
                     <input type="text" name="name" placeholder="שם מלא" defaultValue={user.name} />
                     <label>כיתה</label>
-                    <select name="class" id="class" required>
-                        {classes.map(oneClass => {
-                            return <option value={oneClass._id}>{oneClass.school + " " + oneClass.grade + " " + oneClass.gradeNumber}</option>
+                    <select name="classId" id="classId" required>
+                        {classes.data.map(oneClass => {
+                            return <option selected={oneClass._id === user.class?._id} value={oneClass._id}>{oneClass.school + " " + oneClass.grade + " " + oneClass.gradeNumber}</option>
+
                         })}
                     </select>
+                    
+                    
                     <label>הרשאה</label>
                     <select name="roles" id="roles">
                         <option value="Teacher" selected={user.roles === "Teacher"}>מורה</option>

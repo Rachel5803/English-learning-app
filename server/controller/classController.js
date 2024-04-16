@@ -48,8 +48,8 @@ const createNewClass = async (req, res) => {
             data: null
         })
     }
-    const checkDouble = await Class.findOne({ school: school, grade: grade, gradeNumber: gradeNumber, schoolYear:schoolYear }).lean()
-    if (checkDouble.length != 0) {
+    const checkDouble = await Class.findOne({ school, grade, gradeNumber, schoolYear }).lean()
+    if (checkDouble) {
         return res.status(400).json({
             error: true,
             massage: 'The class exists in the system',
@@ -74,15 +74,15 @@ const createNewClass = async (req, res) => {
     }
 }
 const updateClass = async (req, res) => {
-    const { id, school, grade, gradeNumber,schoolYear } = req.body
-    if (!id || !school || !grade || !gradeNumber||!schoolYear) {
+    const { _id, school, grade, gradeNumber,schoolYear } = req.body
+    if (!_id || !school || !grade || !gradeNumber||!schoolYear) {
         return res.status(400).json({
             error: true,
             massage: 'Id, school, grade ,grade number and school year are required',
             data: null
         })
     }
-    const foundClass = await Class.findById( id ).exec()
+    const foundClass = await Class.findById( _id ).exec()
     if (!foundClass) {
         return res.status(400).json({
             error: true,
@@ -102,15 +102,15 @@ const updateClass = async (req, res) => {
     })
 }
 const deleteClass = async (req, res) => {
-    const { id } = req.body
-    if (!id) {
+    const { _id } = req.body
+    if (!_id) {
         return res.status(400).json({
             error: true,
             massage: 'Id is required',
             data: null
         })
     }
-    const foundClass = await Class.findById(id).exec()
+    const foundClass = await Class.findById(_id).exec()
     if (!foundClass) {
         return res.status(400).json({
             error: true,

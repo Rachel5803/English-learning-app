@@ -4,14 +4,13 @@ const bcrypt = require('bcrypt')
 const getUsersForSpecificClass = async (req, res) => {
     const {classId}=req.body
     const users = await User.find({ class:classId}, {_id:0 , name:1, dictations:1}).lean()
-    //const users = await User.find({ school: req.body.school, grade: req.body.grade, gradeNumber: req.body.gradeNumber }, {_id:0 , name:1, dictations:1}).lean()
     if (!users.length) {
         return res.status(400).json({ massage: 'No users found' })
     }
     res.json(users)
 }
 const getUsers = async (req, res) => {
-    const users = await User.find({},{password:0}).lean()
+    const users = await User.find({},{password:0}).populate("class").lean()
     if (!users.length) {
         return res.status(400).json({
             error: true,
@@ -72,15 +71,15 @@ const createNewUser = async (req, res) => {
     }
 }
 const updateUser = async (req, res) => {
-    const { id, username, password, name, classId, roles, active} = req.body
-    if (!id || !username  || !name||!classId) {
+    const { _id, username, password, name, classId, roles, active} = req.body
+    if (!_id || !username  || !name||!classId) {
         return res.status(400).json({
             error: true,
             massage: 'Id, user name, password, name, class and roles are required',
             data: null
         })
     }
-    const user = await User.findById(id).exec()
+    const user = await User.findById(_id).exec()
     if (!user) {
         return res.status(400).json({
             error: true,
@@ -119,8 +118,30 @@ const updateUser = async (req, res) => {
 //     const updateUser= await user.save();
 //     res.json(`'${updateUser.name}' updated`)
 // }
+const deleteUser = async (req, res) => {
+    const { _id } = req.body
+    if (!_id) {
+        return res.status(400).json({
+            error: true,
+            massage: 'Id is required',
+            data: null
+        })
+    }
+    const foundUser = await User.findById(_id).exec()
+    if (!foundUser) {
+        return res.status(400).json({
+            error: true,
+            massage: 'No user found',
+            data: null
+        })
+    }
+    const result = await foundUser.deleteOne()
+    res.json({
+        error: false,
+        massage: '',
+        data: result
+    })
+}
 
 
-
-
-module.exports = { getUsers, createNewUser,getUserById, updateUser,getUsersForSpecificClass }
+module.exports = { getUsers, createNewUser,getUserById, updateUser,getUsersForSpecificClass, deleteUser}

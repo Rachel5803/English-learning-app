@@ -1,10 +1,18 @@
 import "./classes-list.css"
 import {Link} from "react-router-dom"
 import Search from "../../../components/search/Search"
+import {useGetAllClassesQuery,useDeleteClassMutation} from "../classesApiSlice"
 export const ClassesList = () => {
-  const classes=[
-    {_id:1, school:"מכלול", grade:"יג", gradeNumber:6, schoolYear:2023}
-  ]
+const  {data: classesObject, isError, error, isLoading, isSuccess} = useGetAllClassesQuery()
+const [deleteClass,{isSuccess: isDeleteSuccess}] = useDeleteClassMutation()
+const deleteClick = (singleClass) =>{
+    if(window.confirm ("בטוח שברצונך למחוק ת הכיתה")){
+        deleteClass({_id: singleClass._id})
+    }
+   
+}
+if(isLoading) return <h1> Loading ...</h1>
+  if(isError) return <h1>{ JSON.stringify( error)}</h1>
   return (
     <div className="classes-list">
       <div className="classes-list-top">
@@ -24,7 +32,7 @@ export const ClassesList = () => {
                 </tr>
             </thead>
             <tbody>
-                {classes.map(oneClass=>(
+                {classesObject.data?.map(oneClass=>(
                     <tr key={oneClass._id}>
                       <td>
                             {oneClass.school}
@@ -48,7 +56,7 @@ export const ClassesList = () => {
                             <Link to={`/dash/classes/${oneClass._id}`} className="classes-list-button classes-list-view">
                                 צפייה
                             </Link>
-                            <button   className="classes-list-button classes-list-delete">
+                            <button  onClick={()=>{deleteClick(oneClass)}} className="classes-list-button classes-list-delete">
                                 מחיקה
                             </button>
                             </div>

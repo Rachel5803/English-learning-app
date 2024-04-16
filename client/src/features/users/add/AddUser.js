@@ -1,12 +1,35 @@
 import "./add-user.css"
-const classes=[
-    {_id:1, school:"מכלול", grade:"יג", gradeNumber:6, schoolYear:2023}
-  ]
+import { useNavigate } from "react-router-dom";
+import { useAddUserMutation } from "../usersApiSlice";
+import {useGetAllClassesQuery} from "../../classes/classesApiSlice";
+import { useEffect } from "react";
+
   
 const AddUser = () => {
+  const [addUser, {data, isError, error, isSuccess, isLoading}] = useAddUserMutation()
+  const  {data: classesObject, isLoading: isClassesLoading} = useGetAllClassesQuery()
+  const navigate = useNavigate()
+  useEffect(()=>{
+    if(isSuccess){
+      navigate("/dash/users")
+    }
+
+  }, [isSuccess])
+  const formSubmit = (e) =>{
+    e.preventDefault()
+      const data = new FormData(e.target)
+      const userObject =Object.fromEntries(data.entries())
+      addUser(userObject)
+      
+
+
+
+
+  }
+  if(isClassesLoading) return <h1> Loading ...</h1>
   return (
     <div className="add-user-container">
-    <form  className="add-user-form">
+    <form onSubmit={formSubmit} className="add-user-form">
       <input type="text" placeholder="username" name="username" required />
       <input
         type="password"
@@ -15,14 +38,14 @@ const AddUser = () => {
         required
       />
       <input type="text" placeholder="name" name="name" required />
-      <select name="schhol" id="school" required>
+      <select name="classId" id="classId" required>
         <option> בחר כיתה</option>
-        {classes.map(oneClass=>{
+        {classesObject.data?.map(oneClass=>{
           return <option value={oneClass._id}>{oneClass.school+" "+ oneClass.grade+" "+oneClass.gradeNumber}</option>
         })}
       </select>
       <select name="roles" id="roles">
-        <option value="Studnt">
+        <option value="Student">
           הרשאה
         </option>
         <option value="Teacher">מורה</option>
