@@ -7,6 +7,7 @@ import AddUser from "./features/users/add/AddUser";
 import AddClass from "./features/classes/add/AddClass";
 import SingleClass from "./features/classes/view/SingleClass";
 import SingleUser from "./features/users/view/SingleUser";
+import LoginPage from "./features/auth/login/LoginPage";
 function App() {
   return (
     <div >
@@ -14,6 +15,7 @@ function App() {
         <Routes >
           <Route path="/" element={<SiteLayout />}>
             <Route index element={<h1>site</h1>} />
+            <Route path="login" element={<LoginPage />} />
             <Route path="/dash" element={<DashLayout />}>
               <Route index element={<h1>dashboard</h1>} />
               <Route path="users" element={<Outlet />}>
