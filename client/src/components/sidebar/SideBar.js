@@ -12,7 +12,12 @@ import {
 } from "react-icons/md";
 import "./sidebar.css";
 import MenuLink from "./MenuLink";
+import {useSendLogoutMutation} from "../../features/auth/authApiSlice"
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 const SideBar = () => {
+  const navigate = useNavigate()
+  const [logout, {isSuccess}] =useSendLogoutMutation()
   const menuItems = [
     {
       title: "דפים",
@@ -62,6 +67,14 @@ const SideBar = () => {
     class: "כיתה יג",
     image: "",
   };
+  useEffect(()=>{
+    if(isSuccess){
+      navigate("/login")
+    }
+  }, [isSuccess])
+  const logoutClick = () =>{
+      logout()
+  }
 
   return (
     <div className="side-bar">
@@ -88,7 +101,7 @@ const SideBar = () => {
           </li>
         ))}
       </ul>
-      <button className="side-bar-logout">
+      <button onClick={logoutClick} className="side-bar-logout">
         <MdLogout />
         יציאה
       </button>
