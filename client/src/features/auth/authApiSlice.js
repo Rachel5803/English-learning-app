@@ -42,7 +42,17 @@ const authApiSlice =apiSlice.injectEndpoints({
             query: () =>({
                 url: "/api/auth/refresh",
                 method: "GET"
-            })
+            }),
+            async onQueryStarted( arg,  { dispatch,   queryFulfilled }) {
+                try {
+                    const { data } =  await queryFulfilled
+                    if(data.accessToken){
+                        dispatch(setToken({accessToken: data.accessToken}))
+                    }
+                } catch (err) {
+                    console.log(err)
+                }
+            },
         }),
       
     })

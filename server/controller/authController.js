@@ -13,7 +13,7 @@ const login = async (req,res) =>{
         })
     }
     //get the user from the DB
-    const foundUser = await User.findOne({username: username, active:true}).populate("class", {name: 1}).lean()
+    const foundUser = await User.findOne({username: username, active:true}).populate("class", {school: 1}).lean()
     if(!foundUser) {
         return res.status(401).json({
             error: true,
@@ -37,7 +37,7 @@ const login = async (req,res) =>{
         username: foundUser.username,
        name: foundUser.name,
         roles: foundUser.roles,
-        class: foundUser.class,
+        grade: foundUser.class,
         image:foundUser.image
     }
 
@@ -76,13 +76,13 @@ const refresh = async (req,res) =>{
                     data: null
                 })
             }
-            const foundUser = await User.findOne({username: decode.username, active:true}).populate("class", {name: 1}).lean()
+            const foundUser = await User.findOne({username: decode.username, active:true}).populate("class", {school: 1}).lean()
             const userInfo  = {
                 _id: foundUser._id,
                 username: foundUser.username,
                 name: foundUser.name,
                 roles: foundUser.roles,
-                class: foundUser.class,
+                grade: foundUser.class,
                 image:foundUser.image
             }
         

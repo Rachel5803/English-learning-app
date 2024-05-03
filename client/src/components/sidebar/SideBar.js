@@ -15,10 +15,13 @@ import MenuLink from "./MenuLink";
 import {useSendLogoutMutation} from "../../features/auth/authApiSlice"
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 const SideBar = () => {
+  const {username, name, grade, roles, image} = useAuth()
+  console.log(grade);
   const navigate = useNavigate()
   const [logout, {isSuccess}] =useSendLogoutMutation()
-  const menuItems = [
+  const teacherMenuItems = [
     {
       title: "דפים",
       list: [
@@ -30,12 +33,12 @@ const SideBar = () => {
         {
           title: "משתמשים",
           path: "/dash/users",
-          icon: <MdOutlinePersonOutline />,
+          icon: <MdSupervisedUserCircle />,
         },
         {
-          title: "כיתות",
-          path: "/dash/classes",
-          icon: <MdOutlineDiversity3 />,
+          title: "חברות",
+          path: "/dash/companies",
+          icon: <MdOutlineBusinessCenter />,
         },
         {
           title: "פעולות",
@@ -60,13 +63,40 @@ const SideBar = () => {
       ],
     },
   ];
-
-  const user = {
-    username: "username",
-    name: "טלי פפר",
-    class: "כיתה יג",
-    image: "",
-  };
+  const studentMenuItems = [
+    {
+      title: "דפים",
+      list: [
+        {
+          title: "ראשי",
+          path: "/dash",
+          icon: <MdDashboard />,
+        },
+        {
+          title: "פעולות",
+          path: "/dash/actions",
+          icon: <MdPendingActions />,
+        },
+      ],
+    },
+    {
+      title: "משתמש",
+      list: [
+        {
+          title: "הגדרות",
+          path: "/dash/settings",
+          icon: <MdOutlineSettings />,
+        },
+        {
+          title: "עזרה",
+          path: "/dash/help",
+          icon: <MdHelpCenter />,
+        },
+      ],
+    },
+  ];
+  
+  const menuItems = roles==="Teacher"? teacherMenuItems: studentMenuItems
   useEffect(()=>{
     if(isSuccess){
       navigate("/login")
@@ -80,15 +110,15 @@ const SideBar = () => {
     <div className="side-bar">
       <div className="side-bar-user">
         <img
-          src={user.image || "/noavatar.png"}
+          src={image || "/noavatar.png"}
           alt=""
           width="50"
           height="50"
           className="side-bar-user-image"
         />
         <div className="side-bar-user-details">
-          <span className="side-car-user-name">{user.name}</span>
-          <span className="side-car-user-title">{user.class}</span>
+          <span className="side-car-user-name">{name}</span>
+          <span className="side-car-user-title">{grade?.school}</span>
         </div>
       </div>
       <ul className="side-bar-menu-list">
