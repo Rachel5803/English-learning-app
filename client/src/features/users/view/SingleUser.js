@@ -3,12 +3,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllClassesQuery } from "../../classes/classesApiSlice";
 import { useGetAllUsersQuery, useUpdateUserMutation } from "../usersApiSlice";
 import { useEffect } from "react";
+import useGetFilePath from "../../../hooks/useGetFilePath";
 
 const SingleUser = () => {
     const { userId } = useParams()
     const { data: usersObject, isError, error, isLoading, isSuccess } = useGetAllUsersQuery()
     const { data: classes, isLoading: isClassesLoading } = useGetAllClassesQuery()
     const [updateUser, { isSuccess: isUpdateSuccess }] = useUpdateUserMutation()
+    const {getFilePath} = useGetFilePath()
     const navigate = useNavigate()
     useEffect(() => {
         if (isUpdateSuccess) {
@@ -18,9 +20,8 @@ const SingleUser = () => {
     const formSubmit = (e) => {
         e.preventDefault()
         const data = new FormData(e.target)
-        const userObject = Object.fromEntries(data.entries())
-        console.log(userObject);
-        updateUser(userObject)
+        //const userObject = Object.fromEntries(data.entries())
+        updateUser(data)
 
     }
 
@@ -34,7 +35,7 @@ const SingleUser = () => {
         <div className="single-user-container">
             <div className="single-user-info">
                 <div className="single-user-img-container">
-                    <img src={user.image || "/noavatar.png"} />
+                    <img src={getFilePath(user.image)} />
                 </div>
                 {user.name}
             </div>
@@ -66,6 +67,7 @@ const SingleUser = () => {
                         <option value={true} selected={user.active}>כן</option>
                         <option value={false} selected={!user.active}>לא</option>
                     </select>
+                    <input type="file"  name="image"/>
                     <button>עדכן</button>
                 </form>
             </div>

@@ -41,6 +41,7 @@ const getUserById = async (req, res) => {
     })
 }
 const createNewUser = async (req, res) => {
+    const image = (req.file?.filename? req.file.filename: "")
     const { username, password, name, classId, roles, active} = req.body
     if (!name || !username || !password||!classId) {
         return res.status(400).json({
@@ -54,7 +55,7 @@ const createNewUser = async (req, res) => {
         return res.status(400).json({ massage: 'The username exists in the system, press a unique username' })
     }
     const hashPwd = await bcrypt.hash(password, 10)
-    const user = await User.create({ username, password: hashPwd, name, class:classId,  roles, active })
+    const user = await User.create({ username, password: hashPwd, name, class:classId,  roles, active, image })
     if (user) {
         return res.json({
             error: false,
@@ -71,6 +72,7 @@ const createNewUser = async (req, res) => {
     }
 }
 const updateUser = async (req, res) => {
+    const image = (req.file?.filename? req.file.filename: "")
     const { _id, username, password, name, classId, roles, active} = req.body
     if (!_id || !username  || !name||!classId) {
         return res.status(400).json({
@@ -96,6 +98,9 @@ const updateUser = async (req, res) => {
     user.class = classId;
     user.roles = roles;
     user.active = active;
+    if(image){
+        user.image = image
+    }
     const updateUser= await user.save();
     res.json({
         error: false,

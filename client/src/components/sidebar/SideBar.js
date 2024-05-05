@@ -16,11 +16,13 @@ import {useSendLogoutMutation} from "../../features/auth/authApiSlice"
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useGetFilePath from "../../hooks/useGetFilePath";
 const SideBar = () => {
   const {username, name, grade, roles, image} = useAuth()
   console.log(grade);
   const navigate = useNavigate()
   const [logout, {isSuccess}] =useSendLogoutMutation()
+  const {getFilePath} = useGetFilePath()
   const teacherMenuItems = [
     {
       title: "דפים",
@@ -97,20 +99,21 @@ const SideBar = () => {
   ];
   
   const menuItems = roles==="Teacher"? teacherMenuItems: studentMenuItems
-  useEffect(()=>{
-    if(isSuccess){
-      navigate("/login")
-    }
-  }, [isSuccess])
+  // useEffect(()=>{
+  //   if(isSuccess){
+  //     navigate("/login")
+  //   }
+  // }, [isSuccess])
   const logoutClick = () =>{
       logout()
+      navigate("/login")
   }
 
   return (
     <div className="side-bar">
       <div className="side-bar-user">
         <img
-          src={image || "/noavatar.png"}
+          src={ getFilePath(image)}
           alt=""
           width="50"
           height="50"

@@ -4,6 +4,7 @@ import Search from "../../../components/search/Search";
 import { useGetAllUsersQuery, useDeleteUserMutation } from '../usersApiSlice';
 import { useGetAllClassesQuery } from "../../classes/classesApiSlice";
 import { useState } from "react"
+import useGetFilePath from "../../../hooks/useGetFilePath"
 const UsersList = () => {
   const [detailsClass, setDetailsClass] = useState({})
   const { data: usersObject, isError, error, isLoading, isSuccess } = useGetAllUsersQuery()
@@ -11,6 +12,7 @@ const UsersList = () => {
   const { data: classesObject, isLoading: isClassesLoading } = useGetAllClassesQuery()
   const [searchParams] = useSearchParams()
    const q = searchParams.get("q")
+   const {getFilePath} = useGetFilePath()
   const deleteClick = (user) => {
     if (window.confirm("בטוח שברצונך למחוק את המשתמש?")) {
       deleteUser({ _id: user._id })
@@ -49,7 +51,7 @@ const UsersList = () => {
             <tr key={user.id}>
               <div className="users-list-user">
                 <img
-                  src={user.image || "/noavatar.png"}
+                  src={ getFilePath(user.image)}
                   alt=""
                   width={40}
                   height={40}

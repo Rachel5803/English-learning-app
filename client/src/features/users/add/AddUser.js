@@ -18,8 +18,8 @@ const AddUser = () => {
   const formSubmit = (e) =>{
     e.preventDefault()
       const data = new FormData(e.target)
-      const userObject =Object.fromEntries(data.entries())
-      addUser(userObject)
+      //const userObject =Object.fromEntries(data.entries())
+      addUser(data)
       
 
 
@@ -58,7 +58,7 @@ const AddUser = () => {
         <option value={true}>כן</option>
         <option value={false}>לא</option>
       </select>
-      <input type="file"  name="userImg"/>
+      <input type="file"  name="image"/>
       <button type="submit">Submit</button>
     </form>
   </div>
