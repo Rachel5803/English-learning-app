@@ -1,5 +1,5 @@
 import "./users-list.css"
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import Search from "../../../components/search/Search";
 import { useGetAllUsersQuery, useDeleteUserMutation } from '../usersApiSlice';
 import { useGetAllClassesQuery } from "../../classes/classesApiSlice";
@@ -9,6 +9,8 @@ const UsersList = () => {
   const { data: usersObject, isError, error, isLoading, isSuccess } = useGetAllUsersQuery()
   const [deleteUser, { isSuccess: isDeleteSuccess }] = useDeleteUserMutation()
   const { data: classesObject, isLoading: isClassesLoading } = useGetAllClassesQuery()
+  const [searchParams] = useSearchParams()
+   const q = searchParams.get("q")
   const deleteClick = (user) => {
     if (window.confirm("בטוח שברצונך למחוק את המשתמש?")) {
       deleteUser({ _id: user._id })
@@ -17,6 +19,8 @@ const UsersList = () => {
   }
   if (isLoading || isClassesLoading) return <h1> Loading ...</h1>
   if (isError) return <h1>{JSON.stringify(error)}</h1>
+  const filteredData = !q? [...usersObject.data] : usersObject.data.filter(user=> (user.class.school?.indexOf(q) > -1) || (user.name.indexOf(q) > -1))
+
 
   return (
     <div className="users-list">
@@ -41,7 +45,7 @@ const UsersList = () => {
           </tr>
         </thead>
         <tbody>
-          {usersObject.data.map((user) => (
+          {filteredData?.map((user) => (
             <tr key={user.id}>
               <div className="users-list-user">
                 <img

@@ -1,10 +1,12 @@
 import "./classes-list.css"
-import {Link} from "react-router-dom"
+import {Link, useSearchParams} from "react-router-dom"
 import Search from "../../../components/search/Search"
 import {useGetAllClassesQuery,useDeleteClassMutation} from "../classesApiSlice"
 export const ClassesList = () => {
 const  {data: classesObject, isError, error, isLoading, isSuccess} = useGetAllClassesQuery()
 const [deleteClass,{isSuccess: isDeleteSuccess}] = useDeleteClassMutation()
+const [searchParams] = useSearchParams()
+    const q = searchParams.get("q")
 const deleteClick = (singleClass) =>{
     if(window.confirm ("בטוח שברצונך למחוק ת הכיתה")){
         deleteClass({_id: singleClass._id})
@@ -13,10 +15,11 @@ const deleteClick = (singleClass) =>{
 }
 if(isLoading) return <h1> Loading ...</h1>
   if(isError) return <h1>{ JSON.stringify( error)}</h1>
+  const filteredData = !q? [...classesObject.data] : classesObject.data.filter(singleClass=>singleClass.school.indexOf(q) > -1)
   return (
     <div className="classes-list">
       <div className="classes-list-top">
-      <Search placeholder="חיפוש לפי שם כיתה" />
+      <Search placeholder="חיפוש לפי שם סמינר" />
             <Link to="/dash/classes/add"  className="classes-list-add-button">
                 הוספת כיתה
             </Link>
@@ -32,7 +35,7 @@ if(isLoading) return <h1> Loading ...</h1>
                 </tr>
             </thead>
             <tbody>
-                {classesObject.data?.map(oneClass=>(
+                {filteredData?.map(oneClass=>(
                     <tr key={oneClass._id}>
                       <td>
                             {oneClass.school}

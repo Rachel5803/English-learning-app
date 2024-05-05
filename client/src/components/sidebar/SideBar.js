@@ -36,8 +36,8 @@ const SideBar = () => {
           icon: <MdSupervisedUserCircle />,
         },
         {
-          title: "חברות",
-          path: "/dash/companies",
+          title: "כיתות",
+          path: "/dash/classes",
           icon: <MdOutlineBusinessCenter />,
         },
         {
