@@ -7,6 +7,21 @@ const Dictation = require("../models/Dictation")
 //     }
 //     res.json(dictations)
 // }
+const getAllDraftsDictations = async (req, res) => {
+    const dictations = await Dictation.find({ sentToStudents:false }).populate("class").lean()
+    if (!dictations.length) {
+        return res.status(400).json({
+            error: true,
+            massage: 'No dictations found',
+            data: null
+        })
+    }
+    res.json({
+        error: false,
+        message: '',
+        data: dictations
+    })
+}
 const getDictationsForSpecificClass = async (req, res) => {
     const {classId}=req.body
     const dictations = await Dictation.find({ class:classId }).lean()
@@ -125,4 +140,4 @@ const deleteDictation = async (req, res) => {
         data: result
     })
 }
-module.exports = {getDictationsForSpecificClass,createNewDictation,updateDictation,deleteDictation}
+module.exports = {getAllDraftsDictations,createNewDictation,updateDictation,deleteDictation}

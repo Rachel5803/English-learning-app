@@ -10,6 +10,7 @@ import SingleUser from "./features/users/view/SingleUser";
 import LoginPage from "./features/auth/login/LoginPage";
 import RequireAuth from "./features/auth/login/RequireAuth";
 import PersistLogin from "./features/auth/PersistLogin";
+import DraftsList from "./features/dictations/draftsDictations/list/DraftsList";
 function App() {
   return (
     <div >
@@ -32,6 +33,9 @@ function App() {
                       <Route index element={<ClassesList />} />
                       <Route path="add" element={<AddClass />} />
                       <Route path=":classId" element={<SingleClass />} />
+                    </Route>
+                    <Route path="dictations/drafts" element={<Outlet />}>
+                      <Route index element={<DraftsList/>} />
                     </Route>
                   </Route>
                 </Route>

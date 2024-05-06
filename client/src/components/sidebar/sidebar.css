@@ -42,7 +42,7 @@
     margin: 5px 0px;
     border-radius: 10px;
 }
-.side-bar-menu-link:hover, .side-bar-menu-link.active{
+.side-bar-menu-link:hover{
     background-color: #2e374a;
 }
 .side-bar-logout{
