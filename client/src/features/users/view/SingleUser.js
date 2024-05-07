@@ -20,7 +20,6 @@ const SingleUser = () => {
     const formSubmit = (e) => {
         e.preventDefault()
         const data = new FormData(e.target)
-        //const userObject = Object.fromEntries(data.entries())
         updateUser(data)
 
     }

@@ -15,8 +15,8 @@ const draftsApiSlice = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ["Drafts"]
         }),
-        updateDraft: build.mutation({
-            query: (singleDraft) => ({
+        updateDraft:build.mutation({
+            query:(singleDraft) =>({
                 url: "/api/dictations",
                 method: "PUT",
                 body: singleDraft

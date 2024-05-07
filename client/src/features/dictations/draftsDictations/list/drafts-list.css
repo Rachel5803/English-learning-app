@@ -25,3 +25,25 @@
 .drafts-dictations-list-table td{
     padding: 10px;
 }
+.drafts-list-buttons{
+    display: flex;
+    gap:10px    
+}
+.drafts-list-button{
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: var(--text);
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.drafts-list-view{
+    background-color: teal;
+}
+.drafts-list-delete{
+    background-color: crimson;
+  }
+  .drafts-list-sent{
+    background-color: chocolate;
+  }

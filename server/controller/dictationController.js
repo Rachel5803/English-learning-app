@@ -88,15 +88,20 @@ const createNewDictation = async (req, res) => {
 //     res.json(`'${dictation.name}' updated`)
 // }
 const updateDictation = async (req, res) => {
-    const {  id,name, dictationWords, classId, sentToStudents} = req.body
-    if (!id || !name||!classId) {
+    const {  _id,name, dictationWords, classId} = req.body
+    
+   
+     const sentToStudents=false
+     
+     
+    if (!_id || !name||!classId) {
         return res.status(400).json({
             error: true,
             massage: 'Id, name and class are required',
             data: null
         })
     }
-    const dictation = await Dictation.findById(id).exec()
+    const dictation = await Dictation.findById(_id).exec()
     if (!dictation) {
         return res.status(400).json({
             error: true,
@@ -116,8 +121,8 @@ const updateDictation = async (req, res) => {
     })
 }
 const deleteDictation = async (req, res) => {
-    const { id } = req.body
-    if (!id) {
+    const { _id } = req.body
+    if (!_id) {
         return res.status(400).json({
             error: true,
             massage: 'Id is required',
@@ -125,7 +130,7 @@ const deleteDictation = async (req, res) => {
         })
     }
     //כאן תהיה בדיקה אם כבר נשלחו הכתבות לתלמידות
-    const dictation = await Dictation.findById(id).exec()
+    const dictation = await Dictation.findById(_id).exec()
     if (!dictation) {
         return res.status(400).json({
             error: true,

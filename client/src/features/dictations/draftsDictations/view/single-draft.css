@@ -1,0 +1,42 @@
+.single-draft-container{
+    margin-top: 20px;
+}
+.single-draft-form-container{
+    background-color: var(--bgSoft);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.single-draft-form{
+    display: flex;
+    flex-direction: column;
+}
+.single-draft-form input, .single-draft-form textarea, .single-draft-form select{
+    padding: 20px;
+    border: 2px solid #2e374a;
+    border-radius: 5px;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 10px 0px;
+  }
+.single-draft-form label{
+    font-size:12px;
+}
+.single-draft-form button{
+    width: 100%;
+    padding: 20px;
+    background-color: teal;
+    color:var(--text);
+    border:none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+
+}
+.draft-word-dictation-list-table{
+    width: 100%;
+  }
+  
+  .draft-word-dictation-list-table td{
+    padding: 10px;
+  }

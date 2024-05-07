@@ -11,6 +11,7 @@ import LoginPage from "./features/auth/login/LoginPage";
 import RequireAuth from "./features/auth/login/RequireAuth";
 import PersistLogin from "./features/auth/PersistLogin";
 import DraftsList from "./features/dictations/draftsDictations/list/DraftsList";
+import SingleDraft from "./features/dictations/draftsDictations/view/SingleDraft";
 function App() {
   return (
     <div >
@@ -36,6 +37,8 @@ function App() {
                     </Route>
                     <Route path="dictations/drafts" element={<Outlet />}>
                       <Route index element={<DraftsList/>} />
+                      <Route path="add" element={<h1>"Add draft"</h1>} />
+                      <Route path=":draftId" element={<SingleDraft/>} />
                     </Route>
                   </Route>
                 </Route>

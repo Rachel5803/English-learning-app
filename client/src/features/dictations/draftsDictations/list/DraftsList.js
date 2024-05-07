@@ -6,16 +6,16 @@ import Search from '../../../../components/search/Search';
 import { useDeleteDraftMutation, useGetAllDraftsQuery } from '../draftsApiSlice';
 const DraftsList = () => {
   const  {data: draftsObject, isError, error, isLoading, isSuccess} = useGetAllDraftsQuery()
-  console.log(draftsObject);
+  
 const [deleteDraft,{isSuccess: isDeleteSuccess}] = useDeleteDraftMutation()
 const [searchParams] = useSearchParams()
     const q = searchParams.get("q")
-// const deleteClick = (singleDraft) =>{
-//     if(window.confirm ("בטוח שברצונך למחוק את ההכתבה")){
-//       deleteDraft({_id: singleDraft._id})
-//     }
+const deleteClick = (singleDraft) =>{
+    if(window.confirm ("בטוח שברצונך למחוק את ההכתבה")){
+      deleteDraft({_id: singleDraft._id})
+    }
    
-// }
+}
 if(isLoading) return <h1> Loading ...</h1>
   if(isError) return <h1>{ JSON.stringify( error)}</h1>
   const filteredData = !q? [...draftsObject.data] : draftsObject.data.filter(singleDraft=>singleDraft.name.indexOf(q) > -1)
@@ -46,6 +46,21 @@ if(isLoading) return <h1> Loading ...</h1>
                         </td>
                         <td>
                             {draft.createdAt?.toString().slice(4,16)}
+                        </td>
+                        <td>
+                            <div className="drafts-list-buttons">
+
+                            <Link to={`/dash/dictations/drafts/${draft._id}`} className="drafts-list-button drafts-list-view">
+                                צפייה
+                            </Link>
+                            <button  className="drafts-list-button drafts-list-sent">
+                                שלח לתלמידים
+                            </button>
+                            <button  onClick={()=>{deleteClick(draft)}} className="drafts-list-button drafts-list-delete">
+                                מחיקה
+                            </button>
+                            
+                            </div>
                         </td>
                         
                     </tr>
