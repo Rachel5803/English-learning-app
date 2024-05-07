@@ -1,7 +1,7 @@
 import "./single-draft.css"
 
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useGetAllDraftsQuery, useUpdateDraftMutation } from "../draftsApiSlice";
 import { useGetAllClassesQuery } from "../../../classes/classesApiSlice";
 const SingleDraft = () => {
@@ -9,6 +9,7 @@ const SingleDraft = () => {
     const { draftId } = useParams()
     const { data: draftsObject, isError, error, isLoading, isSuccess } = useGetAllDraftsQuery()
 
+    const [meaningsString, setMeaningsString] = useState("")
     const { data: classes, isLoading: isClassesLoading } = useGetAllClassesQuery()
     const [updateDraft, { isSuccess: isUpdateSuccess }] = useUpdateDraftMutation()
     const navigate = useNavigate()
@@ -24,8 +25,10 @@ const SingleDraft = () => {
         const updatedDictationWords = [];
         for (let i = 0; i < data.getAll('word').length; i++) {
             const word = data.getAll('word')[i];
-            const meanings = data.getAll('meaning')[i].split(" ");
-            updatedDictationWords.push({ word, meanings });
+            const meanings = data.getAll('meaning')[i].split(", ");
+            if (word != "" || meanings != "") {
+                updatedDictationWords.push({ word, meanings });
+            }
         }
         draftObject.dictationWords = updatedDictationWords;
 
@@ -33,7 +36,7 @@ const SingleDraft = () => {
 
     }
     // const addWordInput = () => {
-        
+
     //     singledraft.dictationWords.words.push( <input
     //         type="text"
     //         defaultValue={" "}
@@ -83,17 +86,14 @@ const SingleDraft = () => {
                                         placeholder="הכנס מילה חדשה"
                                     />
                                 </td>
-                                <td> {obj.meanings?.map((option, index) => (
-                                    <input
-                                        type="text"
-                                        defaultValue={option + " "}
-                                        name="meaning"
-                                        placeholder="הכנס פרוש"
-                                    />
 
-                                ))}
+                                <td> <input
+                                    type="text"
+                                    defaultValue={obj.meanings ? obj.meanings.join(", ") : ""}
+                                    name="meaning"
+                                    placeholder="הכנס פרוש"
+                                /></td>
 
-                                </td>
                             </tr>
                         ))}
 
