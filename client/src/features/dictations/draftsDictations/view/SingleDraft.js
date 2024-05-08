@@ -8,8 +8,8 @@ const SingleDraft = () => {
 
     const { draftId } = useParams()
     const { data: draftsObject, isError, error, isLoading, isSuccess } = useGetAllDraftsQuery()
-
-    const [meaningsString, setMeaningsString] = useState("")
+    const [newInputsArray, setNewInputsArray] = useState([])
+    //const newInpuesArray=[]
     const { data: classes, isLoading: isClassesLoading } = useGetAllClassesQuery()
     const [updateDraft, { isSuccess: isUpdateSuccess }] = useUpdateDraftMutation()
     const navigate = useNavigate()
@@ -35,15 +35,9 @@ const SingleDraft = () => {
         updateDraft(draftObject)
 
     }
-    // const addWordInput = () => {
-
-    //     singledraft.dictationWords.words.push( <input
-    //         type="text"
-    //         defaultValue={" "}
-    //         name="word"
-    //         placeholder="הכנס מילה חדשה"
-    //     />);
-    //   };
+    const addInput = () => {
+        setNewInputsArray([...newInputsArray,""])
+    };
 
 
     if (isLoading || isClassesLoading) return <h1> Loading ...</h1>
@@ -95,9 +89,31 @@ const SingleDraft = () => {
                                 /></td>
 
                             </tr>
-                        ))}
 
-                            <button type="button" >הוסף מילה</button>
+                        ))}
+                    {newInputsArray?.map((item, index) => (
+        <tr key={index}>
+        <td>
+            <input
+                type="text"
+                defaultValue={""}
+                name="word"
+                placeholder="הכנס מילה חדשה"
+            />
+        </td>
+
+        <td> <input
+            type="text"
+            defaultValue={""}
+            name="meaning"
+            placeholder="הכנס פרוש"
+        /></td>
+
+    </tr>
+      ))}
+
+                          
+                            <button onClick={addInput} type="button" className="add-input-button" >הוסף מילה</button>
                         </tbody>
                     </table>
 
