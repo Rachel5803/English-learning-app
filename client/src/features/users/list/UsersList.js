@@ -9,7 +9,7 @@ const UsersList = () => {
   const [detailsClass, setDetailsClass] = useState({})
   const { data: usersObject, isError, error, isLoading, isSuccess } = useGetAllUsersQuery()
   const [deleteUser, { isSuccess: isDeleteSuccess }] = useDeleteUserMutation()
-  const { data: classesObject, isLoading: isClassesLoading } = useGetAllClassesQuery()
+  //const { data: classesObject, isLoading: isClassesLoading } = useGetAllClassesQuery()
   const [searchParams] = useSearchParams()
    const q = searchParams.get("q")
    const {getFilePath} = useGetFilePath()
@@ -19,7 +19,7 @@ const UsersList = () => {
     }
 
   }
-  if (isLoading || isClassesLoading) return <h1> Loading ...</h1>
+  if (isLoading ) return <h1> Loading ...</h1>
   if (isError) return <h1>{JSON.stringify(error)}</h1>
   const filteredData = !q? [...usersObject.data] : usersObject.data.filter(user=> (user.class.school?.indexOf(q) > -1) || (user.name.indexOf(q) > -1))
 

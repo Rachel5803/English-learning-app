@@ -17,6 +17,28 @@ const getDictationsForSpecificUser = async (req, res) => {
         error: false,
         message: '',
         data: dictations
+    }) 
+}
+const getAllDictations = async (req, res) => {
+    const dictations = await DictationForUser.find().populate("user", {class:1, name:1}).populate("dictation", {name:1}).lean()
+    const dictationsWithClasses=await Promise.all(dictations.map(async dictation=>{
+        const grade=await User.populate(dictation.user,"class")
+        return { ...dictation,grade};
+    }))
+
+
+
+    if (!dictationsWithClasses.length) {
+        return res.status(400).json({
+            error: true,
+            massage: 'No dictations found',
+            data: null
+        })
+    }
+    res.json({
+        error: false,
+        message: '',
+        data: dictationsWithClasses
     })
 }
 //צפייה בסוג מסויים של הכתבות שנשלחו לתלמידות
@@ -142,7 +164,6 @@ const updateDictationForUserDetails = async (req, res) => {
 
 
 
-module.exports = {
-    getDictationsForSpecificUser, getDictationsFromAllUsersInClass,getDictationFUById,
-    createNewDictationsForUsers, updateDictationForUserDetails
+module.exports = {getAllDictations, getDictationsForSpecificUser, getDictationsFromAllUsersInClass
+                   ,getDictationFUById, createNewDictationsForUsers, updateDictationForUserDetails
 }

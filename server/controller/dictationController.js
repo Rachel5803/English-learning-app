@@ -39,7 +39,8 @@ const getDictationsForSpecificClass = async (req, res) => {
     })
 }
 const createNewDictation = async (req, res) => {
-    const { name, dictationWords, classId, sentToStudents} = req.body
+    const { name, dictationWords, classId,endDate} = req.body
+    const sentToStudents=false
     if (!name || !classId) {
         return res.status(400).json({
             error: true,
@@ -47,7 +48,7 @@ const createNewDictation = async (req, res) => {
             data: null
         })
     }
-    const dictation = await Dictation.create({ name, dictationWords, class:classId, sentToStudents})
+    const dictation = await Dictation.create({ name, dictationWords, class:classId, sentToStudents,endDate})
     // const dateOfSubmission = new Date();
     // dateOfSubmission.setDate(dateOfSubmission.getDate() + 7);
     // if (dictation) {
@@ -88,10 +89,8 @@ const createNewDictation = async (req, res) => {
 //     res.json(`'${dictation.name}' updated`)
 // }
 const updateDictation = async (req, res) => {
-    const {  _id,name, dictationWords, classId} = req.body
+    const {  _id,name, dictationWords, classId, endDate} = req.body
     
-   
-     const sentToStudents=false
      
      
     if (!_id || !name||!classId) {
@@ -112,7 +111,8 @@ const updateDictation = async (req, res) => {
     dictation.name = name
     dictation.dictationWords = dictationWords
     dictation.class = classId
-    dictation.sentToStudents = sentToStudents
+    dictation.sentToStudents = false
+    dictation.endDate = endDate
     const updateDictation= await dictation.save();
     res.json({
         error: false,

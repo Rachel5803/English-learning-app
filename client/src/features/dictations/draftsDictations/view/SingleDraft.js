@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useGetAllDraftsQuery, useUpdateDraftMutation } from "../draftsApiSlice";
 import { useGetAllClassesQuery } from "../../../classes/classesApiSlice";
+import { format } from 'date-fns';
 const SingleDraft = () => {
 
     const { draftId } = useParams()
@@ -36,9 +37,16 @@ const SingleDraft = () => {
 
     }
     const addInput = () => {
-        setNewInputsArray([...newInputsArray,""])
+        setNewInputsArray([...newInputsArray, ""])
     };
-
+    const DateTimeFormatter = (endDate) => {
+        if (!endDate) {
+            const today = new Date();
+            return format(today, 'yyyy-MM-dd')
+        }
+        const date = new Date(endDate);
+        return date.toISOString().split('T')[0]
+    }
 
     if (isLoading || isClassesLoading) return <h1> Loading ...</h1>
     if (isError) return <h1>{JSON.stringify(error)}</h1>
@@ -63,6 +71,16 @@ const SingleDraft = () => {
 
                         })}
                     </select>
+                    <label>תאריך הגשה</label>
+                    <input
+                        defaultValue={DateTimeFormatter(singledraft.endDate)}
+                        min="2017-04-01"
+                        type="date"
+
+                        name="endDate"
+
+
+                    />
                     <table className="draft-word-dictation-list-table">
                         <thead>
                             <tr>
@@ -86,33 +104,34 @@ const SingleDraft = () => {
                                     defaultValue={obj.meanings ? obj.meanings.join(", ") : ""}
                                     name="meaning"
                                     placeholder="הכנס פרוש"
+
                                 /></td>
 
                             </tr>
 
                         ))}
-                    {newInputsArray?.map((item, index) => (
-        <tr key={index}>
-        <td>
-            <input
-                type="text"
-                defaultValue={""}
-                name="word"
-                placeholder="הכנס מילה חדשה"
-            />
-        </td>
+                            {newInputsArray?.map((item, index) => (
+                                <tr key={index}>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            defaultValue={""}
+                                            name="word"
+                                            placeholder="הכנס מילה חדשה"
+                                        />
+                                    </td>
 
-        <td> <input
-            type="text"
-            defaultValue={""}
-            name="meaning"
-            placeholder="הכנס פרוש"
-        /></td>
+                                    <td> <input
+                                        type="text"
+                                        defaultValue={""}
+                                        name="meaning"
+                                        placeholder="הכנס פרוש"
+                                    /></td>
 
-    </tr>
-      ))}
+                                </tr>
+                            ))}
 
-                          
+
                             <button onClick={addInput} type="button" className="add-input-button" >הוסף מילה</button>
                         </tbody>
                     </table>

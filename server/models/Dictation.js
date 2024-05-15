@@ -23,6 +23,9 @@ const dictationSchema = new mongoose.Schema({
         ref: "Class",
         required: true
     },
+    endDate: {
+        type: Date
+    },
     sentToStudents:{
         type:Boolean,
         required: true,

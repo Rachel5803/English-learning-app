@@ -1,0 +1,44 @@
+.add-draft-container {
+    background-color: var(--bgSoft);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  
+  .add-draft-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .add-draft-form input,
+  .add-draft-form textarea,
+  .add-draft-form select {
+    padding: 30px;
+    background-color: var(--bg);
+    color: var(--text);
+    border: 2px solid #2e374a;
+    border-radius: 5px;
+    margin-bottom: 30px;
+  }
+  
+  .add-draft-form input, .add-draft-form select {
+    width: 45%;
+  }
+  
+  .add-draft-form textarea{
+    width: 100%;
+  }
+  
+  .add-draft-form button{
+    width: 100%;
+    padding: 30px;
+    background-color: teal;
+    color: var(--text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .date input{
+    width: 400vw;
+  }
