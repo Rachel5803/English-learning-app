@@ -2,20 +2,40 @@ import "./sent-list.css"
 import { Link, useSearchParams } from 'react-router-dom';
 import { useState } from "react"
 import { useGetAllClassesQuery } from "../../../classes/classesApiSlice";
-import { useGetAllSentDictationsQuery } from "../sentDictationsApiSlice";
+import { useGetAllSentDictationsQuery, useUpdateDictationEndDateForAllUsersMutation } from "../sentDictationsApiSlice";
 import { useGetAllUsersQuery } from "../../../users/usersApiSlice";
 import Search from "../../../../components/search/Search";
-import { MdCheck,MdClose } from "react-icons/md";
+
+
 const SentList = () => {
     const { data: dictationsObject, isError, error, isLoading, isSuccess } = useGetAllSentDictationsQuery()
-    //const { data: classesObject, isLoading: isClassesLoading } = useGetAllClassesQuery()
+    const [updateEndDate, { isSuccess: isUpdateSuccess }] = useUpdateDictationEndDateForAllUsersMutation()
     const { data: usersObject, isLoading: isUsersLoading } = useGetAllUsersQuery()
     const [searchParams] = useSearchParams()
     const [complete, setComplete] = useState(false)
     const q = searchParams.get("q")
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [specificDictation, setSpecificDictation] = useState("");
+
+    const [updateDate, setUpdateDate] = useState(new Date());
+    const showDateInput = (dictation) => {
+        setIsModalOpen(!isModalOpen)
+        setSpecificDictation(dictation)
+    }
+const clickUpdate= (dictation) => {
+    updateEndDate({classId:dictation.class,dictation:dictation._id,endDate:updateDate})
+    
+    //setIsModalOpen(!isModalOpen)
+}
+const handleDateChange = (newDate) => {
+    setUpdateDate(newDate)
+    //setIsModalOpen(false)
+    };
+    
+    
     if (isLoading) return <h1> Loading ...</h1>
     if (isError) return <h1>{JSON.stringify(error)}</h1>
-    const filteredData = !q ? [...dictationsObject.data] : dictationsObject.data.filter(dictation => (dictation.user.class.school+" "+dictation.user.class.grade?.indexOf(q) > -1) || (dictation.name.indexOf(q) > -1) || (dictation.user.name?.indexOf(q) > -1))
+    const filteredData = !q ? [...dictationsObject.data] : dictationsObject.data.filter(dictation => (dictation.user.class.school + " " + dictation.user.class.grade?.indexOf(q) > -1) || (dictation.name.indexOf(q) > -1) || (dictation.user.name?.indexOf(q) > -1))
 
 
     return (
@@ -28,10 +48,8 @@ const SentList = () => {
                 <thead>
                     <tr>
                         <td>שם ההכתבה</td>
-                        <td>שם התלמיד</td>
+
                         <td>כיתה</td>
-                        <td>הושלם</td>
-                        <td>ציון</td>
                         <td>תאריך שליחה</td>
                         <td>תאריך הגשה</td>
 
@@ -41,16 +59,11 @@ const SentList = () => {
                 <tbody>
                     {filteredData?.map((dictationFU) => (
                         <tr key={dictationFU.id}>
-                            <td>{dictationFU.dictation?.name}</td>
-                            <td>{dictationFU.user?.name}</td>
+                            <td>{dictationFU.name}</td>
 
-                            <td>{dictationFU.user?.class?.school + " " + dictationFU.user?.class?.grade + " " + dictationFU.user?.class?.gradeNumber + " " + dictationFU.user?.class?.schoolYear}</td>
-                            <td  >{dictationFU.completed ? (
-                                <MdCheck/>
-                            ) : (
-                                <MdClose  />
-                            )}</td>
-                            <td>{dictationFU.score}</td>
+                            <td>{dictationFU.class?.school + " " + dictationFU.class?.grade + " " + dictationFU.class?.gradeNumber + " " + dictationFU.class?.schoolYear}</td>
+
+
                             <td>{dictationFU.createdAt?.toString().slice(4, 16)}</td>
                             <td>{dictationFU.endDate}</td>
                             <td>
@@ -58,16 +71,25 @@ const SentList = () => {
                                     <Link className='sent-dictations-list-button sent-dictations-list-view' to={`/dash/dictations/sent/${dictationFU._id}`}>
                                         צפה במילים
                                     </Link>
-                                    <Link className='sent-dictations-list-button sent-dictations-list-view' to={`/dash/dictations/sent/answers/${dictationFU._id}`}>
-                                        צפה בתשובות
+                                    <Link className='sent-dictations-list-button sent-dictations-list-view' to={`/dash/dictations/sent/${dictationFU._id}`}>
+                                        צפה בנתוני התלמידים
                                     </Link>
 
-                                    <button className="sent-dictations-list-button sent-dictations-list-update">
-                                        עדכן ציון
-                                    </button>
-                                    <button className="sent-dictations-list-button sent-dictations-list-update">
-                                        עדכן תאריך הגשה
-                                    </button>
+
+
+                                    <button className='sent-dictations-list-button sent-dictations-list-view' onClick={() => {showDateInput(dictationFU) }}>עדכן תאריך הגשה</button>
+
+                                    {isModalOpen && dictationFU==specificDictation &&(
+                                        <div><input 
+                                        type="date" 
+                                         name="endDate"
+                                       placeholder="בחר תאריך הגשה"
+                                       className='sent-dictations-list-date-input '
+                                      onChange={(e)=>{handleDateChange(e.target.value)}}
+                                        />
+                                         <button className='sent-dictations-list-button sent-dictations-list-view' onClick={() => {clickUpdate(dictationFU) }}>עדכן</button>
+                                        </div>
+                                    )}
 
                                 </div>
                             </td>

@@ -6,8 +6,8 @@ router.get("/user", dictationFUController.getDictationsForSpecificUser)
 router.get("/class", dictationFUController.getDictationsFromAllUsersInClass)
 router.get("/:id", dictationFUController.getDictationFUById)
 router.post("/", dictationFUController.createNewDictationsForUsers)
-router.put("/", dictationFUController.updateDictationForUserDetails)
-
+router.put("/user", dictationFUController.updateDictationForSpecificUser)
+router.put("/", dictationFUController.updateDictationForAllUsers)
 
 
 module.exports = router

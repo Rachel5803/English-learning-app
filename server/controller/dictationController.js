@@ -22,6 +22,21 @@ const getAllDraftsDictations = async (req, res) => {
         data: dictations
     })
 }
+const getAllSentDictations = async (req, res) => {
+    const dictations = await Dictation.find({ sentToStudents:true }).populate("class").lean()
+    if (!dictations.length) {
+        return res.status(400).json({
+            error: true,
+            massage: 'No dictations found',
+            data: null
+        })
+    }
+    res.json({
+        error: false,
+        message: '',
+        data: dictations
+    })
+}
 const getDictationsForSpecificClass = async (req, res) => {
     const {classId}=req.body
     const dictations = await Dictation.find({ class:classId }).lean()
@@ -145,4 +160,4 @@ const deleteDictation = async (req, res) => {
         data: result
     })
 }
-module.exports = {getAllDraftsDictations,createNewDictation,updateDictation,deleteDictation}
+module.exports = {getAllDraftsDictations,createNewDictation,updateDictation,deleteDictation,getAllSentDictations}

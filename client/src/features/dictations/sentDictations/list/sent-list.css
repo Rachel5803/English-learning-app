@@ -46,3 +46,12 @@ sent-dictations-list-top{
     border-radius: 5px;
     cursor: pointer;
 }
+.sent-dictations-list-date-input{
+    padding: 10px;
+    background-color: #5d57c9;
+    color: var(--text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}

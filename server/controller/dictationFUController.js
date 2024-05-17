@@ -77,7 +77,7 @@ const getDictationFUById = async (req, res) => {
 }
 //שליחת הכתבה שנוצרה לכל התלמידות בכיתה
 const createNewDictationsForUsers = async (req, res) => {
-    const { dictationId, dictationWords, dictationClass, beginDate, endDate } = req.body
+    const { dictationId, dictationWords, dictationClass,  endDate } = req.body
     if (!dictationId || !dictationWords || !dictationClass) {
         return res.status(400).json({
             error: true,
@@ -85,6 +85,7 @@ const createNewDictationsForUsers = async (req, res) => {
             data: null
         })
     }
+    const beginDate = new Date();
     const users = await User.find({ class: dictationClass }, { _id: 1 }).lean()
     if (!users.length) {
         return res.status(400).json({
@@ -126,7 +127,7 @@ const createNewDictationsForUsers = async (req, res) => {
     }
 }
 //עדכון פרטי הכתבה של תלמידה
-const updateDictationForUserDetails = async (req, res) => {
+const updateDictationForSpecificUser = async (req, res) => {
     const { id, user, dictation, dictationWords, dictationWordsAnswers,
         beginDate, endDate, completed, score } = req.body
     if (!id || !dictation || !user) {
@@ -162,8 +163,55 @@ const updateDictationForUserDetails = async (req, res) => {
     })
 }
 
+const updateDictationForAllUsers = async (req, res) => {
+    const { endDate,classId ,dictation} = req.body
+    if (!endDate||!classId||!dictation) {
+        return res.status(400).json({
+            error: true,
+            massage: 'Id, class and endDate are required',
+            data: null
+        })
+    }
+    const dictationsForUsers = await DictationForUser.find({ dictation }).exec()
+    if (!dictationsForUsers) {
+        return res.status(400).json({
+            error: true,
+            massage: 'No dictation found',
+            data: null
+        })
+    }
+    const dct = await Dictation.findById(dictation).exec()
+    if (!dct) {
+        return res.status(400).json({
+            error: true,
+            massage: 'No dictation found',
+            data: null
+        })
+    }
+    dct.endDate = endDate
+    const updateDct = await dct.save();
+    const dictationsForUsersUpdate = await Promise.all(dictationsForUsers.map(async (dictFU) => {
+        dictFU.endDate=endDate
+        const dictationFU = await dictFU.save()
+        if (!dictationFU) {
+            return res.status(400).json({
+                error: true,
+                massage: 'Something worng',
+                data: null
+            })
+        }
+        return dictationFU
+    }))
+    
+    res.json({
+        error: false,
+        massage: '',
+        data: dictationsForUsersUpdate
+    })
+}
 
 
-module.exports = {getAllDictations, getDictationsForSpecificUser, getDictationsFromAllUsersInClass
-                   ,getDictationFUById, createNewDictationsForUsers, updateDictationForUserDetails
+
+module.exports = {getAllDictations, getDictationsForSpecificUser, getDictationsFromAllUsersInClass,updateDictationForAllUsers
+                   ,getDictationFUById, createNewDictationsForUsers, updateDictationForSpecificUser
 }

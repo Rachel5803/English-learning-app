@@ -3,26 +3,27 @@ const sentDictaionsApiSlice = apiSlice.injectEndpoints({
     endpoints: (build) =>({
         getAllSentDictations:build.query({
             query:()=>({
-                url: "/api/dictationForStudent"
+                url: "/api/dictations/sent"
             }),
             providesTags:["Dictations"]
         }),
        addNewDictationsFU:build.mutation({
-            query:(singleClass)=>({
-                url: "/api/classes",
+            query:(dictation)=>({
+                url: "/api/dictationForStudent",
                 method: "POST",
-                body: singleClass
+                body: dictation
             }),
-            invalidatesTags: ["Dictations"]
+            invalidatesTags: ["Dictations","Drafts"]
         }),
-        updateSentDictations:build.mutation({
-            query:(singleClass)=>({
-                url: "/api/classes",
+        updateDictationEndDateForAllUsers:build.mutation({
+            query:(dictation)=>({
+                url: "/api/dictationForStudent",
                 method: "PUT",
-                body: singleClass
+                body: dictation
             }),
             invalidatesTags: ["Dictations"]
         }),
+        
      })
 })
-export const { useGetAllSentDictationsQuery, useAddNewDictationsFUMutation , useupdateSentDictationsMutation}  = sentDictaionsApiSlice
+export const { useGetAllSentDictationsQuery, useAddNewDictationsFUMutation,useUpdateDictationEndDateForAllUsersMutation}  = sentDictaionsApiSlice

@@ -18,6 +18,14 @@ const DraftsList = () => {
         }
 
     }
+    const sentClick = (singleDraft) => {
+        console.log(singleDraft);
+        if (window.confirm("בטוח שברצונך לשלוח את ההכתבה לכל התלמידים?")) {
+            sentDictationForUsers({dictationId:singleDraft._id,dictationWords:singleDraft.dictationWords
+                ,dictationClass:singleDraft.class._id,endDate:singleDraft.endDate})
+        }
+
+    }
     if (isLoading) return <h1> Loading ...</h1>
     if (isError) return <h1>{JSON.stringify(error)}</h1>
     const filteredData = !q ? [...draftsObject.data] : draftsObject.data.filter(singleDraft => singleDraft.name.indexOf(q) > -1)
@@ -55,7 +63,7 @@ const DraftsList = () => {
                                     <Link to={`/dash/dictations/drafts/${draft._id}`} className="drafts-list-button drafts-list-view">
                                         צפייה
                                     </Link>
-                                    <button  className="drafts-list-button drafts-list-sent">
+                                    <button  onClick={() => { sentClick(draft) }}className="drafts-list-button drafts-list-sent">
                                         שלח לתלמידים
                                     </button>
                                     <button onClick={() => { deleteClick(draft) }} className="drafts-list-button drafts-list-delete">
