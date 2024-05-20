@@ -6,7 +6,7 @@ import { useGetAllSentDictationsQuery, useUpdateDictationEndDateForAllUsersMutat
 import { useGetAllUsersQuery } from "../../../users/usersApiSlice";
 import Search from "../../../../components/search/Search";
 
-
+import moment from 'moment';
 const SentList = () => {
     const { data: dictationsObject, isError, error, isLoading, isSuccess } = useGetAllSentDictationsQuery()
     const [updateEndDate, { isSuccess: isUpdateSuccess }] = useUpdateDictationEndDateForAllUsersMutation()
@@ -25,11 +25,10 @@ const SentList = () => {
 const clickUpdate= (dictation) => {
     updateEndDate({classId:dictation.class,dictation:dictation._id,endDate:updateDate})
     
-    //setIsModalOpen(!isModalOpen)
 }
 const handleDateChange = (newDate) => {
     setUpdateDate(newDate)
-    //setIsModalOpen(false)
+    
     };
     
     
@@ -63,12 +62,12 @@ const handleDateChange = (newDate) => {
 
                             <td>{dictationFU.class?.school + " " + dictationFU.class?.grade + " " + dictationFU.class?.gradeNumber + " " + dictationFU.class?.schoolYear}</td>
 
-
-                            <td>{dictationFU.createdAt?.toString().slice(4, 16)}</td>
-                            <td>{dictationFU.endDate}</td>
+                            <td>{moment(dictationFU.createdAt).format('DD-MM-YYYY')}</td>
+                           
+                            <td> {dictationFU.endDate?moment(dictationFU.endDate).format('DD-MM-YYYY'):""}</td>
                             <td>
                                 <div className="sent-dictations-list-buttons">
-                                    <Link className='sent-dictations-list-button sent-dictations-list-view' to={`/dash/dictations/sent/${dictationFU._id}`}>
+                                    <Link className='sent-dictations-list-button sent-dictations-list-view' to={`/dash/dictations/sent/words/${dictationFU._id}`}>
                                         צפה במילים
                                     </Link>
                                     <Link className='sent-dictations-list-button sent-dictations-list-view' to={`/dash/dictations/sent/${dictationFU._id}`}>
@@ -80,14 +79,15 @@ const handleDateChange = (newDate) => {
                                     <button className='sent-dictations-list-button sent-dictations-list-view' onClick={() => {showDateInput(dictationFU) }}>עדכן תאריך הגשה</button>
 
                                     {isModalOpen && dictationFU==specificDictation &&(
-                                        <div><input 
+                                        <div className="sent-dictations-list-choose-date">
+                                            <input 
                                         type="date" 
                                          name="endDate"
                                        placeholder="בחר תאריך הגשה"
                                        className='sent-dictations-list-date-input '
                                       onChange={(e)=>{handleDateChange(e.target.value)}}
                                         />
-                                         <button className='sent-dictations-list-button sent-dictations-list-view' onClick={() => {clickUpdate(dictationFU) }}>עדכן</button>
+                                         <button className='sent-dictations-list-update-date' onClick={() => {clickUpdate(dictationFU) }}>עדכן</button>
                                         </div>
                                     )}
 

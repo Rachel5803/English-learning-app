@@ -74,7 +74,7 @@ const SingleDraft = () => {
                     <label>תאריך הגשה</label>
                     <input
                         defaultValue={DateTimeFormatter(singledraft.endDate)}
-                        min="2017-04-01"
+                        
                         type="date"
 
                         name="endDate"

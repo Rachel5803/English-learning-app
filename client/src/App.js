@@ -14,6 +14,9 @@ import DraftsList from "./features/dictations/draftsDictations/list/DraftsList";
 import SingleDraft from "./features/dictations/draftsDictations/view/SingleDraft";
 import AddDraft from "./features/dictations/draftsDictations/add/AddDraft";
 import SentList from "./features/dictations/sentDictations/list/SentList";
+import SingleDictationWords from "./features/dictations/sentDictations/view/SingleDictationWords";
+import SentStudentsList from "./features/dictations/sentDictations/list/SentStudentsList";
+import SingleDictationAnswers from "./features/dictations/sentDictations/view/SingleDictationAnswers";
 function App() {
   return (
     <div >
@@ -44,7 +47,10 @@ function App() {
                     </Route>
                     <Route path="dictations/sent" element={<Outlet />}>
                       <Route index element={<SentList/>} />
-                      <Route path=":dictationId" element={<h1>view dictation</h1>} />
+                      <Route path="words/:dictationId" element={<SingleDictationWords/>} />
+                      <Route path="answers/:dictationId" element={<SingleDictationAnswers/>} />
+                      <Route path=":dictationId" element={<SentStudentsList/>} />
+                     
                     </Route>
                   </Route>
                 </Route>

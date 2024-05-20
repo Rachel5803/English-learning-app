@@ -128,16 +128,15 @@ const createNewDictationsForUsers = async (req, res) => {
 }
 //עדכון פרטי הכתבה של תלמידה
 const updateDictationForSpecificUser = async (req, res) => {
-    const { id, user, dictation, dictationWords, dictationWordsAnswers,
-        beginDate, endDate, completed, score } = req.body
-    if (!id || !dictation || !user) {
+    const { _id, dictationWordsAnswers,endDate, completed, score } = req.body
+    if (!_id ) {
         return res.status(400).json({
             error: true,
             massage: 'Id, dictation and user are required',
             data: null
         })
     }
-    const dictationForUser = await DictationForUser.findById(id).exec()
+    const dictationForUser = await DictationForUser.findById(_id).exec()
     if (!dictationForUser) {
         return res.status(400).json({
             error: true,
@@ -146,12 +145,8 @@ const updateDictationForSpecificUser = async (req, res) => {
         })
     }
     if (dictationForUser.dictationWordsAnswers.length == 0) {
-        dictationForUser.dictationWords = dictationWords
+        dictationForUser.dictationWordsAnswers = dictationWordsAnswers
     }
-    dictationForUser.user = user
-    dictationForUser.dictation = dictation
-    dictationForUser.dictationWordsAnswers = dictationWordsAnswers
-    dictationForUser.beginDate = beginDate
     dictationForUser.endDate = endDate
     dictationForUser.completed = completed
     dictationForUser.score = score

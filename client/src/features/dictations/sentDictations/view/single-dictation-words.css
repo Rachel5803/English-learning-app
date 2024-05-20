@@ -1,0 +1,13 @@
+.single-dictation-words-table{
+    width: 100%;
+  }
+  
+  .single-dictation-words-table td{
+   
+    padding: 20px;
+    border: 2px solid #2e374a;
+    border-radius: 5px;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 10px 0px;
+  }
