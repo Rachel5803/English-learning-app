@@ -36,6 +36,10 @@ const dictationForUserSchema = new mongoose.Schema({
                 lowercase: true,
                 trim: true
             },
+            correct: {
+                type: Boolean,
+                default:false
+            },
         },
     ],
     beginDate: {

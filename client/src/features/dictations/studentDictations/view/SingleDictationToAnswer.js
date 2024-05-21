@@ -54,6 +54,7 @@ const SingleDictationToAnswer = () => {
                         console.log("נמצאו ערכים זהים");
                         localScore += precentPerWord
                         flag = true
+                        obj.correct=true
                     }
                 })
             }
