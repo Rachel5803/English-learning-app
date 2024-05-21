@@ -12,7 +12,10 @@ import {
   MdExpandLess,
   MdExpandMore,
   MdDrafts ,
-  MdOutlineMarkunread 
+  MdOutlineMarkunread ,
+  MdGrading,
+  MdListAlt
+
 } from "react-icons/md";
 import "./sidebar.css";
 import MenuLink from "./MenuLink";
@@ -99,9 +102,15 @@ const SideBar = () => {
           icon: <MdDashboard />,
         },
         {
-          title: "פעולות",
-          path: "/dash/actions",
-          icon: <MdPendingActions />,
+          title: "הכתבות",
+          path: "/dash/dictations",
+          icon: <MdListAlt />,
+        },
+        {
+          title: "ציונים",
+          path: "/dash/grades",
+          icon: <MdGrading />
+          ,
         },
       ],
     },

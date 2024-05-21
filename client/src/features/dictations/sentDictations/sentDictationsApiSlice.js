@@ -13,7 +13,14 @@ const sentDictaionsApiSlice = apiSlice.injectEndpoints({
             }),
             providesTags:["Dictations"]
         }),
-       
+        getNotCompletedDictationsForSpecificUser:build.mutation({
+            query:(user)=>({
+                url: "/api/dictationForStudent/user/not/complete",
+                method: "POST",
+                body: user
+            }),
+            invalidatesTags: ["StudentDictations"]
+        }),
         getDictationFromAllUsersInClass:build.mutation({
             query:(dictation)=>({
                 url: "/api/dictationForStudent/class",
@@ -49,6 +56,6 @@ const sentDictaionsApiSlice = apiSlice.injectEndpoints({
         
      })
 })
-export const { useGetAllSentDictationsQuery,useGetDictationFromAllUsersInClassMutation,
+export const { useGetAllSentDictationsQuery,useGetDictationFromAllUsersInClassMutation,useGetNotCompletedDictationsForSpecificUserMutation,
    useGetAllSentDictationsFromAllUsersQuery ,useAddNewDictationsFUMutation,useUpdateDictationEndDateForAllUsersMutation, 
     useUpdateDictationForSpecificUserMutation}  = sentDictaionsApiSlice

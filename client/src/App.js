@@ -17,6 +17,8 @@ import SentList from "./features/dictations/sentDictations/list/SentList";
 import SingleDictationWords from "./features/dictations/sentDictations/view/SingleDictationWords";
 import SentStudentsList from "./features/dictations/sentDictations/list/SentStudentsList";
 import SingleDictationAnswers from "./features/dictations/sentDictations/view/SingleDictationAnswers";
+import StudentDictationsList from "./features/dictations/studentDictations/list/studentDictationsList";
+import SingleDictationToAnswer from "./features/dictations/studentDictations/view/SingleDictationToAnswer";
 function App() {
   return (
     <div >
@@ -25,10 +27,11 @@ function App() {
           <Route path="/" element={<SiteLayout />}>
             <Route index element={<h1>site</h1>} />
             <Route path="login" element={<LoginPage />} />
-            <Route  element={<PersistLogin />}>
+            <Route element={<PersistLogin />}>
               <Route element={<RequireAuth allowRoles={["Teacher", "Student"]} />}>
                 <Route path="/dash" element={<DashLayout />}>
                   <Route index element={<h1>dashboard</h1>} />
+                  <Route path="dictations/sent/words/:dictationId" element={<SingleDictationWords />} />
                   <Route element={<RequireAuth allowRoles={["Teacher"]} />}>
                     <Route path="users" element={<Outlet />}>
                       <Route index element={<UsersList />} />
@@ -41,16 +44,22 @@ function App() {
                       <Route path=":classId" element={<SingleClass />} />
                     </Route>
                     <Route path="dictations/drafts" element={<Outlet />}>
-                      <Route index element={<DraftsList/>} />
-                      <Route path="add" element={<AddDraft/>} />
-                      <Route path=":draftId" element={<SingleDraft/>} />
+                      <Route index element={<DraftsList />} />
+                      <Route path="add" element={<AddDraft />} />
+                      <Route path=":draftId" element={<SingleDraft />} />
                     </Route>
                     <Route path="dictations/sent" element={<Outlet />}>
-                      <Route index element={<SentList/>} />
-                      <Route path="words/:dictationId" element={<SingleDictationWords/>} />
-                      <Route path="answers/:dictationId" element={<SingleDictationAnswers/>} />
-                      <Route path=":dictationId" element={<SentStudentsList/>} />
-                     
+                      <Route index element={<SentList />} />
+                     <Route path="answers/:dictationId" element={<SingleDictationAnswers />} />
+                      <Route path=":dictationId" element={<SentStudentsList />} />
+
+                    </Route>
+                  </Route>
+                  <Route element={<RequireAuth allowRoles={["Student"]} />}>
+                    <Route path="dictations" element={<Outlet />}>
+                      <Route index element={<StudentDictationsList />} />
+                      <Route path="to/answer/:dictationId" element={<SingleDictationToAnswer/>} />
+                      <Route path=":userId" element={<SingleUser />} />
                     </Route>
                   </Route>
                 </Route>

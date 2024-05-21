@@ -3,9 +3,43 @@ const User = require("../models/User")
 const Dictation = require("../models/Dictation")
 
 //צפייה בכל ההכתבות של משתמש מסוים
-const getDictationsForSpecificUser = async (req, res) => {
+const getAllDictationsForSpecificUser = async (req, res) => {
     const { user } = req.body
-    const dictations = await DictationForUser.find({ user }).lean()
+    const dictations = await DictationForUser.find({ user }).populate("dictation", {name:1}).lean()
+    if (!dictations.length) {
+        return res.status(400).json({
+            error: true,
+            massage: 'No dictations found',
+            data: null
+        })
+    }
+    res.json({
+        error: false,
+        message: '',
+        data: dictations
+    }) 
+}
+//צפייה בכל ההכתבות שלא נעשו עבור משתמש מסויים
+const getNotCompletedDictationsForSpecificUser = async (req, res) => {
+    const { user } = req.body
+    const dictations = await DictationForUser.find({ user,completed:false }).populate("dictation", {name:1}).lean()
+    if (!dictations.length) {
+        return res.status(400).json({
+            error: true,
+            massage: 'No dictations found',
+            data: null
+        })
+    }
+    res.json({
+        error: false,
+        message: '',
+        data: dictations
+    }) 
+}
+//צפייה בכל ההכתבות שנעשו עי משתמש מסויים
+const getCompletedDictationsForSpecificUser = async (req, res) => {
+    const { user } = req.body
+    const dictations = await DictationForUser.find({ user,completed:true }).populate("dictation", {name:1}).lean()
     if (!dictations.length) {
         return res.status(400).json({
             error: true,
@@ -207,6 +241,6 @@ const updateDictationForAllUsers = async (req, res) => {
 
 
 
-module.exports = {getAllDictations, getDictationsForSpecificUser, getDictationsFromAllUsersInClass,updateDictationForAllUsers
+module.exports = {getAllDictations, getAllDictationsForSpecificUser, getNotCompletedDictationsForSpecificUser,getCompletedDictationsForSpecificUser,getDictationsFromAllUsersInClass,updateDictationForAllUsers
                    ,getDictationFUById, createNewDictationsForUsers, updateDictationForSpecificUser
 }
