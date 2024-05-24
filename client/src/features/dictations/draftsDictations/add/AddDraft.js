@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAddDraftMutation } from "../draftsApiSlice";
 import { useGetAllClassesQuery } from "../../../classes/classesApiSlice";
-import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 const AddDraft = () => {
+    
     const [addDraft, { data, isError, error, isSuccess, isLoading }] = useAddDraftMutation()
     const { data: classesObject, isLoading: isClassesLoading } = useGetAllClassesQuery()
     const [InputsArray, setInputsArray] = useState([""])
-    const [firstChange, setFirstChange] = useState(false)
+   
 
     const [selectedDate, setSelectedDate] = useState(null);
     const navigate = useNavigate()
@@ -38,7 +38,8 @@ const AddDraft = () => {
             const word = data.getAll('word')[i];
             const meanings = data.getAll('meaning')[i].split(", ");
             if (word != "" || meanings != "") {
-                dictationWords.push({ word, meanings });
+              
+                dictationWords.push({word,meanings});
             }
         }
         draftObject.dictationWords = dictationWords;

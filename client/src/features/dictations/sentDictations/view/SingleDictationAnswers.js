@@ -1,6 +1,7 @@
 import "./single-dictation-answers.css"
 import { useGetAllSentDictationsFromAllUsersQuery } from "../sentDictationsApiSlice";
 import { useNavigate, useParams } from "react-router-dom";
+import { MdCheck,MdClose } from "react-icons/md";
 const SingleDictationAnswers = () => {
 
     const { dictationId } = useParams()
@@ -26,7 +27,12 @@ const SingleDictationAnswers = () => {
                         <tbody> {singledictation.dictationWordsAnswers?.map((obj, index) => (
                             <tr key={index}>
                                 <td>{obj.word}</td>
-                                <td>{obj.meanings ? obj.meanings.join(", ") : ""}</td>
+                                <td>{obj.meanings ? obj.meanings.join(", ") : ""}
+                                {obj.correct ? (
+                                <MdCheck />
+                            ) : (
+                                <MdClose />
+                            )}</td>
 
                             </tr>
 

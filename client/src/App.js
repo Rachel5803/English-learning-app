@@ -17,8 +17,9 @@ import SentList from "./features/dictations/sentDictations/list/SentList";
 import SingleDictationWords from "./features/dictations/sentDictations/view/SingleDictationWords";
 import SentStudentsList from "./features/dictations/sentDictations/list/SentStudentsList";
 import SingleDictationAnswers from "./features/dictations/sentDictations/view/SingleDictationAnswers";
-import StudentDictationsList from "./features/dictations/studentDictations/list/studentDictationsList";
 import SingleDictationToAnswer from "./features/dictations/studentDictations/view/SingleDictationToAnswer";
+import StudentDictationsList from "./features/dictations/studentDictations/list/StudentDictationsList";
+import StudentCompleteDictationsList from "./features/dictations/studentCompleteDictations/list/StudentCompleteDictationsList";
 function App() {
   return (
     <div >
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/dash" element={<DashLayout />}>
                   <Route index element={<h1>dashboard</h1>} />
                   <Route path="dictations/sent/words/:dictationId" element={<SingleDictationWords />} />
+                  <Route path="dictations/sent/answers/:dictationId" element={<SingleDictationAnswers />} />
                   <Route element={<RequireAuth allowRoles={["Teacher"]} />}>
                     <Route path="users" element={<Outlet />}>
                       <Route index element={<UsersList />} />
@@ -57,9 +59,10 @@ function App() {
                   </Route>
                   <Route element={<RequireAuth allowRoles={["Student"]} />}>
                     <Route path="dictations" element={<Outlet />}>
-                      <Route index element={<StudentDictationsList />} />
+                      <Route index element={<StudentDictationsList/>} />
                       <Route path="to/answer/:dictationId" element={<SingleDictationToAnswer/>} />
                       <Route path=":userId" element={<SingleUser />} />
+                      <Route path="complete" element={<StudentCompleteDictationsList/>} />
                     </Route>
                   </Route>
                 </Route>

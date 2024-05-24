@@ -12,6 +12,7 @@ const SingleDictationToAnswer = () => {
     //const newInpuesArray=[]
     const [updateDictation, { isSuccess: isUpdateSuccess }] = useUpdateDictationForSpecificUserMutation()
     const navigate = useNavigate()
+    const [newWordsArray, setNewWordsArray] = useState([]);
     const [dictationWordsAns, setDictationWordsAns] = useState([])
     const [compareDictationWordsAns, setCompareDictationWordsAns] = useState([])
     const [precentPerWord, setPrecentPerWord] = useState(0)
@@ -26,8 +27,16 @@ const SingleDictationToAnswer = () => {
             navigate("/dash/dictations")
         }
     }, [isUpdateSuccess])
-
-    const formSubmit = (e) => {
+    // const reduceWord = (word) => {
+    //     return word.replace('א','','ה','ו','י');
+    // };
+    // const reduceArrayWord=(arrayWords)=>{
+    //     arrayWords.map(word => {
+    //         setNewWordsArray(...newWordsArray,reduceWord(word) )
+            
+    //     })
+    // }
+     const formSubmit = (e) => {
         e.preventDefault()
         scoreCalculation()
         const updateSingledictation = { ...singledictation, dictationWordsAnswers: dictationWordsAns,completed:true, score: Math.ceil(localScore) }

@@ -108,7 +108,7 @@ const SideBar = () => {
         },
         {
           title: "ציונים",
-          path: "/dash/grades",
+          path: "/dash/dictations/complete",
           icon: <MdGrading />
           ,
         },
