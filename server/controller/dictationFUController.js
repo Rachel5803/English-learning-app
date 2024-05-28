@@ -22,7 +22,8 @@ const getAllDictationsForSpecificUser = async (req, res) => {
 //צפייה בכל ההכתבות שלא נעשו עבור משתמש מסויים
 const getNotCompletedDictationsForSpecificUser = async (req, res) => {
     const { user } = req.body
-    const dictations = await DictationForUser.find({ user,completed:false }).populate("dictation", {name:1, limitTime:1}).lean()
+    const currentDate = new Date();
+    const dictations = await DictationForUser.find({ user,completed:false,endDate: { $gte: currentDate } }).populate("dictation", {name:1, limitTime:1}).lean()
     if (!dictations.length) {
         return res.status(400).json({
             error: true,
@@ -39,7 +40,11 @@ const getNotCompletedDictationsForSpecificUser = async (req, res) => {
 //צפייה בכל ההכתבות שנעשו עי משתמש מסויים
 const getCompletedDictationsForSpecificUser = async (req, res) => {
     const { user } = req.body
-    const dictations = await DictationForUser.find({ user,completed:true }).populate("dictation", {name:1, limitTime:1}).lean()
+    const currentDate = new Date();
+    const dictations = await DictationForUser.find({ user, $or: [
+        { completed: true },
+        { endDate: { $lt: currentDate } }
+    ] }).populate("dictation", {name:1, limitTime:1}).lean()
     if (!dictations.length) {
         return res.status(400).json({
             error: true,
