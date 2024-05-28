@@ -59,7 +59,7 @@ const sentDictaionsApiSlice = apiSlice.injectEndpoints({
                 method: "PUT",
                 body: dictation
             }),
-            invalidatesTags: ["Dictations","StudentNotCompleteDictations"]
+            invalidatesTags: ["Dictations","StudentNotCompleteDictations","StudentCompleteDictations"]
         }),
         
      })

@@ -25,8 +25,9 @@ const SingleDraft = () => {
         const draftObject = Object.fromEntries(data.entries())
         const updatedDictationWords = [];
         for (let i = 0; i < data.getAll('word').length; i++) {
-            const word = data.getAll('word')[i];
-            const meanings = data.getAll('meaning')[i].split(", ");
+            const word = data.getAll('word')[i].trim()
+            const meanings = data.getAll('meaning')[i].split(",").map(meaning => meaning.trim())
+            console.log("word:  "+word+"meaimgs: "+meanings);
             if (word != "" || meanings != "") {
                 updatedDictationWords.push({ word, meanings });
             }
@@ -81,6 +82,13 @@ const SingleDraft = () => {
 
 
                     />
+                    <label>הגבלת זמן</label>
+          <input
+            defaultValue={singledraft.limitTime}
+            type="number"
+            name="limitTime"
+            placeholder="הכנס מספר דקות"
+          />
                     <table className="draft-word-dictation-list-table">
                         <thead>
                             <tr>

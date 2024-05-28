@@ -5,7 +5,7 @@ const Dictation = require("../models/Dictation")
 //צפייה בכל ההכתבות של משתמש מסוים
 const getAllDictationsForSpecificUser = async (req, res) => {
     const { user } = req.body
-    const dictations = await DictationForUser.find({ user }).populate("dictation", {name:1}).lean()
+    const dictations = await DictationForUser.find({ user }).populate("dictation", {name:1, limitTime:1}).lean()
     if (!dictations.length) {
         return res.status(400).json({
             error: true,
@@ -22,7 +22,7 @@ const getAllDictationsForSpecificUser = async (req, res) => {
 //צפייה בכל ההכתבות שלא נעשו עבור משתמש מסויים
 const getNotCompletedDictationsForSpecificUser = async (req, res) => {
     const { user } = req.body
-    const dictations = await DictationForUser.find({ user,completed:false }).populate("dictation", {name:1}).lean()
+    const dictations = await DictationForUser.find({ user,completed:false }).populate("dictation", {name:1, limitTime:1}).lean()
     if (!dictations.length) {
         return res.status(400).json({
             error: true,
@@ -39,7 +39,7 @@ const getNotCompletedDictationsForSpecificUser = async (req, res) => {
 //צפייה בכל ההכתבות שנעשו עי משתמש מסויים
 const getCompletedDictationsForSpecificUser = async (req, res) => {
     const { user } = req.body
-    const dictations = await DictationForUser.find({ user,completed:true }).populate("dictation", {name:1}).lean()
+    const dictations = await DictationForUser.find({ user,completed:true }).populate("dictation", {name:1, limitTime:1}).lean()
     if (!dictations.length) {
         return res.status(400).json({
             error: true,
@@ -54,7 +54,7 @@ const getCompletedDictationsForSpecificUser = async (req, res) => {
     }) 
 }
 const getAllDictations = async (req, res) => {
-    const dictations = await DictationForUser.find().populate("user", {class:1, name:1}).populate("dictation", {name:1}).lean()
+    const dictations = await DictationForUser.find().populate("user", {class:1, name:1}).populate("dictation", {name:1, limitTime:1}).lean()
     const dictationsWithClasses=await Promise.all(dictations.map(async dictation=>{
         const grade=await User.populate(dictation.user,"class")
         return { ...dictation,grade};
@@ -111,8 +111,8 @@ const getDictationFUById = async (req, res) => {
 }
 //שליחת הכתבה שנוצרה לכל התלמידות בכיתה
 const createNewDictationsForUsers = async (req, res) => {
-    const { dictationId, dictationWords, dictationClass,  endDate } = req.body
-    if (!dictationId || !dictationWords || !dictationClass) {
+    const { dictationId, dictationWords, dictationClass,  endDate,limitTime } = req.body
+    if (!dictationId || !dictationWords || !dictationClass|| !endDate|| !limitTime) {
         return res.status(400).json({
             error: true,
             massage: 'You need to press  details dictation',

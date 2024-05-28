@@ -1,6 +1,6 @@
 import "./student-dictation-list.css"
 import { Link, useSearchParams } from 'react-router-dom';
-import { useState } from "react"
+
 import { useEffect } from 'react';
 
 import moment from 'moment';
@@ -10,7 +10,8 @@ import { useGetNotCompletedDictationsForSpecificUserMutation, useUpdateDictation
 import Search from "../../../../components/search/Search";
 
 const StudentDictationsList = () => {
-    const {_id} = useAuth()
+    const { _id } = useAuth()
+    const navigate=useNavigate()
     //const { dictationId } = useParams()
     //const [updateSingleDictation, { isSuccess: isUpdateSuccess }] = useUpdateDictationForSpecificUserMutation()
     const [getAllNotCompleteStudentDictations, { isSuccess, data: dictationsObject, isError, error, isLoading }] = useGetNotCompletedDictationsForSpecificUserMutation()
@@ -28,6 +29,11 @@ const StudentDictationsList = () => {
             getAllNotCompleteStudentDictations({ user: _id })
         }
     }, [])
+    const confrimStartDictation = (dictationFU) => {
+        if(window.confirm("Are you sure you want to start answering the dictation?")){
+            navigate(`/dash/dictations/to/answer/${dictationFU._id}`);
+        }
+    };
     if (isLoading) return <h1> Loading ...</h1>
     if (isError) return <h1>{JSON.stringify(error)}</h1>
     const filteredData = dictationsObject ? (q ? dictationsObject.data.filter(dictation => (dictation.name?.indexOf(q) > -1)) : dictationsObject.data) : [];
@@ -35,14 +41,16 @@ const StudentDictationsList = () => {
         <div className="dictations-for-student-list">
 
             <div className="dictations-for-student-list-top">
-                
+
                 <Search placeholder="Search for a dictation..." />
             </div>
             <table className="dictations-for-student-list-table">
                 <thead>
                     <tr>
                         <td>שם ההכתבה</td>
-                         <td>תאריך הגשה</td>
+                        <td>תאריך הגשה</td>
+                        <td>הגבלת זמן</td>
+                        
 
 
                     </tr>
@@ -52,20 +60,18 @@ const StudentDictationsList = () => {
                         <tr key={dictationFU._id}>
                             <td>{dictationFU.dictation.name}</td>
                             <td> {dictationFU.endDate ? moment(dictationFU.endDate).format('DD-MM-YYYY') : ""}</td>
+                            <td>{dictationFU.dictation.limitTime?dictationFU.dictation.limitTime+" דקות":""}</td>
                             <td>
                                 <div className="dictations-for-student-list-buttons">
                                     <Link className='dictations-for-student-list-button dictations-for-student-list-view' to={`/dash/dictations/sent/words/${dictationFU.dictation._id}`}>
-                                       צפה במילים
+                                        צפה במילים
                                     </Link>
-                                    <Link className='dictations-for-student-button sent-dictation-from-all-users-list-view' to={`/dash/dictations/to/answer/${dictationFU._id}`}>
-                                       התחלת ניסיון מענה
-                                    </Link>
-
-                                    
-
-                                    
-                                    
-                                </div>
+                                    <button
+                                        className="dictations-for-student-button sent-dictation-from-all-users-list-view"
+                                        onClick={ ()=>{confrimStartDictation(dictationFU)}}>
+                                        התחלת ניסיון מענה
+                                    </button>
+                                    </div>
                             </td>
                         </tr>
                     ))}

@@ -30,6 +30,9 @@ const dictationSchema = new mongoose.Schema({
         type:Boolean,
         required: true,
         default:false
+    },
+    limitTime:{
+        type:Number
     }
 }, {
     timestamps: true

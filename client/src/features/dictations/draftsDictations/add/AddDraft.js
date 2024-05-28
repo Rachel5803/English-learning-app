@@ -35,8 +35,8 @@ const AddDraft = () => {
         const draftObject = Object.fromEntries(data.entries())
         const dictationWords = [];
         for (let i = 0; i < data.getAll('word').length; i++) {
-            const word = data.getAll('word')[i];
-            const meanings = data.getAll('meaning')[i].split(", ");
+            const word = data.getAll('word')[i].trim()
+            const meanings = data.getAll('meaning')[i].split(",").map(meaning => meaning.trim())
             if (word != "" || meanings != "") {
               
                 dictationWords.push({word,meanings});
@@ -73,6 +73,11 @@ const AddDraft = () => {
                placeholder="בחר תאריך הגשה"
               
                 />
+          <input
+            type="number"
+            name="limitTime"
+            placeholder="הגבלת זמן בדקות"
+          />
                 {InputsArray?.map((item, index) => (
                     <span>
                         <input

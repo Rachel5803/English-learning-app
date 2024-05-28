@@ -51,6 +51,7 @@ const handleDateChange = (newDate) => {
                         <td>כיתה</td>
                         <td>תאריך שליחה</td>
                         <td>תאריך הגשה</td>
+                        <td>הגבלת זמן</td>
 
 
                     </tr>
@@ -65,6 +66,7 @@ const handleDateChange = (newDate) => {
                             <td>{moment(dictationFU.createdAt).format('DD-MM-YYYY')}</td>
                            
                             <td> {dictationFU.endDate?moment(dictationFU.endDate).format('DD-MM-YYYY'):""}</td>
+                            <td>{dictationFU.limitTime? dictationFU.limitTime +" דקות" :""}</td>
                             <td>
                                 <div className="sent-dictations-list-buttons">
                                     <Link className='sent-dictations-list-button sent-dictations-list-view' to={`/dash/dictations/sent/words/${dictationFU._id}`}>

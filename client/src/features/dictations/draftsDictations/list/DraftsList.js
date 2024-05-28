@@ -22,7 +22,7 @@ const DraftsList = () => {
         console.log(singleDraft);
         if (window.confirm("בטוח שברצונך לשלוח את ההכתבה לכל התלמידים?")) {
             sentDictationForUsers({dictationId:singleDraft._id,dictationWords:singleDraft.dictationWords
-                ,dictationClass:singleDraft.class._id,endDate:singleDraft.endDate})
+                ,dictationClass:singleDraft.class._id,endDate:singleDraft.endDate,limitTime:singleDraft.limitTime})
         }
 
     }
