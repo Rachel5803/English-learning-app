@@ -1,4 +1,4 @@
-import "./student-dictation-list.css"
+import "./pending-dictations-list.css"
 import { Link, useSearchParams } from 'react-router-dom';
 
 import { useEffect } from 'react';
@@ -9,7 +9,7 @@ import useAuth from "../../../../hooks/useAuth";
 import { useGetNotCompletedDictationsForSpecificUserMutation, useUpdateDictationForSpecificUserMutation } from "../../sentDictations/sentDictationsApiSlice";
 import Search from "../../../../components/search/Search";
 
-const StudentDictationsList = () => {
+const PendingDictationsList = () => {
     const { _id } = useAuth()
     const navigate=useNavigate()
     //const { dictationId } = useParams()
@@ -82,4 +82,4 @@ const StudentDictationsList = () => {
     )
 }
 
-export default StudentDictationsList
+export default PendingDictationsList

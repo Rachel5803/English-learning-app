@@ -5,6 +5,7 @@ import { useGetAllUsersQuery, useDeleteUserMutation } from '../usersApiSlice';
 import { useGetAllClassesQuery } from "../../classes/classesApiSlice";
 import { useState } from "react"
 import useGetFilePath from "../../../hooks/useGetFilePath"
+import moment from 'moment';
 const UsersList = () => {
   const [detailsClass, setDetailsClass] = useState({})
   const { data: usersObject, isError, error, isLoading, isSuccess } = useGetAllUsersQuery()
@@ -63,13 +64,16 @@ const UsersList = () => {
               <td>{user.class?.school}</td>
               <td>{user.class?.grade}</td>
               <td>{user.class?.gradeNumber}</td>
-              <td>{user.createdAt?.toString().slice(4, 16)}</td>
+              <td>{moment(user.createdAt).format('DD-MM-YYYY')}</td>
               <td>{user.roles === "Teacher" ? "מורה" : "תלמידה"}</td>
               <td>{user.active ? "כן" : "לא"}</td>
               <td>
                 <div className="users-list-buttons">
                   <Link className='users-list-button users-list-view' to={`/dash/users/${user._id}`}>
-                    צפייה
+                   צפייה בפרטי משתמש
+                  </Link>
+                  <Link className='users-list-button users-list-view' to={`/dash/users/grades/${user._id}`}>
+                   צפייה בציונים
                   </Link>
 
                   <button onClick={() => deleteClick(user)} className="users-list-button users-list-delete">

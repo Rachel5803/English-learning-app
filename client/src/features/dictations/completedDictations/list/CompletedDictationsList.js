@@ -1,4 +1,4 @@
-import "./student-complete-dictations-list.css"
+import "./completed-dictations-list.css"
 import { Link, useSearchParams } from 'react-router-dom';
 import { useState } from "react"
 import { useEffect } from 'react';
@@ -13,8 +13,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetCompletedDictationsForSpecificUserMutation } from "../../sentDictations/sentDictationsApiSlice";
 import useAuth from "../../../../hooks/useAuth";
 import Search from "../../../../components/search/Search";
-
-const StudentCompleteDictationsList = () => {
+import { MdCheck, MdClose } from "react-icons/md";
+const CompletedDictationsList = () => {
     const {_id} = useAuth()
     const [getAllCompleteDictationsForUser, { isSuccess, data: dictationsObject, isError, error, isLoading }] = useGetCompletedDictationsForSpecificUserMutation()
     const [searchParams] = useSearchParams()
@@ -39,6 +39,7 @@ const StudentCompleteDictationsList = () => {
                 <thead>
                     <tr>
                         <td>שם ההכתבה</td>
+                        <td>הושלם</td>
                         <td>ציון</td>
                         </tr>
                 </thead>
@@ -46,6 +47,11 @@ const StudentCompleteDictationsList = () => {
                     {filteredData?.map((dictationFU) => (
                         <tr key={dictationFU._id}>
                             <td>{dictationFU.dictation.name}</td>
+                            <td  >{dictationFU.completed ? (
+                                <MdCheck />
+                            ) : (
+                                <MdClose />
+                            )}</td>
                             <td>{dictationFU.score}</td>
                             <td>
                                 <div className="complete-dictations-for-student-list-buttons">
@@ -66,4 +72,4 @@ const StudentCompleteDictationsList = () => {
     )
 }
 
-export default StudentCompleteDictationsList
+export default CompletedDictationsList

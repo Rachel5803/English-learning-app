@@ -7,6 +7,7 @@ import { useGetAllUsersQuery } from "../../../users/usersApiSlice";
 import Search from "../../../../components/search/Search";
 
 import moment from 'moment';
+//import { useGetAllSentDictationsQuery } from "../../draftsDictations/draftsApiSlice";
 const SentList = () => {
     const { data: dictationsObject, isError, error, isLoading, isSuccess } = useGetAllSentDictationsQuery()
     const [updateEndDate, { isSuccess: isUpdateSuccess }] = useUpdateDictationEndDateForAllUsersMutation()

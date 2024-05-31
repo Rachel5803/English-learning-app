@@ -2,6 +2,7 @@ import "./single-dictation-words.css"
 
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+//import { useGetAllSentDictationsQuery } from "../../draftsDictations/draftsApiSlice";
 import { useGetAllSentDictationsQuery } from "../sentDictationsApiSlice";
 const SingleDictationWords = () => {
 

@@ -13,13 +13,21 @@ const sentDictaionsApiSlice = apiSlice.injectEndpoints({
             }),
             providesTags:["Dictations"]
         }),
+        getAllDictationsForSpecificUser:build.mutation({
+            query:(user)=>({
+                url: "/api/dictationForStudent/user",
+                method: "POST",
+                body: user
+            }),
+            providesTags: ["StudentDictations"]
+        }),
         getNotCompletedDictationsForSpecificUser:build.mutation({
             query:(user)=>({
                 url: "/api/dictationForStudent/user/not/complete",
                 method: "POST",
                 body: user
             }),
-            invalidatesTags: ["StudentDictations","StudentNotCompleteDictations"]
+            providesTags: ["StudentDictations","StudentNotCompleteDictations"]
         }),
         getCompletedDictationsForSpecificUser:build.mutation({
             query:(user)=>({
@@ -27,7 +35,7 @@ const sentDictaionsApiSlice = apiSlice.injectEndpoints({
                 method: "POST",
                 body: user
             }),
-            invalidatesTags: ["StudentCompleteDictations"]
+            providesTags: ["StudentCompleteDictations"]
         }),
         getDictationFromAllUsersInClass:build.mutation({
             query:(dictation)=>({
@@ -35,7 +43,7 @@ const sentDictaionsApiSlice = apiSlice.injectEndpoints({
                 method: "POST",
                 body: dictation
             }),
-            invalidatesTags: ["Dictations"]
+            providesTags: ["Dictations"]
         }),
        addNewDictationsFU:build.mutation({
             query:(dictation)=>({
@@ -59,13 +67,14 @@ const sentDictaionsApiSlice = apiSlice.injectEndpoints({
                 method: "PUT",
                 body: dictation
             }),
-            invalidatesTags: ["Dictations","StudentNotCompleteDictations","StudentCompleteDictations"]
+            invalidatesTags: ["Dictations","StudentNotCompleteDictations","StudentCompleteDictations","StudentDictations"]
         }),
         
      })
 })
-export const { useGetAllSentDictationsQuery
-    ,useGetDictationFromAllUsersInClassMutation
+export const { useGetAllSentDictationsQuery,
+    useGetDictationFromAllUsersInClassMutation,
+    useGetAllDictationsForSpecificUserMutation
     ,useGetNotCompletedDictationsForSpecificUserMutation
     ,useGetCompletedDictationsForSpecificUserMutation
     ,useGetAllSentDictationsFromAllUsersQuery 

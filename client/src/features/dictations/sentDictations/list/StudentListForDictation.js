@@ -1,4 +1,4 @@
-import "./sent-students-list.css"
+import "./students-list-for-dictation.css"
 import { Link, useSearchParams } from 'react-router-dom';
 import { useState } from "react"
 import { useEffect } from 'react';
@@ -11,7 +11,7 @@ import { MdCheck, MdClose } from "react-icons/md";
 import moment from 'moment';
 import { useNavigate, useParams } from "react-router-dom";
 
-const SentStudentsList = () => {
+const StudentsListForDictation = () => {
     const { dictationId } = useParams()
     const [updateSingleDictation, { isSuccess: isUpdateSuccess }] = useUpdateDictationForSpecificUserMutation()
     const [getAllStudentsDictations, { isSuccess, data: dictationsObject, isError, error, isLoading }] = useGetDictationFromAllUsersInClassMutation()
@@ -151,4 +151,4 @@ const SentStudentsList = () => {
     )
 }
 
-export default SentStudentsList
+export default StudentsListForDictation

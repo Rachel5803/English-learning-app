@@ -7,6 +7,12 @@ const draftsApiSlice = apiSlice.injectEndpoints({
             }),
             providesTags: ["Drafts"]
         }),
+        getAllSentDictations:build.query({
+            query:()=>({
+                url: "/api/dictations/sent"
+            }),
+            providesTags:["SentDictations"]
+        }),
         addDraft: build.mutation({
             query: (singleDraft) => ({
                 url: "/api/dictations",
@@ -34,4 +40,4 @@ const draftsApiSlice = apiSlice.injectEndpoints({
 
     })
 })
-export const { useGetAllDraftsQuery, useAddDraftMutation, useUpdateDraftMutation, useDeleteDraftMutation } = draftsApiSlice
+export const { useGetAllDraftsQuery,useGetAllSentDictationsQuery, useAddDraftMutation, useUpdateDraftMutation, useDeleteDraftMutation } = draftsApiSlice
