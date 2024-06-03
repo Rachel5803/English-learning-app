@@ -2,6 +2,7 @@ import "./classes-list.css"
 import {Link, useSearchParams} from "react-router-dom"
 import Search from "../../../components/search/Search"
 import {useGetAllClassesQuery,useDeleteClassMutation} from "../classesApiSlice"
+import moment from 'moment';
 export const ClassesList = () => {
 const  {data: classesObject, isError, error, isLoading, isSuccess} = useGetAllClassesQuery()
 const [deleteClass,{isSuccess: isDeleteSuccess}] = useDeleteClassMutation()
@@ -30,8 +31,9 @@ if(isLoading) return <h1> Loading ...</h1>
                     <td>בית הספר</td>
                      <td>כיתה </td>
                     <td>מספר כיתה </td>
-                    <td>נוצר ב </td>
                     <td>שנת לימודים</td>
+                    <td>נוצר ב </td>
+                   
                 </tr>
             </thead>
             <tbody>
@@ -47,11 +49,12 @@ if(isLoading) return <h1> Loading ...</h1>
                             {oneClass.gradeNumber}
                         </td>
                         <td>
-                            {oneClass.createdAt?.toString().slice(4,16)}
-                        </td>
-                        <td>
                             {oneClass.schoolYear}
                         </td>
+                        <td>
+                        <td>{moment(oneClass.createdAt).format('DD/MM/YYYY')}</td>
+                        </td>
+                      
                         <td>
                             <div className="classes-list-buttons">
 

@@ -1,6 +1,5 @@
 const User = require("../models/User")
 const bcrypt = require('bcrypt')
-//const Dictation = require("../models/Dictation")
 const getUsersForSpecificClass = async (req, res) => {
     const {classId}=req.body
     const users = await User.find({ class:classId}, {_id:0 , name:1, dictations:1}).lean()
@@ -25,8 +24,8 @@ const getUsers = async (req, res) => {
     })
 }
 const getUserById = async (req, res) => {
-    const { id } = req.params
-    const user = await User.findById(id, { password: 0 }).lean()
+    const { _id } = req.body
+    const user = await User.findById(_id, { password: 0 }).lean()
     if (!user) {
         return res.status(400).json({
             error: true,
@@ -123,6 +122,39 @@ const updateUser = async (req, res) => {
 //     const updateUser= await user.save();
 //     res.json(`'${updateUser.name}' updated`)
 // }
+const updateUserForUser = async (req, res) => {
+    const image = (req.file?.filename? req.file.filename: "")
+    const { _id, password, name} = req.body
+    if (!_id  || !name) {
+        return res.status(400).json({
+            error: true,
+            massage: 'Id, password, name are required',
+            data: null
+        })
+    }
+    const user = await User.findById(_id).exec()
+    if (!user) {
+        return res.status(400).json({
+            error: true,
+            massage: 'No user found',
+            data: null
+        })
+    }
+    if(password){
+        const hashPwd = await bcrypt.hash(password, 10)
+        user.password=hashPwd
+    }
+    user.name = name;
+    if(image){
+        user.image = image
+    }
+    const updateUser= await user.save();
+    res.json({
+        error: false,
+        massage: `'${updateUser.name}' updated`,
+        data: {user:user.username, id:user._id}
+    })
+}
 const deleteUser = async (req, res) => {
     const { _id } = req.body
     if (!_id) {
@@ -149,4 +181,4 @@ const deleteUser = async (req, res) => {
 }
 
 
-module.exports = { getUsers, createNewUser,getUserById, updateUser,getUsersForSpecificClass, deleteUser}
+module.exports = { getUsers, createNewUser,getUserById,updateUserForUser, updateUser,getUsersForSpecificClass, deleteUser}

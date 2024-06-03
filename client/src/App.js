@@ -21,6 +21,7 @@ import SingleDictationToAnswer from "./features/dictations/pendingDictations/vie
 import PendingDictationsList from "./features/dictations/pendingDictations/list/PendingDictationsList";
 import CompletedDictationsList from "./features/dictations/completedDictations/list/CompletedDictationsList";
 import SingleUserGrades from "./features/users/view/SingleUserGrades";
+import UserProfile from "./features/users/view/UserProfile";
 function App() {
   return (
     <div >
@@ -33,6 +34,7 @@ function App() {
               <Route element={<RequireAuth allowRoles={["Teacher", "Student"]} />}>
                 <Route path="/dash" element={<DashLayout />}>
                   <Route index element={<h1>dashboard</h1>} />
+                  <Route path="profile" element={<UserProfile/>} />
                   <Route path="dictations/sent/words/:dictationId" element={<SingleDictationWords />} />
                   <Route path="dictations/sent/answers/:dictationId" element={<SingleDictationAnswers />} />
                   <Route element={<RequireAuth allowRoles={["Teacher"]} />}>

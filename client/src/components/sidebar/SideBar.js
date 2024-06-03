@@ -14,7 +14,8 @@ import {
   MdDrafts ,
   MdOutlineMarkunread ,
   MdGrading,
-  MdListAlt
+  MdListAlt,
+  MdOutlinePerson
 
 } from "react-icons/md";
 import "./sidebar.css";
@@ -80,15 +81,11 @@ const SideBar = () => {
       title: "משתמש",
       list: [
         {
-          title: "הגדרות",
-          path: "/dash/settings",
-          icon: <MdOutlineSettings />,
-        },
-        {
-          title: "עזרה",
-          path: "/dash/help",
-          icon: <MdHelpCenter />,
-        },
+          title: "פרופיל",
+          path: "/dash/profile",
+          icon: <MdOutlinePerson />
+          ,
+        }
       ],
     },
   ];
@@ -118,25 +115,16 @@ const SideBar = () => {
       title: "משתמש",
       list: [
         {
-          title: "הגדרות",
-          path: "/dash/settings",
-          icon: <MdOutlineSettings />,
-        },
-        {
-          title: "עזרה",
-          path: "/dash/help",
-          icon: <MdHelpCenter />,
-        },
+          title: "פרופיל",
+          path: "/dash/profile",
+          icon: <MdOutlinePerson />
+          ,
+        }
       ],
     },
   ];
   
   const menuItems = roles==="Teacher"? teacherMenuItems: studentMenuItems
-  // useEffect(()=>{
-  //   if(isSuccess){
-  //     navigate("/login")
-  //   }
-  // }, [isSuccess])
   const logoutClick = () =>{
       logout()
       navigate("/login")

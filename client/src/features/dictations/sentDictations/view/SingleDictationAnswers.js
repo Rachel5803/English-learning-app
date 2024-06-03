@@ -10,10 +10,10 @@ const SingleDictationAnswers = () => {
     
     
 
-    if (isLoading ) return <h1> Loading ...</h1>
-    if (isError) return <h1>{JSON.stringify(error)}</h1>
+    if (isLoading ) return <h1> טוען נתונים</h1>
+    if (isError) return <h1>{error.data.massage}</h1>
     const singledictation = sentDictatoinsObject.data.find(dictation => dictation._id === dictationId)
-    if (!singledictation) return <h1>{"Not found"}</h1>
+    if (!singledictation) return <h1>"הכתבה לא נמצאה"</h1>
     return (
         <div className="single-dictation-container">
             <div className="single-dictation-answers-container">

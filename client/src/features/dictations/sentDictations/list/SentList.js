@@ -1,6 +1,6 @@
 import "./sent-list.css"
 import { Link, useSearchParams } from 'react-router-dom';
-import { useState } from "react"
+import { useState ,useEffect} from "react"
 import { useGetAllClassesQuery } from "../../../classes/classesApiSlice";
 import { useGetAllSentDictationsQuery, useUpdateDictationEndDateForAllUsersMutation } from "../sentDictationsApiSlice";
 import { useGetAllUsersQuery } from "../../../users/usersApiSlice";
@@ -11,13 +11,10 @@ import moment from 'moment';
 const SentList = () => {
     const { data: dictationsObject, isError, error, isLoading, isSuccess } = useGetAllSentDictationsQuery()
     const [updateEndDate, { isSuccess: isUpdateSuccess }] = useUpdateDictationEndDateForAllUsersMutation()
-    const { data: usersObject, isLoading: isUsersLoading } = useGetAllUsersQuery()
     const [searchParams] = useSearchParams()
-    const [complete, setComplete] = useState(false)
     const q = searchParams.get("q")
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [specificDictation, setSpecificDictation] = useState("");
-
     const [updateDate, setUpdateDate] = useState(new Date());
     const showDateInput = (dictation) => {
         setIsModalOpen(!isModalOpen)
@@ -25,8 +22,10 @@ const SentList = () => {
     }
 const clickUpdate= (dictation) => {
     updateEndDate({classId:dictation.class,dictation:dictation._id,endDate:updateDate})
-    
+    setIsModalOpen(!isModalOpen)
 }
+
+
 const handleDateChange = (newDate) => {
     setUpdateDate(newDate)
     
@@ -64,7 +63,7 @@ const handleDateChange = (newDate) => {
 
                             <td>{dictationFU.class?.school + " " + dictationFU.class?.grade + " " + dictationFU.class?.gradeNumber + " " + dictationFU.class?.schoolYear}</td>
 
-                            <td>{moment(dictationFU.createdAt).format('DD-MM-YYYY')}</td>
+                            <td>{dictationFU.sentDate?moment(dictationFU.sentDate).format('DD-MM-YYYY'):""}</td>
                            
                             <td> {dictationFU.endDate?moment(dictationFU.endDate).format('DD-MM-YYYY'):""}</td>
                             <td>{dictationFU.limitTime? dictationFU.limitTime +" דקות" :""}</td>

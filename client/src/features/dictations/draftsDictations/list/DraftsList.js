@@ -1,21 +1,27 @@
 import React from 'react'
 import "./drafts-list.css"
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { Link, useSearchParams } from "react-router-dom"
 import Search from '../../../../components/search/Search';
 import { useDeleteDraftMutation, useGetAllDraftsQuery } from '../draftsApiSlice';
 import { useAddNewDictationsFUMutation } from '../../sentDictations/sentDictationsApiSlice';
-
+import moment from 'moment';
 const DraftsList = () => {
     const { data: draftsObject, isError, error, isLoading, isSuccess } = useGetAllDraftsQuery()
-    const [sentDictationForUsers, { isSuccess: isSentSuccess }] = useAddNewDictationsFUMutation()
+    const [sentDictationForUsers, { isSuccess: isSentSuccess, isError:isSentError, error:sentError}] = useAddNewDictationsFUMutation()
     const [deleteDraft, { isSuccess: isDeleteSuccess }] = useDeleteDraftMutation()
     const [searchParams] = useSearchParams()
     const q = searchParams.get("q")
+    useEffect(() => {
+        if (isSentError) {
+            window.alert(sentError.data.massage)
+        }
+    }, [isSentError])
     const deleteClick = (singleDraft) => {
         if (window.confirm("בטוח שברצונך למחוק את ההכתבה")) {
             deleteDraft({ _id: singleDraft._id })
         }
+
 
     }
     const sentClick = (singleDraft) => {
@@ -55,7 +61,7 @@ const DraftsList = () => {
                                 {draft.class?.school + " " + draft.class?.grade + " " + draft.class?.gradeNumber}
                             </td>
                             <td>
-                                {draft.createdAt?.toString().slice(4, 16)}
+                            <td>{draft.createdAt? moment(draft.createdAt).format('DD/MM/YYYY'):""}</td>
                             </td>
                             <td>
                                 <div className="drafts-list-buttons">

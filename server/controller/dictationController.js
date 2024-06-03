@@ -62,21 +62,7 @@ const createNewDictation = async (req, res) => {
             data: null
         })
     }
-    const dictation = await Dictation.create({ name, dictationWords, class:classId, sentToStudents:false,endDate,limitTime})
-    // const dateOfSubmission = new Date();
-    // dateOfSubmission.setDate(dateOfSubmission.getDate() + 7);
-    // if (dictation) {
-    //     const users = await User.find({ school: req.body.school, grade: req.body.grade, gradeNumber: req.body.gradeNumber }).exec()
-    //     users.map(async (user) => {
-    //         user.dictations.push({dictationId:dictation});
-    //         await user.save();
-    //       });
-    //       await dictation.save();
-    //     return res.status(201).json(dictation._id)
-    // }
-    // else {
-    //     return res.status(400).json({ massage: 'Invalid dictation' })
-    // }
+    const dictation = await Dictation.create({ name, dictationWords, class:classId, sentToStudents:false,endDate,sentDate:null,limitTime})
     if (dictation) {
         return res.json({
             error: false,

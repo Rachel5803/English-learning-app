@@ -21,7 +21,7 @@ const SingleUserGrades = () => {
         }
     }, [])
     if (isLoading) return <h1> Loading ...</h1>
-    if (isError) return <h1>{JSON.stringify(error)}</h1>
+    if (isError) return <h1>{error.data.massage}</h1>
     const filteredData = dictationsObject ? (q ? dictationsObject.data.filter(dictationFU => (dictationFU.dictation.name?.indexOf(q) > -1)) : dictationsObject.data) : [];
    return (
         <div className="dictations-for-student-list">

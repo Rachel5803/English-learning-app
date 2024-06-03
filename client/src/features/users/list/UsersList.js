@@ -20,8 +20,8 @@ const UsersList = () => {
     }
 
   }
-  if (isLoading ) return <h1> Loading ...</h1>
-  if (isError) return <h1>{JSON.stringify(error)}</h1>
+  if (isLoading ) return <h1> טוען נתונים</h1>
+  if (isError) return <h1>{error.data.massage}</h1>
   const filteredData = !q? [...usersObject.data] : usersObject.data.filter(user=> (user.class.school?.indexOf(q) > -1) || (user.name.indexOf(q) > -1))
 
 
@@ -64,7 +64,7 @@ const UsersList = () => {
               <td>{user.class?.school}</td>
               <td>{user.class?.grade}</td>
               <td>{user.class?.gradeNumber}</td>
-              <td>{moment(user.createdAt).format('DD-MM-YYYY')}</td>
+              <td>{moment(user.createdAt).format('DD/MM/YYYY')}</td>
               <td>{user.roles === "Teacher" ? "מורה" : "תלמידה"}</td>
               <td>{user.active ? "כן" : "לא"}</td>
               <td>

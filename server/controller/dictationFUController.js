@@ -9,7 +9,7 @@ const getAllDictationsForSpecificUser = async (req, res) => {
     if (!dictations.length) {
         return res.status(400).json({
             error: true,
-            massage: 'No dictations found',
+            massage: 'אין הכתבות קיימות למשתמש זה',
             data: null
         })
     }
@@ -120,7 +120,7 @@ const createNewDictationsForUsers = async (req, res) => {
     if (!dictationId || !dictationWords || !dictationClass|| !endDate|| !limitTime) {
         return res.status(400).json({
             error: true,
-            massage: 'You need to press  details dictation',
+            massage: 'יש למלא את כל פרטי ההכתבה לפני השליחה',
             data: null
         })
     }
@@ -129,7 +129,7 @@ const createNewDictationsForUsers = async (req, res) => {
     if (!users.length) {
         return res.status(400).json({
             error: true,
-            massage: 'No users found',
+            massage: 'לא נמצאו תלמידים לכיתה זו',
             data: null
         })
     }
@@ -149,7 +149,9 @@ const createNewDictationsForUsers = async (req, res) => {
     }))
     if (dictationsForUsers.length) {
         const dictation = await Dictation.findById(dictationId).exec()
+        const currentDate = new Date();
         dictation.sentToStudents = true
+        dictation.sentDate =currentDate 
         const updateDictation = await dictation.save();
         return res.json({
             error: false,
