@@ -1,13 +1,13 @@
 import "./add-user.css"
 import { useNavigate } from "react-router-dom";
 import { useAddUserMutation } from "../usersApiSlice";
-import {useGetAllClassesQuery} from "../../classes/classesApiSlice";
+import {useGetAllActiveClassesQuery} from "../../classes/classesApiSlice";
 import { useEffect } from "react";
 
   
 const AddUser = () => {
   const [addUser, {data, isError, error, isSuccess, isLoading}] = useAddUserMutation()
-  const  {data: classesObject, isLoading: isClassesLoading} = useGetAllClassesQuery()
+  const  {data: classesObject, isLoading: isClassesLoading} = useGetAllActiveClassesQuery()
   const navigate = useNavigate()
   useEffect(()=>{
     if(isSuccess){
@@ -44,13 +44,7 @@ const AddUser = () => {
           return <option value={oneClass._id}>{oneClass.school+" "+ oneClass.grade+" "+oneClass.gradeNumber+" "+oneClass.schoolYear}</option>
         })}
       </select>
-      <select name="roles" id="roles">
-        <option value="Student">
-          הרשאה
-        </option>
-        <option value="Teacher">מורה</option>
-        <option value="Student">תלמידה</option>
-      </select>
+     
       <select name="active" id="active">
         <option value={true}>
           פעיל

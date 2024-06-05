@@ -11,7 +11,8 @@
     display: flex;
     flex-direction: column;
 }
-.single-class-form input{
+.single-class-form input,
+.single-class-form select{
     padding: 20px;
     border: solid 2px #2e374a;
     background-color: var(--bg);

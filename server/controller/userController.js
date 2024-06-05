@@ -9,7 +9,7 @@ const getUsersForSpecificClass = async (req, res) => {
     res.json(users)
 }
 const getUsers = async (req, res) => {
-    const users = await User.find({},{password:0}).populate("class").lean()
+    const users = await User.find({roles:'Student'},{password:0}).sort({active:-1}).populate("class").lean()
     if (!users.length) {
         return res.status(400).json({
             error: true,
@@ -41,7 +41,7 @@ const getUserById = async (req, res) => {
 }
 const createNewUser = async (req, res) => {
     const image = (req.file?.filename? req.file.filename: "")
-    const { username, password, name, classId, roles, active} = req.body
+    const { username, password, name, classId, active} = req.body
     if (!name || !username || !password||!classId) {
         return res.status(400).json({
             error: true,
@@ -54,7 +54,7 @@ const createNewUser = async (req, res) => {
         return res.status(400).json({ massage: 'The username exists in the system, press a unique username' })
     }
     const hashPwd = await bcrypt.hash(password, 10)
-    const user = await User.create({ username, password: hashPwd, name, class:classId,  roles, active, image })
+    const user = await User.create({ username, password: hashPwd, name, class:classId,  roles:'Student', active, image })
     if (user) {
         return res.json({
             error: false,
@@ -72,8 +72,8 @@ const createNewUser = async (req, res) => {
 }
 const updateUser = async (req, res) => {
     const image = (req.file?.filename? req.file.filename: "")
-    const { _id, username, password, name, classId, roles, active} = req.body
-    if (!_id || !username  || !name||!classId) {
+    const { _id, username, password, name, classId, active} = req.body
+    if (!_id || !username  || !name) {
         return res.status(400).json({
             error: true,
             massage: 'Id, user name, password, name, class and roles are required',
@@ -88,14 +88,23 @@ const updateUser = async (req, res) => {
             data: null
         })
     }
+    if (!classId&&user.roles==='Student') {
+        return res.status(400).json({
+            error: true,
+            massage: 'Class is required',
+            data: null
+        })
+    }
     if(password){
         const hashPwd = await bcrypt.hash(password, 10)
         user.password=hashPwd
     }
+    if(user.roles==='Student'){
+        user.class = classId;
+        user.roles = 'Student'
+    }
     user.username = username;
     user.name = name;
-    user.class = classId;
-    user.roles = roles;
     user.active = active;
     if(image){
         user.image = image

@@ -1,14 +1,7 @@
 const Dictation = require("../models/Dictation")
-//const User = require("../models/User")
-// const getAllDictations = async (req, res) => {
-//     const dictations = await Dictation.find({}).lean()
-//     if (!dictations.length) {
-//         return res.status(400).json({ massage: 'No dictations found' })
-//     }
-//     res.json(dictations)
-// }
+
 const getAllDraftsDictations = async (req, res) => {
-    const dictations = await Dictation.find({ sentToStudents:false }).populate("class").lean()
+    const dictations = await Dictation.find({ sentToStudents:false }).sort({ createdAt: -1 }).populate("class").lean()
     if (!dictations.length) {
         return res.status(400).json({
             error: true,
@@ -23,7 +16,7 @@ const getAllDraftsDictations = async (req, res) => {
     })
 }
 const getAllSentDictations = async (req, res) => {
-    const dictations = await Dictation.find({ sentToStudents:true }).populate("class").lean()
+    const dictations = await Dictation.find({ sentToStudents:true }).sort({ sentDate: -1 }).populate("class").lean()
     if (!dictations.length) {
         return res.status(400).json({
             error: true,

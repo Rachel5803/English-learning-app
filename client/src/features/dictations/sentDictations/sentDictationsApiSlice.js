@@ -1,12 +1,6 @@
 import apiSlice from "../../../app/apiSlice"
 const sentDictaionsApiSlice = apiSlice.injectEndpoints({
     endpoints: (build) =>({
-        getAllSentDictations:build.query({
-            query:()=>({
-                url: "/api/dictations/sent"
-            }),
-            providesTags:["Dictations"]
-        }),
         getAllSentDictationsFromAllUsers:build.query({
             query:()=>({
                 url: "/api/dictationForStudent"
@@ -51,7 +45,7 @@ const sentDictaionsApiSlice = apiSlice.injectEndpoints({
                 method: "POST",
                 body: dictation
             }),
-            invalidatesTags: ["Dictations","Drafts"]
+            invalidatesTags: ["SentDictations","Drafts"]
         }),
         updateDictationEndDateForAllUsers:build.mutation({
             query:(dictation)=>({

@@ -92,7 +92,7 @@ const StudentsListForDictation = () => {
                 <tbody>
                     {filteredData?.map((dictationFU) => (
                         <tr key={dictationFU._id}>
-                            <td>{dictationFU.user.name}</td>
+                            <td>{dictationFU.user?.name}</td>
                             <td  >{dictationFU.completed ? (
                                 <MdCheck />
                             ) : (

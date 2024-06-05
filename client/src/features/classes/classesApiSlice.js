@@ -7,6 +7,12 @@ const classesApiSlice = apiSlice.injectEndpoints({
             }),
             providesTags:["Classes"]
         }),
+        getAllActiveClasses:build.query({
+            query:()=>({
+                url: "/api/classes/active"
+            }),
+            providesTags:["ActiveClasses"]
+        }),
         addClass:build.mutation({
             query:(singleClass)=>({
                 url: "/api/classes",
@@ -21,7 +27,7 @@ const classesApiSlice = apiSlice.injectEndpoints({
                 method: "PUT",
                 body: singleClass
             }),
-            invalidatesTags: ["Classes"]
+            invalidatesTags: ["Classes","Users"]
         }),
         deleteClass:build.mutation({
             query:(_id)=>({
@@ -29,9 +35,9 @@ const classesApiSlice = apiSlice.injectEndpoints({
                 method: "Delete",
                 body: {_id}
             }),
-            invalidatesTags: ["Classes"]
+            invalidatesTags: ["Classes","Users"]
         })
         
     })
 })
-export const { useGetAllClassesQuery, useAddClassMutation, useUpdateClassMutation, useDeleteClassMutation}  = classesApiSlice
+export const { useGetAllClassesQuery,useGetAllActiveClassesQuery, useAddClassMutation, useUpdateClassMutation, useDeleteClassMutation}  = classesApiSlice

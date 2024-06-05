@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import Navbar from "../../navbar/Navbar"
+//import Navbar from "../../navbar/Navbar"
 import Footer from "../../footer/Footer"
 import SideBar from "../../sidebar/SideBar"
 import "./dash-layout.css"
@@ -10,7 +10,7 @@ const DashLayout = () => {
               <SideBar/>
             </div>
             <div className="content">
-                <Navbar />
+               
                 <Outlet />
                 <Footer />
             </div>

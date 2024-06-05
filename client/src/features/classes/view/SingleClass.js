@@ -58,6 +58,11 @@ const SingleClass = () => {
             name="schoolYear"
             placeholder="הכנס שנת לימוד"
           />
+           <label>פעיל?</label>
+                    <select name="active" id="active">
+                        <option value={true} selected={singleclass.active}>כן</option>
+                        <option value={false} selected={!singleclass.active}>לא</option>
+                    </select>
           <button>עדכן</button>
             </form>
         </div>

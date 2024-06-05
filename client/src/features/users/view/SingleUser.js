@@ -1,6 +1,6 @@
 import "./single-user.css"
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetAllClassesQuery } from "../../classes/classesApiSlice";
+import { useGetAllActiveClassesQuery } from "../../classes/classesApiSlice";
 import { useGetAllUsersQuery, useUpdateUserMutation } from "../usersApiSlice";
 import { useEffect } from "react";
 import useGetFilePath from "../../../hooks/useGetFilePath";
@@ -8,7 +8,7 @@ import useGetFilePath from "../../../hooks/useGetFilePath";
 const SingleUser = () => {
     const { userId } = useParams()
     const { data: usersObject, isError, error, isLoading, isSuccess } = useGetAllUsersQuery()
-    const { data: classes, isLoading: isClassesLoading } = useGetAllClassesQuery()
+    const { data: classes, isLoading: isClassesLoading } = useGetAllActiveClassesQuery()
     const [updateUser, { isSuccess: isUpdateSuccess }] = useUpdateUserMutation()
     const {getFilePath} = useGetFilePath()
     const navigate = useNavigate()
@@ -43,24 +43,20 @@ const SingleUser = () => {
                     <input name="_id" defaultValue={user._id} type="hidden" />
                     <label>שם משתמש</label>
                     <input readOnly={true} type="text" name="username" defaultValue={user.username} />
-                    <label>סיסמא</label>
+                    <label>סיסמא ריקה = ללא שינוי</label>
                     <input type="password" name="password" />
                     <label>שם מלא</label>
                     <input type="text" name="name" placeholder="שם מלא" defaultValue={user.name} />
                     <label>כיתה</label>
                     <select name="classId" id="classId" required>
                         {classes.data.map(oneClass => {
-                            return <option selected={oneClass._id === user.class?._id} value={oneClass._id}>{oneClass.school + " " + oneClass.grade + " " + oneClass.gradeNumber}</option>
+                            return <option selected={oneClass._id === user.class?._id} value={oneClass._id}>{oneClass.school + " " + oneClass.grade + " " + oneClass.gradeNumber+ " " + oneClass.schoolYear}</option>
 
                         })}
                     </select>
                     
                     
-                    <label>הרשאה</label>
-                    <select name="roles" id="roles">
-                        <option value="Teacher" selected={user.roles === "Teacher"}>מורה</option>
-                        <option value="Student" selected={user.roles === "Student"}>תלמידה</option>
-                    </select>
+                    
                     <label>פעיל?</label>
                     <select name="active" id="active">
                         <option value={true} selected={user.active}>כן</option>

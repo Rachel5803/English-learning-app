@@ -1,6 +1,22 @@
 const Class = require("../models/Class")
+const User = require("../models/User")
 const getClasses = async (req, res) => {
-    const classes = await Class.find({}).lean()
+    const classes = await Class.find({}).sort({active:-1}).lean()
+    if (!classes.length) {
+        return res.status(400).json({
+            error: true,
+            massage: 'No classes found',
+            data: null
+        })
+    }
+    res.json({
+        error: false,
+        message: '',
+        data: classes
+    })
+}
+const getActiveClasses = async (req, res) => {
+    const classes = await Class.find({ active: true }).lean()
     if (!classes.length) {
         return res.status(400).json({
             error: true,
@@ -15,8 +31,8 @@ const getClasses = async (req, res) => {
     })
 }
 const getClassesByYear = async (req, res) => {
-    const {schoolYear} = req.body
-    const classes = await Class.find({schoolYear}).lean()
+    const { schoolYear } = req.body
+    const classes = await Class.find({ schoolYear }).lean()
     if (!classes.length) {
         return res.status(400).json({
             error: true,
@@ -40,15 +56,15 @@ const getClassesByYear = async (req, res) => {
 
 // }
 const createNewClass = async (req, res) => {
-    const { school, grade, gradeNumber,schoolYear} = req.body
-    if (!school||!grade || !gradeNumber||!schoolYear) {
+    const { school, grade, gradeNumber, schoolYear, active } = req.body
+    if (!school || !grade || !gradeNumber || !schoolYear) {
         return res.status(400).json({
             error: true,
             massage: 'You need to press school, grade ,grade number and school year',
             data: null
         })
     }
-    const checkDouble = await Class.findOne({ school, grade, gradeNumber, schoolYear }).lean()
+    const checkDouble = await Class.findOne({ school, grade, gradeNumber, schoolYear, active }).lean()
     if (checkDouble) {
         return res.status(400).json({
             error: true,
@@ -57,7 +73,7 @@ const createNewClass = async (req, res) => {
         })
 
     }
-    const classCreate = await Class.create({ school, grade, gradeNumber,schoolYear })
+    const classCreate = await Class.create({ school, grade, gradeNumber, schoolYear, active })
     if (classCreate) {
         return res.json({
             error: false,
@@ -74,15 +90,15 @@ const createNewClass = async (req, res) => {
     }
 }
 const updateClass = async (req, res) => {
-    const { _id, school, grade, gradeNumber,schoolYear } = req.body
-    if (!_id || !school || !grade || !gradeNumber||!schoolYear) {
+    const { _id, school, grade, gradeNumber, schoolYear, active } = req.body
+    if (!_id || !school || !grade || !gradeNumber || !schoolYear) {
         return res.status(400).json({
             error: true,
             massage: 'Id, school, grade ,grade number and school year are required',
             data: null
         })
     }
-    const foundClass = await Class.findById( _id ).exec()
+    const foundClass = await Class.findById(_id).exec()
     if (!foundClass) {
         return res.status(400).json({
             error: true,
@@ -90,10 +106,37 @@ const updateClass = async (req, res) => {
             data: null
         })
     }
+    if (foundClass.active != active) {
+        const users = await User.find({ class: _id }, { password: 0 }).exec()
+        if (users.length) {
+            const updateUsers = await Promise.all(users.map(async (user) => {
+                user.active = active
+                const updateUser = await user.save()
+                if (!updateUser) {
+                    return res.status(400).json({
+                        error: true,
+                        massage: 'Something worng',
+                        data: null
+                    })
+                }
+                return updateUser
+            }))
+            if (!updateUsers) {
+
+                return res.status(400).json({
+                    error: true,
+                    massage: 'Something worng',
+                    data: null
+                })
+
+            }
+        }
+}
     foundClass.school = school
     foundClass.grade = grade
     foundClass.gradeNumber = gradeNumber
-    foundClass.schoolYear= schoolYear
+    foundClass.schoolYear = schoolYear
+    foundClass.active = active
     const updateClass = await foundClass.save();
     res.json({
         error: false,
@@ -110,6 +153,29 @@ const deleteClass = async (req, res) => {
             data: null
         })
     }
+    const users = await User.find({ class: _id }, { password: 0 }).exec()
+    if (users.length) {
+        const deleteUsers = await Promise.all(users.map(async (user) => {
+            const deleteUser = await user.deleteOne()
+            if (!deleteUser) {
+                return res.status(400).json({
+                    error: true,
+                    massage: 'Something worng',
+                    data: null
+                })
+            }
+            return deleteUser
+        }))
+        if (!deleteUsers) {
+
+            return res.status(400).json({
+                error: true,
+                massage: 'Something worng',
+                data: null
+            })
+
+        }
+    }
     const foundClass = await Class.findById(_id).exec()
     if (!foundClass) {
         return res.status(400).json({
@@ -125,4 +191,4 @@ const deleteClass = async (req, res) => {
         data: result
     })
 }
-module.exports = { getClasses,getClassesByYear, createNewClass, updateClass, deleteClass }
+module.exports = { getClasses, getActiveClasses, getClassesByYear, createNewClass, updateClass, deleteClass }

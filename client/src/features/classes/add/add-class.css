@@ -11,7 +11,8 @@
     justify-content: space-between;
 }
 
-.add-class-form input{
+.add-class-form input,
+.add-class-form select{
     padding: 30px;
     background-color: var(--bg);
     color: var(--text);
@@ -19,6 +20,8 @@
     margin-bottom: 30px;
     width: 45%;
 }
+
+ 
 .add-class-form button{
     width: 100%;
     padding: 30px;

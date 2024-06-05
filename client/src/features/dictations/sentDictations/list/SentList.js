@@ -1,13 +1,11 @@
 import "./sent-list.css"
 import { Link, useSearchParams } from 'react-router-dom';
-import { useState ,useEffect} from "react"
-import { useGetAllClassesQuery } from "../../../classes/classesApiSlice";
-import { useGetAllSentDictationsQuery, useUpdateDictationEndDateForAllUsersMutation } from "../sentDictationsApiSlice";
-import { useGetAllUsersQuery } from "../../../users/usersApiSlice";
+import { useState } from "react"
+import {useUpdateDictationEndDateForAllUsersMutation} from "../sentDictationsApiSlice";
+import {useGetAllSentDictationsQuery} from "../../draftsDictations/draftsApiSlice";
 import Search from "../../../../components/search/Search";
-
 import moment from 'moment';
-//import { useGetAllSentDictationsQuery } from "../../draftsDictations/draftsApiSlice";
+
 const SentList = () => {
     const { data: dictationsObject, isError, error, isLoading, isSuccess } = useGetAllSentDictationsQuery()
     const [updateEndDate, { isSuccess: isUpdateSuccess }] = useUpdateDictationEndDateForAllUsersMutation()
@@ -34,7 +32,8 @@ const handleDateChange = (newDate) => {
     
     if (isLoading) return <h1> Loading ...</h1>
     if (isError) return <h1>{JSON.stringify(error)}</h1>
-    const filteredData = !q ? [...dictationsObject.data] : dictationsObject.data.filter(dictation => (dictation.user.class.school + " " + dictation.user.class.grade?.indexOf(q) > -1) || (dictation.name.indexOf(q) > -1) || (dictation.user.name?.indexOf(q) > -1))
+    console.log("kkkk"+ dictationsObject.data[1]);
+    const filteredData = !q ? [...dictationsObject.data] : dictationsObject.data.filter(dictation => (dictation.class?.school + " " + dictation.class?.grade?.indexOf(q) > -1) || (dictation.name.indexOf(q) > -1) || (dictation.user?.name?.indexOf(q) > -1))
 
 
     return (

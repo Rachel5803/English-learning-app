@@ -56,11 +56,13 @@ const UserProfile = () => {
                 <input name="_id" defaultValue={user._id} type="hidden" />
                     <label>שם משתמש</label>
                     <input readOnly={true} type="text" name="username" defaultValue={user.username} />
-                    <label>סיסמא</label>
+                  <label>סיסמא ריקה = ללא שינוי</label>
                     <input type="password" name="password" />
                     <label>שם מלא</label>
                     <input type="text" name="name" placeholder="שם מלא" defaultValue={user.name} />
                     <input type="file"  name="image"/>
+                    <label>סטטוס</label>
+                    <input readOnly={true} type="text" name="roles" defaultValue={user.roles==='Teacher'?'מורה':'תלמידה'} />
                     <button>עדכן</button>
                 </form>
             </div>

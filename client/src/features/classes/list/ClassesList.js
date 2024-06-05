@@ -32,6 +32,7 @@ if(isLoading) return <h1> Loading ...</h1>
                      <td>כיתה </td>
                     <td>מספר כיתה </td>
                     <td>שנת לימודים</td>
+                    <td>פעיל</td>
                     <td>נוצר ב </td>
                    
                 </tr>
@@ -51,6 +52,9 @@ if(isLoading) return <h1> Loading ...</h1>
                         <td>
                             {oneClass.schoolYear}
                         </td>
+                        <td>
+                            {oneClass.active ? "כן" : "לא"}
+                            </td>
                         <td>
                         <td>{moment(oneClass.createdAt).format('DD/MM/YYYY')}</td>
                         </td>
