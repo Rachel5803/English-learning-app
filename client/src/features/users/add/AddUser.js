@@ -40,7 +40,7 @@ const AddUser = () => {
       <input type="text" placeholder="name" name="name" required />
       <select name="classId" id="classId" required>
         <option> בחר כיתה</option>
-        {classesObject.data?.map(oneClass=>{
+        {classesObject?.data?.map(oneClass=>{
           return <option value={oneClass._id}>{oneClass.school+" "+ oneClass.grade+" "+oneClass.gradeNumber+" "+oneClass.schoolYear}</option>
         })}
       </select>

@@ -53,7 +53,7 @@ const sentDictaionsApiSlice = apiSlice.injectEndpoints({
                 method: "PUT",
                 body: dictation
             }),
-            invalidatesTags: ["Dictations"]
+            invalidatesTags: ["Dictations","SentDictations"]
         }),
         updateDictationForSpecificUser:build.mutation({
             query:(dictation)=>({

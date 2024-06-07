@@ -77,3 +77,6 @@ sent-dictations-list-top{
     cursor: pointer;
     width: 15vw;
 }
+.sent-dictations-list-delete{
+    background-color: crimson;
+  }

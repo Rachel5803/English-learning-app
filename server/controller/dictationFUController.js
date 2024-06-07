@@ -9,7 +9,7 @@ const getAllDictationsForSpecificUser = async (req, res) => {
     if (!dictations.length) {
         return res.status(400).json({
             error: true,
-            massage: 'אין הכתבות קיימות למשתמש זה',
+            massage: 'לא נמצאו הכתבות',
             data: null
         })
     }
@@ -27,7 +27,7 @@ const getNotCompletedDictationsForSpecificUser = async (req, res) => {
     if (!dictations.length) {
         return res.status(400).json({
             error: true,
-            massage: 'No dictations found',
+            massage: 'לא נמצאו הכתבות',
             data: null
         })
     }
@@ -48,7 +48,7 @@ const getCompletedDictationsForSpecificUser = async (req, res) => {
     if (!dictations.length) {
         return res.status(400).json({
             error: true,
-            massage: 'No dictations found',
+            massage: 'לא נמצאו ציונים',
             data: null
         })
     }

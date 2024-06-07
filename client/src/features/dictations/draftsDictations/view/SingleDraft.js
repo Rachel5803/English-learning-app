@@ -3,7 +3,7 @@ import "./single-draft.css"
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useGetAllDraftsQuery, useUpdateDraftMutation } from "../draftsApiSlice";
-import { useGetAllClassesQuery } from "../../../classes/classesApiSlice";
+import { useGetAllActiveClassesQuery } from "../../../classes/classesApiSlice";
 import { format } from 'date-fns';
 const SingleDraft = () => {
 
@@ -11,7 +11,7 @@ const SingleDraft = () => {
     const { data: draftsObject, isError, error, isLoading, isSuccess } = useGetAllDraftsQuery()
     const [newInputsArray, setNewInputsArray] = useState([])
     //const newInpuesArray=[]
-    const { data: classes, isLoading: isClassesLoading } = useGetAllClassesQuery()
+    const { data: classes, isLoading: isClassesLoading } = useGetAllActiveClassesQuery()
     const [updateDraft, { isSuccess: isUpdateSuccess }] = useUpdateDraftMutation()
     const navigate = useNavigate()
     useEffect(() => {
@@ -74,7 +74,7 @@ const SingleDraft = () => {
                     </select>
                     <label>תאריך הגשה</label>
                     <input
-                        defaultValue={DateTimeFormatter(singledraft.endDate)}
+                        defaultValue={singledraft.endDate?DateTimeFormatter(singledraft.endDate):"dd/mm/yyyy"}
                         
                         type="date"
 

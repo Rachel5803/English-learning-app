@@ -4,6 +4,16 @@
     border-radius: 10px;
     margin-top: 20px;
 }
+.error-classes-list{
+    background-color: var(--bgSoft);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
 .classes-list-top{
     display: flex;
     align-items: center;
@@ -19,6 +29,7 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
 .classes-list-table{
     width: 100%;
 }

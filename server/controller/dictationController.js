@@ -1,11 +1,11 @@
 const Dictation = require("../models/Dictation")
-
+const DictationForUser = require("../models/DictationForUser")
 const getAllDraftsDictations = async (req, res) => {
     const dictations = await Dictation.find({ sentToStudents:false }).sort({ createdAt: -1 }).populate("class").lean()
     if (!dictations.length) {
         return res.status(400).json({
             error: true,
-            massage: 'No dictations found',
+            massage: 'לא נמצאו טיוטות',
             data: null
         })
     }
@@ -20,7 +20,7 @@ const getAllSentDictations = async (req, res) => {
     if (!dictations.length) {
         return res.status(400).json({
             error: true,
-            massage: 'No dictations found',
+            massage: 'לא נמצאו הכתבות שנשלחו לתלמידים',
             data: null
         })
     }
@@ -123,7 +123,31 @@ const deleteDictation = async (req, res) => {
             data: null
         })
     }
-    //כאן תהיה בדיקה אם כבר נשלחו הכתבות לתלמידות
+    //
+    const dictationsFU = await DictationForUser.find({ dictation: _id }).exec()
+    if (dictationsFU.length) {
+        const deleteDictations = await Promise.all(dictationsFU.map(async (dictFU) => {
+            const deleteDictFU = await dictFU.deleteOne()
+            if (!deleteDictFU) {
+                return res.status(400).json({
+                    error: true,
+                    massage: 'Something worng',
+                    data: null
+                })
+            }
+            return deleteDictFU
+        }))
+        if (!deleteDictations) {
+
+            return res.status(400).json({
+                error: true,
+                massage: 'Something worng',
+                data: null
+            })
+
+        }
+    }
+    //
     const dictation = await Dictation.findById(_id).exec()
     if (!dictation) {
         return res.status(400).json({

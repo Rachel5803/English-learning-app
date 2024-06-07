@@ -13,7 +13,7 @@ const getUsers = async (req, res) => {
     if (!users.length) {
         return res.status(400).json({
             error: true,
-            massage: 'No users found',
+            massage: 'לא נמצאו משתמשים',
             data: null
         })
     }

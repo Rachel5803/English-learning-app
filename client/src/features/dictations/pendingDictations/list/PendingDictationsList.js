@@ -30,12 +30,12 @@ const PendingDictationsList = () => {
         }
     }, [])
     const confrimStartDictation = (dictationFU) => {
-        if(window.confirm("Are you sure you want to start answering the dictation?")){
+        if(window.confirm("בטוח שברצונך להתחיל ניסיון מענה?")){
             navigate(`/dash/dictations/to/answer/${dictationFU._id}`);
         }
     };
-    if (isLoading) return <h1> Loading ...</h1>
-    if (isError) return <h1>{JSON.stringify(error)}</h1>
+    if (isLoading) return <h1> טוען נתונים</h1>
+    if (isError) return  <h1>{error.data.massage}</h1>
     const filteredData = dictationsObject ? (q ? dictationsObject.data.filter(dictation => (dictation.name?.indexOf(q) > -1)) : dictationsObject.data) : [];
     return (
         <div className="dictations-for-student-list">

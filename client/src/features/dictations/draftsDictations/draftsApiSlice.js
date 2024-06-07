@@ -27,7 +27,7 @@ const draftsApiSlice = apiSlice.injectEndpoints({
                 method: "PUT",
                 body: singleDraft
             }),
-            invalidatesTags: ["Drafts"]
+            invalidatesTags: ["Drafts","SentDictations"]
         }),
         deleteDraft: build.mutation({
             query: (_id) => ({
@@ -35,7 +35,7 @@ const draftsApiSlice = apiSlice.injectEndpoints({
                 method: "Delete",
                 body: { _id }
             }),
-            invalidatesTags: ["Drafts"]
+            invalidatesTags: ["SentDictations","Drafts"]
         })
 
     })

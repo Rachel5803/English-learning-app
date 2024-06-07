@@ -1,6 +1,6 @@
 import React from 'react'
 import "./drafts-list.css"
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom"
 import Search from '../../../../components/search/Search';
 import { useDeleteDraftMutation, useGetAllDraftsQuery } from '../draftsApiSlice';
@@ -8,7 +8,7 @@ import { useAddNewDictationsFUMutation } from '../../sentDictations/sentDictatio
 import moment from 'moment';
 const DraftsList = () => {
     const { data: draftsObject, isError, error, isLoading, isSuccess } = useGetAllDraftsQuery()
-    const [sentDictationForUsers, { isSuccess: isSentSuccess, isError:isSentError, error:sentError}] = useAddNewDictationsFUMutation()
+    const [sentDictationForUsers, { isSuccess: isSentSuccess, isError: isSentError, error: sentError }] = useAddNewDictationsFUMutation()
     const [deleteDraft, { isSuccess: isDeleteSuccess }] = useDeleteDraftMutation()
     const [searchParams] = useSearchParams()
     const q = searchParams.get("q")
@@ -27,13 +27,18 @@ const DraftsList = () => {
     const sentClick = (singleDraft) => {
         console.log(singleDraft);
         if (window.confirm("בטוח שברצונך לשלוח את ההכתבה לכל התלמידים?")) {
-            sentDictationForUsers({dictationId:singleDraft._id,dictationWords:singleDraft.dictationWords
-                ,dictationClass:singleDraft.class._id,endDate:singleDraft.endDate,limitTime:singleDraft.limitTime})
+            sentDictationForUsers({
+                dictationId: singleDraft._id, dictationWords: singleDraft.dictationWords
+                , dictationClass: singleDraft.class._id, endDate: singleDraft.endDate, limitTime: singleDraft.limitTime
+            })
         }
 
     }
     if (isLoading) return <h1> Loading ...</h1>
-    if (isError) return <h1>{JSON.stringify(error)}</h1>
+    if (isError) return <div className="error-drafts-list"><h1>{error.data.massage}</h1>
+        <Link to="/dash/dictations/drafts/add" className="dictation-list-add-button">
+            צור הכתבה חדשה
+        </Link></div>
     const filteredData = !q ? [...draftsObject.data] : draftsObject.data.filter(singleDraft => singleDraft.name.indexOf(q) > -1)
     return (
         <div className='drafts-dictations-list'>
@@ -61,7 +66,7 @@ const DraftsList = () => {
                                 {draft.class?.school + " " + draft.class?.grade + " " + draft.class?.gradeNumber}
                             </td>
                             <td>
-                            <td>{draft.createdAt? moment(draft.createdAt).format('DD/MM/YYYY'):""}</td>
+                                <td>{draft.createdAt ? moment(draft.createdAt).format('DD-MM-YYYY') : ""}</td>
                             </td>
                             <td>
                                 <div className="drafts-list-buttons">
@@ -69,7 +74,7 @@ const DraftsList = () => {
                                     <Link to={`/dash/dictations/drafts/${draft._id}`} className="drafts-list-button drafts-list-view">
                                         צפייה
                                     </Link>
-                                    <button  onClick={() => { sentClick(draft) }}className="drafts-list-button drafts-list-sent">
+                                    <button onClick={() => { sentClick(draft) }} className="drafts-list-button drafts-list-sent">
                                         שלח לתלמידים
                                     </button>
                                     <button onClick={() => { deleteClick(draft) }} className="drafts-list-button drafts-list-delete">

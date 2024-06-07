@@ -19,7 +19,7 @@ const classesApiSlice = apiSlice.injectEndpoints({
                 method: "POST",
                 body: singleClass
             }),
-            invalidatesTags: ["Classes"]
+            invalidatesTags: ["Classes","ActiveClasses"]
         }),
         updateClass:build.mutation({
             query:(singleClass)=>({
@@ -27,7 +27,7 @@ const classesApiSlice = apiSlice.injectEndpoints({
                 method: "PUT",
                 body: singleClass
             }),
-            invalidatesTags: ["Classes","Users"]
+            invalidatesTags: ["Classes","Users","ActiveClasses"]
         }),
         deleteClass:build.mutation({
             query:(_id)=>({
@@ -35,7 +35,7 @@ const classesApiSlice = apiSlice.injectEndpoints({
                 method: "Delete",
                 body: {_id}
             }),
-            invalidatesTags: ["Classes","Users"]
+            invalidatesTags: ["Classes","Users","ActiveClasses"]
         })
         
     })

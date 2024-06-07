@@ -25,8 +25,8 @@ const CompletedDictationsList = () => {
             getAllCompleteDictationsForUser({ user:_id})
         }
     }, [])
-    if (isLoading) return <h1> Loading ...</h1>
-    if (isError) return <h1>{JSON.stringify(error)}</h1>
+    if (isLoading) return <h1> טוען נתונים</h1>
+    if (isError) return  <h1>{error.data.massage}</h1>
     const filteredData = dictationsObject ? (q ? dictationsObject.data.filter(dictation => (dictation.name?.indexOf(q) > -1)) : dictationsObject.data) : [];
     return (
         <div className="complete-dictations-for-student-list">
