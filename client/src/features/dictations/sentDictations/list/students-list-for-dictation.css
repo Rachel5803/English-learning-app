@@ -77,3 +77,6 @@ sent-dictation-from-all-users-list-top{
     cursor: pointer;
     width: 15vw;
 }
+.sent-dictations-from-all-users-list-close{
+    width: 20px;
+}

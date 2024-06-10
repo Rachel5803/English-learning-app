@@ -5,7 +5,8 @@ import { useUpdateDictationEndDateForAllUsersMutation } from "../sentDictationsA
 import { useDeleteDraftMutation, useGetAllSentDictationsQuery } from "../../draftsDictations/draftsApiSlice";
 import Search from "../../../../components/search/Search";
 import moment from 'moment';
-
+import { format } from 'date-fns';
+import { MdOutlineCancelPresentation } from "react-icons/md";
 const SentList = () => {
     const { data: dictationsObject, isError, error, isLoading, isSuccess } = useGetAllSentDictationsQuery()
     const [updateEndDate, { isSuccess: isUpdateSuccess }] = useUpdateDictationEndDateForAllUsersMutation()
@@ -15,6 +16,14 @@ const SentList = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [specificDictation, setSpecificDictation] = useState("");
     const [updateDate, setUpdateDate] = useState(new Date());
+    const DateTimeFormatter = (endDate) => {
+        if (!endDate) {
+            const today = new Date();
+            return format(today, 'yyyy-MM-dd')
+        }
+        const date = new Date(endDate);
+        return date.toISOString().split('T')[0]
+    }
     const showDateInput = (dictation) => {
         setIsModalOpen(!isModalOpen)
         setSpecificDictation(dictation)
@@ -94,11 +103,12 @@ const SentList = () => {
                                             <input
                                                 type="date"
                                                 name="endDate"
-                                                placeholder="בחר תאריך הגשה"
+                                                defaultValue={dictationFU.endDate?DateTimeFormatter(dictationFU.endDate):"dd/mm/yyyy"}
                                                 className='sent-dictations-list-date-input '
                                                 onChange={(e) => { handleDateChange(e.target.value) }}
                                             />
                                             <button className='sent-dictations-list-update-date' onClick={() => { clickUpdate(dictationFU) }}>עדכן</button>
+                                            <button className='sent-dictations-list-update-date-close' onClick={() => { setIsModalOpen(!isModalOpen) }}><MdOutlineCancelPresentation /></button>
                                         </div>
                                     )}
                                     <button onClick={() => { deleteClick(dictationFU) }} className="sent-dictations-button sent-dictations-list-delete">

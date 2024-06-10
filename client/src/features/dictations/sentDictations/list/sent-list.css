@@ -80,3 +80,6 @@ sent-dictations-list-top{
 .sent-dictations-list-delete{
     background-color: crimson;
   }
+.sent-dictations-list-update-date-close{
+    width: 20px;
+}

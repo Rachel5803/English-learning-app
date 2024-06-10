@@ -1,7 +1,9 @@
 const Class = require("../models/Class")
 const User = require("../models/User")
+const DictationForUser = require("../models/DictationForUser")
+const Dictation = require("../models/Dictation")
 const getClasses = async (req, res) => {
-    const classes = await Class.find({}).sort({active:-1}).lean()
+    const classes = await Class.find({}).sort({ active: -1 }).lean()
     if (!classes.length) {
         return res.status(400).json({
             error: true,
@@ -131,7 +133,7 @@ const updateClass = async (req, res) => {
 
             }
         }
-}
+    }
     foundClass.school = school
     foundClass.grade = grade
     foundClass.gradeNumber = gradeNumber
@@ -153,9 +155,26 @@ const deleteClass = async (req, res) => {
             data: null
         })
     }
+    const foundClass = await Class.findById(_id).exec()
+    if (!foundClass) {
+        return res.status(400).json({
+            error: true,
+            massage: 'No class found',
+            data: null
+        })
+    }
+
     const users = await User.find({ class: _id }, { password: 0 }).exec()
     if (users.length) {
-        const deleteUsers = await Promise.all(users.map(async (user) => {
+        const deleteDictationsAndUsers = await Promise.all(users.map(async (user) => {
+         const deleteDictsForUser= await DictationForUser.deleteMany({ user:user._id })
+         if (!deleteDictsForUser) {
+            return res.status(400).json({
+                error: true,
+                massage: 'Something worng',
+                data: null
+            })
+        }
             const deleteUser = await user.deleteOne()
             if (!deleteUser) {
                 return res.status(400).json({
@@ -166,7 +185,7 @@ const deleteClass = async (req, res) => {
             }
             return deleteUser
         }))
-        if (!deleteUsers) {
+        if (!deleteDictationsAndUsers) {
 
             return res.status(400).json({
                 error: true,
@@ -176,14 +195,24 @@ const deleteClass = async (req, res) => {
 
         }
     }
-    const foundClass = await Class.findById(_id).exec()
-    if (!foundClass) {
-        return res.status(400).json({
-            error: true,
-            massage: 'No class found',
-            data: null
-        })
-    }
+    // const deleteUsers = await User.deleteMany({ class: _id });
+    // if (!deleteUsers) {
+
+    //     return res.status(400).json({
+    //         error: true,
+    //         massage: 'Something worng',
+    //         data: null
+    //     })
+
+    // }
+    const deleteSentDictations= await Dictation.deleteMany({ class:_id })
+    if (!deleteSentDictations) {
+       return res.status(400).json({
+           error: true,
+           massage: 'Something worng',
+           data: null
+       })
+   }
     const result = await foundClass.deleteOne()
     res.json({
         error: false,

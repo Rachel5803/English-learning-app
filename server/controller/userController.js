@@ -182,28 +182,15 @@ const deleteUser = async (req, res) => {
             data: null
         })
     }
-    const dictationsFU = await DictationForUser.find({ user:_id }).exec()
-    if (dictationsFU.length) {
-        const deleteDictations = await Promise.all(dictationsFU.map(async (dictFU) => {
-            const deleteDictFU = await dictFU.deleteOne()
-            if (!deleteDictFU) {
-                return res.status(400).json({
-                    error: true,
-                    massage: 'Something worng',
-                    data: null
-                })
-            }
-            return deleteDictFU
-        }))
-        if (!deleteDictations) {
-            return res.status(400).json({
-                error: true,
-                massage: 'Something worng',
-                data: null
-            })
+    const deleteDictations = await DictationForUser.deleteMany({ user:_id })
+     if (!deleteDictations) {
+        return res.status(400).json({
+            error: true,
+            massage: 'Something worng',
+            data: null
+        })
 
-        }
-     }
+    }
     const result = await foundUser.deleteOne()
     res.json({
         error: false,

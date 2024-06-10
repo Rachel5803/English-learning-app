@@ -10,7 +10,8 @@ import Search from "../../../../components/search/Search";
 import { MdCheck, MdClose } from "react-icons/md";
 import moment from 'moment';
 import { useNavigate, useParams } from "react-router-dom";
-
+import { format } from 'date-fns';
+import { MdOutlineCancelPresentation } from "react-icons/md";
 const StudentsListForDictation = () => {
     const { dictationId } = useParams()
     const [updateSingleDictation, { isSuccess: isUpdateSuccess }] = useUpdateDictationForSpecificUserMutation()
@@ -34,6 +35,14 @@ const StudentsListForDictation = () => {
             getAllStudentsDictations({ dictation: dictationId })
         }
     }, [isUpdateSuccess])
+    const DateTimeFormatter = (endDate) => {
+        if (!endDate) {
+            const today = new Date();
+            return format(today, 'yyyy-MM-dd')
+        }
+        const date = new Date(endDate);
+        return date.toISOString().split('T')[0]
+    }
     const showDateInput = (dictation) => {
         setIsModalDateOpen(!isModalDateOpen)
         setSpecificDictation(dictation)
@@ -119,11 +128,12 @@ const StudentsListForDictation = () => {
                                             <input
                                                 type="date"
                                                 name="endDate"
-                                                placeholder="בחר תאריך הגשה"
+                                                defaultValue={dictationFU.endDate?DateTimeFormatter(dictationFU.endDate):"dd/mm/yyyy"}
                                                 className='sent-dictation-from-all-users-list-change-input '
                                                 onChange={(e) => { handleDateChange(e.target.value) }}
                                             />
                                             <button className='sent-dictation-from-all-users-list-update' onClick={() => { clickUpdateDate(dictationFU) }}>עדכן</button>
+                                            <button className='sent-dictations-from-all-users-list-close' onClick={() => { setIsModalDateOpen(!isModalDateOpen) }}><MdOutlineCancelPresentation /></button>
                                         </div>
                                     )}
                                     {isModalScoreOpen && dictationFU === specificDictation && (
@@ -137,6 +147,8 @@ const StudentsListForDictation = () => {
                                                 onChange={(e) => { handleScoreChange(e.target.value) }}
                                             />
                                             <button className='sent-dictation-from-all-users-list-update' onClick={() => { clickUpdateScore(dictationFU) }}>עדכן</button>
+                                            <button className='sent-dictations-from-all-users-list-close' onClick={() => { setIsModalScoreOpen(!isModalScoreOpen) }}><MdOutlineCancelPresentation /></button>
+                                           
                                         </div>
                                     )}
 
