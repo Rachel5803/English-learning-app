@@ -35,7 +35,7 @@ const classesApiSlice = apiSlice.injectEndpoints({
                 method: "Delete",
                 body: {_id}
             }),
-            invalidatesTags: ["Classes","Users","ActiveClasses","SentDictations"]
+            invalidatesTags: ["Classes","Users","ActiveClasses","SentDictations","Drafts"]
         })
         
     })

@@ -59,7 +59,8 @@ const AddDraft = () => {
                 />
 <label>בחר כיתה</label>
                 <select name="classId" id="classId" required>
-                    {classesObject.data?.map(oneClass => {
+                
+                    {classesObject?.data?.map(oneClass => {
                         return <option value={oneClass._id}>{oneClass.school + " " + oneClass.grade + " " + oneClass.gradeNumber + " " + oneClass.schoolYear}</option>
                     })}
                 </select>

@@ -59,7 +59,7 @@ const UserProfile = () => {
                   <label>סיסמא ריקה = ללא שינוי</label>
                     <input type="password" name="password" />
                     <label>שם מלא</label>
-                    <input type="text" name="name" placeholder="שם מלא" defaultValue={user.name} />
+                    <input type="text" name="name" placeholder="שם מלא" defaultValue={user.name} required/>
                     <input type="file"  name="image"/>
                     <label>סטטוס</label>
                     <input readOnly={true} type="text" name="roles" defaultValue={user.roles==='Teacher'?'מורה':'תלמידה'} />

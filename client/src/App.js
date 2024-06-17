@@ -22,6 +22,7 @@ import PendingDictationsList from "./features/dictations/pendingDictations/list/
 import CompletedDictationsList from "./features/dictations/completedDictations/list/CompletedDictationsList";
 import SingleUserGrades from "./features/users/view/SingleUserGrades";
 import UserProfile from "./features/users/view/UserProfile";
+import Dashboard from "./components/dashboard/Dashboard";
 function App() {
   return (
     <div >
@@ -33,7 +34,7 @@ function App() {
             <Route element={<PersistLogin />}>
               <Route element={<RequireAuth allowRoles={["Teacher", "Student"]} />}>
                 <Route path="/dash" element={<DashLayout />}>
-                  <Route index element={<h1>dashboard</h1>} />
+                  <Route index element={<Dashboard/>} />
                   <Route path="profile" element={<UserProfile/>} />
                   <Route path="dictations/sent/words/:dictationId" element={<SingleDictationWords />} />
                   <Route path="dictations/sent/answers/:dictationId" element={<SingleDictationAnswers />} />

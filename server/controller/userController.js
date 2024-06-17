@@ -52,7 +52,11 @@ const createNewUser = async (req, res) => {
     }
     const checkDouble = await User.findOne({ username}).lean()
     if (checkDouble) {
-        return res.status(400).json({ massage: 'The username exists in the system, press a unique username' })
+        return res.status(400).json({
+            error: true,
+            massage: 'שם המשתמש קיים במערכת, הקש שם משתמש ייחודי',
+            data: null
+        })
     }
     const hashPwd = await bcrypt.hash(password, 10)
     const user = await User.create({ username, password: hashPwd, name, class:classId,  roles:'Student', active, image })

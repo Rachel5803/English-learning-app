@@ -64,6 +64,7 @@ const SingleDraft = () => {
                         type="text"
                         name="name"
                         placeholder="הכנס שם הכתבה"
+                        required
                     />
                     <label>כיתה</label>
                     <select name="classId" id="classId" required>

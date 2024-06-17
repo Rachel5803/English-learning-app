@@ -15,6 +15,14 @@ const AddUser = () => {
     }
 
   }, [isSuccess])
+  useEffect(()=>{
+    if(isError){
+      // return <h1>{error.data.massage}</h1> 
+      //console.log(error.data.massage);
+      window.alert(error.data.massage)
+    }
+
+  }, [isError])
   const formSubmit = (e) =>{
     e.preventDefault()
       const data = new FormData(e.target)
@@ -39,7 +47,7 @@ const AddUser = () => {
       />
       <input type="text" placeholder="name" name="name" required />
       <select name="classId" id="classId" required>
-        <option> בחר כיתה</option>
+        <option value=""> בחר כיתה</option>
         {classesObject?.data?.map(oneClass=>{
           return <option value={oneClass._id}>{oneClass.school+" "+ oneClass.grade+" "+oneClass.gradeNumber+" "+oneClass.schoolYear}</option>
         })}

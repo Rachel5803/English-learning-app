@@ -117,14 +117,14 @@ const getDictationFUById = async (req, res) => {
 //שליחת הכתבה שנוצרה לכל התלמידות בכיתה
 const createNewDictationsForUsers = async (req, res) => {
     const { dictationId, dictationWords, dictationClass,  endDate,limitTime } = req.body
-    if (!dictationId || !dictationWords || !dictationClass|| !endDate|| !limitTime) {
+    if (!dictationId || !dictationWords.length || !dictationClass|| !endDate|| !limitTime) {
         return res.status(400).json({
             error: true,
             massage: 'יש למלא את כל פרטי ההכתבה לפני השליחה',
             data: null
         })
     }
-    const beginDate = new Date();
+    // const beginDate = new Date();
     const users = await User.find({ class: dictationClass }, { _id: 1 }).lean()
     if (!users.length) {
         return res.status(400).json({
@@ -136,7 +136,8 @@ const createNewDictationsForUsers = async (req, res) => {
     const dictationsForUsers = await Promise.all(users.map(async (user) => {
         const dictationFU = await DictationForUser.create({
             dictation: dictationId,
-            user: user._id, dictationWords, beginDate, endDate
+            user: user._id, dictationWords, endDate
+            // , beginDate
         })
         if (!dictationFU) {
             return res.status(400).json({

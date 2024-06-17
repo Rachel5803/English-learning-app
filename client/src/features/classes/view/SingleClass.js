@@ -36,6 +36,7 @@ const SingleClass = () => {
             type="text"
             name="school"
             placeholder="הכנס שם בית ספר"
+            required
           />
           <label>כיתה</label>
           <input
@@ -43,6 +44,7 @@ const SingleClass = () => {
             type="text"
             name="grade"
             placeholder="הכנס כיתה"
+            required
           />
           <label>מספר כיתה</label>
           <input
@@ -50,6 +52,7 @@ const SingleClass = () => {
             type="number"
             name="gradeNumber"
             placeholder="הכנס מספר כיתה"
+            required
           />
           <label>שנת לימוד</label>
            <input
@@ -57,6 +60,7 @@ const SingleClass = () => {
             type="text"
             name="schoolYear"
             placeholder="הכנס שנת לימוד"
+            required
           />
            <label>פעיל?</label>
                     <select name="active" id="active">
