@@ -10,14 +10,14 @@ const User = require("../../models/firstModels/User")
 const getDictationsForSpecificGrade = async (req, res) => {
     const dictations = await Dictation.find({ school: req.body.school, grade: req.body.grade, gradeNumber: req.body.gradeNumber }).lean()
     if (!dictations.length) {
-        return res.status(400).json({ massage: 'No dictations found' })
+        return res.status(400).json({ massage: 'לא נמצאו הכתבות' })
     }
     res.json(dictations)
 }
 const createNewDictation = async (req, res) => {
     const { name, school, grade, gradeNumber} = req.body
     if (!name || !school || !grade || !gradeNumber) {
-        return res.status(400).json({ message: 'you need to press name, school, grade and gradeNumber' })
+        return res.status(400).json({ message: 'יש למלא את כל שדות החובה' })
     }
     const dateOfSubmission = new Date();
     dateOfSubmission.setDate(dateOfSubmission.getDate() + 7);
@@ -32,17 +32,17 @@ const createNewDictation = async (req, res) => {
         return res.status(201).json(dictation._id)
     }
     else {
-        return res.status(400).json({ massage: 'Invalid dictation' })
+        return res.status(400).json({ massage: 'שגיאה זמנית. נסו שוב מאוחר יותר' })
     }
 }
 const updateWordDictation = async (req, res) => {
     const { id, words} = req.body
     const dictation = await Dictation.findOne({ _id: id}).exec()
     if (!dictation) {
-        return res.status(400).json({ massage: 'Dictation not found' })
+        return res.status(400).json({ massage: 'לא נמצאה הכתבה מתאימה' })
     }
     dictation.words = [...words];
     const updateDictation= await dictation.save();
-    res.json(`'${dictation.name}' updated`)
+    res.json(`'${dictation.name}' עודכנה`)
 }
 module.exports = {getDictationsForSpecificGrade,createNewDictation,updateWordDictation}

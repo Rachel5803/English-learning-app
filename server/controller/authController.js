@@ -8,7 +8,7 @@ const login = async (req,res) =>{
     if(!username || !password) {
         return res.status(401).json({
             error: true,
-            message: "All fields are required",
+            message: "יש למלא את כל השדות",
             data: null
         })
     }
@@ -17,7 +17,7 @@ const login = async (req,res) =>{
     if(!foundUser) {
         return res.status(401).json({
             error: true,
-            message: "Unauthorized",
+            message: "אחד מהנתונים שגוי",
             data: null
         })
     }
@@ -25,7 +25,7 @@ const login = async (req,res) =>{
     if(!match) {
         return res.status(401).json({
             error: true,
-            message: "Unauthorized",
+            message: "אחד מהנתונים שגוי",
             data: null
         })
     }

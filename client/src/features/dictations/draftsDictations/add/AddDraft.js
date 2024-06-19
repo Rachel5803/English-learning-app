@@ -46,7 +46,7 @@ const AddDraft = () => {
 
 
     }
-    if (isClassesLoading) return <h1> Loading ...</h1>
+    if (isClassesLoading) return <div className="error-page"> Loading ...</div>
     return (
         <div className="add-draft-container">
             <form onSubmit={formSubmit} className="add-draft-form">

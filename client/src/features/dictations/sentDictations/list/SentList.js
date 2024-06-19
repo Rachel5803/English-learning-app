@@ -47,7 +47,7 @@ const SentList = () => {
 
     }
 
-    if (isLoading) return <h1> Loading ...</h1>
+    if (isLoading) return <div className="error-page"> Loading ...</div>
     if (isError) return <div className="error-drafts-list">
         <h1>{error.data.massage}</h1>
    </div>
@@ -57,10 +57,10 @@ const SentList = () => {
 
     return (
         <div className="sent-dictations-list">
-
             <div className="sent-dictations-list-top">
                 <Search placeholder="Search for a dictation..." />
             </div>
+            <h1 className="sent-dictations-list-title">הכתבות שנשלחו</h1>
             <table className="sent-dictations-list-table">
                 <thead>
                     <tr>

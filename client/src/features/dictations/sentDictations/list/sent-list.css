@@ -83,3 +83,8 @@ sent-dictations-list-top{
 .sent-dictations-list-update-date-close{
     width: 20px;
 }
+.sent-dictations-list-title{
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: lighter;
+}

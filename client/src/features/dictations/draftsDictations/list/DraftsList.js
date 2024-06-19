@@ -34,7 +34,7 @@ const DraftsList = () => {
         }
 
     }
-    if (isLoading) return <h1> Loading ...</h1>
+    if (isLoading) return <div className="error-page"> Loading ...</div>
     if (isError) return <div className="error-drafts-list"><h1>{error.data.massage}</h1>
         <Link to="/dash/dictations/drafts/add" className="dictation-list-add-button">
             צור הכתבה חדשה

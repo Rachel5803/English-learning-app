@@ -28,7 +28,7 @@ const SingleUser = () => {
     if (isLoading || isClassesLoading) return <h1> טוען נתונים</h1>
     if (isError) return <h1>{error.data.massage}</h1> 
     const user = usersObject.data.find(u => u._id === userId)
-    if (!user) return <h1> משתמש לא נמצא</h1>
+    if (!user) return <div className="error-page"> משתמש לא נמצא</div>
 
     return (
         <div className="single-user-container">

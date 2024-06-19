@@ -23,13 +23,14 @@ import CompletedDictationsList from "./features/dictations/completedDictations/l
 import SingleUserGrades from "./features/users/view/SingleUserGrades";
 import UserProfile from "./features/users/view/UserProfile";
 import Dashboard from "./components/dashboard/Dashboard";
+import HomePage from "./features/home/HomePage";
 function App() {
   return (
     <div >
       <Router>
         <Routes >
           <Route path="/" element={<SiteLayout />}>
-            <Route index element={<h1>site</h1>} />
+            <Route index element={<HomePage/>} />
             <Route path="login" element={<LoginPage />} />
             <Route element={<PersistLogin />}>
               <Route element={<RequireAuth allowRoles={["Teacher", "Student"]} />}>

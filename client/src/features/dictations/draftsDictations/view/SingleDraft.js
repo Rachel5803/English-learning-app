@@ -49,10 +49,10 @@ const SingleDraft = () => {
         return date.toISOString().split('T')[0]
     }
 
-    if (isLoading || isClassesLoading) return <h1> Loading ...</h1>
-    if (isError) return <h1>{JSON.stringify(error)}</h1>
+    if (isLoading || isClassesLoading) return <div> Loading ...</div>
+    if (isError) return <div className="error-page">{JSON.stringify(error)}</div>
     const singledraft = draftsObject.data.find(draft => draft._id === draftId)
-    if (!singledraft) return <h1>{"Not found"}</h1>
+    if (!singledraft) return <div className="error-page">{"Not found"}</div>
     return (
         <div className="single-draft-container">
             <div className="single-draft-form-container">

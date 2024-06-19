@@ -11,3 +11,13 @@
     color: var(--text);
     margin: 10px 0px;
   }
+
+  .single-dictation-container{
+    min-height: 90%;
+  }
+
+  .single-dictation-title{
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: lighter;
+  }

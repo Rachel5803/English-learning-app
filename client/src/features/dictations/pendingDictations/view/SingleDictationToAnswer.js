@@ -133,9 +133,9 @@ const SingleDictationToAnswer = () => {
             setRemainingTime(singledictation.dictation.limitTime* 60)
         }
     }, [singledictation])
-    if (isLoading) return <h1> Loading ...</h1>
-    if (isError) return <h1>{JSON.stringify(error)}</h1>
-    if (!singledictation) return <h1>{"Not found"}</h1>
+    if (isLoading) return <div className="error-page" > Loading ...</div >
+    if (isError) return <div className="error-page" >{JSON.stringify(error)}</div >
+    if (!singledictation) return <div className="error-page">{"Not found"}</div >
 
 
     return (

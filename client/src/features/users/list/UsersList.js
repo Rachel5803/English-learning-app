@@ -20,9 +20,9 @@ const UsersList = () => {
     }
 
   }
-  if (isLoading ) return <h1> טוען נתונים</h1>
+  if (isLoading ) return <div className="error-page"> טוען נתונים</div>
   if (isError) return <div className="error-users-list">
-    <h1>{error.data.massage}</h1> 
+    <div className="error-page">{error.data.massage}</div> 
     <Link className="users-list-add-button" to="/dash/users/add">משתמש חדש</Link>
   </div>
   const filteredData = !q? [...usersObject.data] : usersObject.data.filter(user=> (user.class.school?.indexOf(q) > -1) || (user.name.indexOf(q) > -1))

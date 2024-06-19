@@ -38,10 +38,10 @@ const UserProfile = () => {
     }
 
 
-    if ( isUserLoading) return <h1> Loading ...</h1>
-    if (isError) return <h1>{JSON.stringify(error)}</h1>
+    if ( isUserLoading) return <div className="error-page"> Loading ...</div>
+    if (isError) return <div className="error-page">{JSON.stringify(error)}</div>
     const user = userObject? userObject.data:""
-    if (!user) return <h1>{"Not found"}</h1>
+    if (!user) return <div className="error-page">{"Not found"}</div>
 
     return (
         <div className="single-user-container">

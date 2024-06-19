@@ -34,7 +34,7 @@ const AddUser = () => {
 
 
   }
-  if(isClassesLoading) return <h1> Loading ...</h1>
+  if(isClassesLoading) return <div className="error-page"> Loading ...</div>
   return (
     <div className="add-user-container">
     <form onSubmit={formSubmit} className="add-user-form">

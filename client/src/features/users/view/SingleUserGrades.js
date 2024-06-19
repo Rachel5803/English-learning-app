@@ -20,8 +20,8 @@ const SingleUserGrades = () => {
             
         }
     }, [])
-    if (isLoading) return <h1> טוען נתונים</h1>
-    if (isError) return <h1>{error.data.massage}</h1>
+    if (isLoading) return <div className="error-page"> טוען נתונים</div>
+    if (isError) return <div className="error-page">{error.data.massage}</div>
     const filteredData = dictationsObject ? (q ? dictationsObject.data.filter(dictationFU => (dictationFU.dictation.name?.indexOf(q) > -1)) : dictationsObject.data) : [];
    return (
         <div className="dictations-for-student-list">

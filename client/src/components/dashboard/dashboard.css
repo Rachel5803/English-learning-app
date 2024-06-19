@@ -1,0 +1,40 @@
+.dash-board-page{
+    /* display: flex; */
+    /* justify-content: center;
+    align-items: center; */
+    /* flex-direction: column; */
+    height: 110vh;
+    min-width: 100%;
+    background-image :url("../../../public/back_home2.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    /* justify-content: space-around; */
+    text-align: center;
+     
+}
+
+.dash-board-text{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center ;
+   background-color: rgba(5, 5, 5, 0.305);
+   color:white;
+   width: 76vw;
+   height: 113.5vh;
+   margin-top: 0;
+   font-weight:lighter;
+   font-size: 1.3rem;
+   display: flex;
+   flex-direction:column;
+   gap: 10px;
+   padding-right: 50px;
+   padding-left: 50px;
+}
+
+.dash-board-title{
+margin-top: 20vh;
+}
