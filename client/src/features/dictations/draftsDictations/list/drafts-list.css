@@ -10,8 +10,9 @@
     border-radius: 10px;
     margin-top: 20px;
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: space-between;
+    min-height: 90%;
 
 }
 .drafts-dictations-list-top{
@@ -57,3 +58,4 @@
   .drafts-list-sent{
     background-color: chocolate;
   }
+
