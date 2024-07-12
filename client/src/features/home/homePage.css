@@ -19,25 +19,25 @@
 .home-page-title{
     min-height: 100vh;
     min-width: 100vw;
-    /* background-image: url("../../../public/back_home1.jpg");
-    object-fit: cover; */
-
 }
 
 
-/* from the gamesProject: */
-.home-page-element{
+
+.home-page-element::before{
+    content: "";
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     width: 100vw;
-    background-image :url("../../../public/back_home2.jpg");
+    background-image :url("../../../public/back_home1.jpg");
+    background: rgba( .5);
+    opacity: 0.6;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     margin: 0;
     padding: 0;
-     
+    font-weight: bold;
 
 }
 
@@ -57,6 +57,7 @@ article {
    font-family: cursive;
    font-weight:lighter;
    font-size: 1vw;
+   
 }
 
 
@@ -64,9 +65,11 @@ article {
 .home-page-title2{
     margin-top: 20vh;
     color: white;
+    
   font-size: 4.5vw;
   font-weight: 2rem;
    font-family: cursive;
+   opacity: 1 !important;
 }
 .home-page-logo{
     width: 10vw;
@@ -89,12 +92,10 @@ i{
 .home-page-links{
     width: 100vw;
     height: 15vh;
-    /* color:white; */
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    /* font-size: 2rem; */
     display: flex;
     justify-content: left;
     gap: 20px;
@@ -107,8 +108,8 @@ i{
     background-color: white;
     color: gray;
     border-radius: 50%;
-    width:60px;
-    height: 60px;
+    width:70px;
+    height: 70px;
     justify-content: center ;
     align-items: center;
     text-align: center;
@@ -124,7 +125,7 @@ i{
 
 .home-page-about-builder{
     position: absolute;
-    right: 0;
+    right: 10px;
     bottom: 20px;
     color: white; 
     text-align: center;

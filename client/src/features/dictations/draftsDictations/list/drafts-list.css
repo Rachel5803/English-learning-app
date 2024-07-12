@@ -23,7 +23,7 @@
 }
 .dictation-list-add-button{
     padding: 10px;
-    background-color: #5d57c9;
+    background-color: teal;
     color: var(--text);
     border: none;
     border-radius: 5px;
@@ -53,9 +53,9 @@
     background-color: teal;
 }
 .drafts-list-delete{
-    background-color: crimson;
+    background-color: teal;
   }
   .drafts-list-sent{
-    background-color: chocolate;
+    background-color: teal;
   }
 

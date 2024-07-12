@@ -16,13 +16,12 @@ const SingleDictationAnswers = () => {
     if (!singledictation) return <h1>"הכתבה לא נמצאה"</h1>
     return (
         <div className="single-dictation-container">
-            <h1 className="single-dictation-title">תשובות ההכתבה</h1>
             <div className="single-dictation-answers-container">
             <table className="single-dictation-answers-table">
                         <thead>
                             <tr>
                                 <td>מילה</td>
-                                <td>פרושים</td>
+                                <td>תרגום</td>
                             </tr>
                         </thead>
                         <tbody> {singledictation.dictationWordsAnswers?.map((obj, index) => (

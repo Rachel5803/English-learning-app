@@ -1,6 +1,6 @@
 import "./homePage.css"
 import { Link } from "react-router-dom"
-import { MdAlternateEmail, MdLocationPin, MdPhone,MdContactMail} from "react-icons/md"
+import { MdContactMail} from "react-icons/md"
 
 const HomePage = () => {
     return <div className="home-page-element">
@@ -9,11 +9,11 @@ const HomePage = () => {
         </article>
         <div className="home-page-links">
         <Link className="home-page-link" to={"./login"}>login <img src="./noavatar.png" className="home-page-user-img"></img></Link>
-        <a href="mailto:rachelifefer@gmail.com" className="home-page-link">contact<MdContactMail className="icon" /></a>
+        <a href="mailto:r3115803@gmail.com" className="home-page-link">contact<MdContactMail className="icon" /></a>
         </div>
         <div className="home-page-about-builder">
-            <div> building:Racheli fefer</div>
-            <div>0551234567</div>
+            <div> building : Rachel-Pfeffer   </div>
+            <div>0533115803</div>
            </div>
     </div>
 

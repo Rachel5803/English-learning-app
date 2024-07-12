@@ -59,7 +59,7 @@ const createNewUser = async (req, res) => {
         })
     }
     const hashPwd = await bcrypt.hash(password, 10)
-    const user = await User.create({ username, password: hashPwd, name, class:classId,  roles:'Teacher', active, image })
+    const user = await User.create({ username, password: hashPwd, name, class:classId,  roles:'Student', active, image })
     if (user) {
         return res.json({
             error: false,

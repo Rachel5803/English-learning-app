@@ -6,11 +6,11 @@ import { useGetAllClassesQuery } from "../../classes/classesApiSlice";
 import { useState } from "react"
 import useGetFilePath from "../../../hooks/useGetFilePath"
 import moment from 'moment';
+import { MdDelete } from "react-icons/md";
 const UsersList = () => {
   const [detailsClass, setDetailsClass] = useState({})
   const { data: usersObject, isError, error, isLoading, isSuccess } = useGetAllUsersQuery()
   const [deleteUser, { isSuccess: isDeleteSuccess }] = useDeleteUserMutation()
-  //const { data: classesObject, isLoading: isClassesLoading } = useGetAllClassesQuery()
   const [searchParams] = useSearchParams()
    const q = searchParams.get("q")
    const {getFilePath} = useGetFilePath()
@@ -20,23 +20,25 @@ const UsersList = () => {
     }
 
   }
-  if (isLoading ) return <div className="error-page"> טוען נתונים</div>
+  if (isLoading) return  <div className="error-users-list"> טוען נתונים</div>
+    
   if (isError) return <div className="error-users-list">
-    <div className="error-page">{error.data.massage}</div> 
-    <Link className="users-list-add-button" to="/dash/users/add">משתמש חדש</Link>
-  </div>
+    <h1>{error.data.massage}</h1>
+    <Link  to="/dash/users/add" className="users-list-add-button">
+  משתמש חדש
+</Link></div>
+
+
+
   const filteredData = !q? [...usersObject.data] : usersObject.data.filter(user=> (user.class.school?.indexOf(q) > -1) || (user.name.indexOf(q) > -1))
 
 
   return (
     <div className="users-list">
-    
       <div className="users-list-top">
-        <Search placeholder="Search for a user..." />
+        <Search placeholder="חפש לפי שם תלמיד" />
         <Link className="users-list-add-button" to="/dash/users/add">משתמש חדש</Link>
-
-
-      </div>
+        </div>
       <table className="users-list-table">
         <thead>
           <tr>

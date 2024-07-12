@@ -7,6 +7,7 @@ router.use(verifyJWT)
 router.use(verifyAdmin) 
 
 const classController=require("../controller/classController")
+
 router.get("/",classController.getClasses)
 router.get("/schoolYear",classController.getClassesByYear)
 router.get("/active",classController.getActiveClasses)

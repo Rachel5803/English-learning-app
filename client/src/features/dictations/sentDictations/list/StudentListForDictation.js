@@ -24,12 +24,7 @@ const StudentsListForDictation = () => {
     const [updateDate, setUpdateDate] = useState(new Date());
     const [updateScore, setUpdateScore] = useState(0);
     const navigate = useNavigate()
-    // useEffect(() => {
-    //     if (isSuccess) {
-    //         navigate("/dash/dictations/drafts")
-    //     }
 
-    // }, [isSuccess])
     useEffect(() => {
         if (dictationId) {
             getAllStudentsDictations({ dictation: dictationId })
@@ -122,9 +117,11 @@ const StudentsListForDictation = () => {
 
 
                                     <button className='sent-dictation-from-all-users-list-button sent-dictation-from-all-users-list-view' onClick={() => { showDateInput(dictationFU) }}>עדכן תאריך הגשה</button>
-
+                                    <div  className="change_update">
                                     {isModalDateOpen && dictationFU === specificDictation && (
                                         <div className="sent-dictation-from-all-users-list-change">
+                                            <div className="sent-dictations-from-all-users-container"> 
+                                            <button className='sent-dictations-from-all-users-list-close' onClick={() => { setIsModalDateOpen(!isModalDateOpen) }}><MdOutlineCancelPresentation /></button>
                                             <input
                                                 type="date"
                                                 name="endDate"
@@ -133,11 +130,15 @@ const StudentsListForDictation = () => {
                                                 onChange={(e) => { handleDateChange(e.target.value) }}
                                             />
                                             <button className='sent-dictation-from-all-users-list-update' onClick={() => { clickUpdateDate(dictationFU) }}>עדכן</button>
-                                            <button className='sent-dictations-from-all-users-list-close' onClick={() => { setIsModalDateOpen(!isModalDateOpen) }}><MdOutlineCancelPresentation /></button>
+                                            
+                                            </div>
                                         </div>
                                     )}
+                                    </div>
                                     {isModalScoreOpen && dictationFU === specificDictation && (
                                         <div className="sent-dictation-from-all-users-list-change">
+                                            <div className="sent-dictations-from-all-users-container">
+                                            <button className='sent-dictations-from-all-users-list-close' onClick={() => { setIsModalScoreOpen(!isModalScoreOpen) }}><MdOutlineCancelPresentation /></button>
                                             <input
                                                 defaultValue={dictationFU.score}
                                                 type="number"
@@ -147,8 +148,8 @@ const StudentsListForDictation = () => {
                                                 onChange={(e) => { handleScoreChange(e.target.value) }}
                                             />
                                             <button className='sent-dictation-from-all-users-list-update' onClick={() => { clickUpdateScore(dictationFU) }}>עדכן</button>
-                                            <button className='sent-dictations-from-all-users-list-close' onClick={() => { setIsModalScoreOpen(!isModalScoreOpen) }}><MdOutlineCancelPresentation /></button>
-                                           
+                                            
+                                           </div>
                                         </div>
                                     )}
 

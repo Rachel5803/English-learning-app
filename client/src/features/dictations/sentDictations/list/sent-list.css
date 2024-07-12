@@ -1,10 +1,10 @@
-sent-dictations-list{
+.sent-dictations-list{
     background-color: var(--bgSoft);
     padding: 20px;
     border-radius: 10px;
     margin-top: 20px;
 }
-sent-dictations-list-top{
+.sent-dictations-list-top{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -12,7 +12,7 @@ sent-dictations-list-top{
 }
 .sent-dictations-list-update{
     padding: 10px;
-    background-color: #5d57c9;
+    background-color: teal;
     color: var(--text);
     border: none;
     border-radius: 5px;
@@ -40,7 +40,7 @@ sent-dictations-list-top{
 
 .sent-dictations-list-view{
     padding: 10px;
-    background-color: #5d57c9;
+    background-color: teal;
     color: var(--text);
     border: none;
     border-radius: 5px;
@@ -48,7 +48,7 @@ sent-dictations-list-top{
 }
 .sent-dictations-list-date-input{
     padding: 10px;
-    background-color: #5d57c9;
+    background-color: teal;
     color: var(--text);
     border: none;
     border-radius: 5px;
@@ -70,18 +70,24 @@ sent-dictations-list-top{
 }
 .sent-dictations-list-update-date{
     padding: 10px;
-    background-color: #5d57c9;
+    background-color: teal;
     color: var(--text);
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 15vw;
+    width: 100%;
+
 }
 .sent-dictations-list-delete{
-    background-color: crimson;
+    background-color: teal;
+    
   }
 .sent-dictations-list-update-date-close{
     width: 20px;
+    background-color: rgba(19, 5, 36, 0);
+    color: white;
+    border: none;
+    
 }
 .sent-dictations-list-title{
     text-align: center;
@@ -98,4 +104,17 @@ sent-dictations-list-top{
     align-items: start;
     justify-content: space-between;
     min-height: 90%;
+}
+.sent-dictations-list-choose-date-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: rgba(28, 28, 40, 0.011);
+    padding: 50px;
+    border-radius: 20px;
+    border: solid 1px ;
+
+    
+
+
 }

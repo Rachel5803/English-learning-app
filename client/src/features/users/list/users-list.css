@@ -10,9 +10,8 @@
     border-radius: 10px;
     margin-top: 20px;
     display: flex;
-    align-items: start;
+    align-items: center;
     justify-content: space-between;
-    min-height: 90%;
 
 }
   
@@ -28,7 +27,7 @@
   
   .users-list-add-button{
     padding: 10px;
-    background-color: #5d57c9;
+    background-color: teal;
     color: var(--text);
     border: none;
     border-radius: 5px;
@@ -72,5 +71,6 @@
   }
   
   .users-list-delete{
-    background-color: crimson;
+    background-color: teal;
   }
+ 

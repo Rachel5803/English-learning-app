@@ -45,7 +45,7 @@ const DraftsList = () => {
             <div className="drafts-dictations-list-top">
                 <Search placeholder="חיפוש לפי שם הכתבה" />
                 <Link to="/dash/dictations/drafts/add" className="dictation-list-add-button">
-                    צור הכתבה חדשה
+                    צור טיוטה חדשה
                 </Link>
             </div>
             <table className="drafts-dictations-list-table">

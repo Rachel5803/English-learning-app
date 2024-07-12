@@ -39,7 +39,7 @@ const SentList = () => {
 
     };
     const deleteClick = (dictation) => {
-    
+
         if (window.confirm("שים לב, ההכתבה תמחק לכל התלמידים בכיתה. בטוח שברצונך למחוק הכתבה זו?")) {
             deleteDraft({ _id: dictation._id })
         }
@@ -50,17 +50,15 @@ const SentList = () => {
     if (isLoading) return <div className="error-page"> Loading ...</div>
     if (isError) return <div className="error-drafts-list">
         <h1>{error.data.massage}</h1>
-   </div>
-    console.log("kkkk" + dictationsObject.data[1]);
+    </div>
     const filteredData = !q ? [...dictationsObject.data] : dictationsObject.data.filter(dictation => (dictation.class?.school + " " + dictation.class?.grade?.indexOf(q) > -1) || (dictation.name.indexOf(q) > -1) || (dictation.user?.name?.indexOf(q) > -1))
 
 
     return (
         <div className="sent-dictations-list">
             <div className="sent-dictations-list-top">
-                <Search placeholder="Search for a dictation..." />
+                <Search placeholder="חיפוש לפי שם הכתבה" />
             </div>
-            <h1 className="sent-dictations-list-title">הכתבות שנשלחו</h1>
             <table className="sent-dictations-list-table">
                 <thead>
                     <tr>
@@ -97,20 +95,23 @@ const SentList = () => {
 
 
                                     <button className='sent-dictations-list-button sent-dictations-list-view' onClick={() => { showDateInput(dictationFU) }}>עדכן תאריך הגשה</button>
-
-                                    {isModalOpen && dictationFU == specificDictation && (
-                                        <div className="sent-dictations-list-choose-date">
-                                            <input
-                                                type="date"
-                                                name="endDate"
-                                                defaultValue={dictationFU.endDate?DateTimeFormatter(dictationFU.endDate):"dd/mm/yyyy"}
-                                                className='sent-dictations-list-date-input '
-                                                onChange={(e) => { handleDateChange(e.target.value) }}
-                                            />
-                                            <button className='sent-dictations-list-update-date' onClick={() => { clickUpdate(dictationFU) }}>עדכן</button>
-                                            <button className='sent-dictations-list-update-date-close' onClick={() => { setIsModalOpen(!isModalOpen) }}><MdOutlineCancelPresentation /></button>
-                                        </div>
-                                    )}
+                                    <div className="changeDate">
+                                        {isModalOpen && dictationFU == specificDictation && (
+                                            <div className="sent-dictations-list-choose-date">
+                                                <div className="sent-dictations-list-choose-date-container"> 
+                                                <button className='sent-dictations-list-update-date-close' onClick={() => { setIsModalOpen(!isModalOpen) }}><MdOutlineCancelPresentation /></button>
+                                                <input
+                                                    type="date"
+                                                    name="endDate"
+                                                    defaultValue={dictationFU.endDate ? DateTimeFormatter(dictationFU.endDate) : "dd/mm/yyyy"}
+                                                    className='sent-dictations-list-date-input '
+                                                    onChange={(e) => { handleDateChange(e.target.value) }}
+                                                />
+                                                <button className='sent-dictations-list-update-date' onClick={() => { clickUpdate(dictationFU) }}>עדכן</button>
+                                                </div> 
+                                            </div>
+                                        )}
+                                    </div>
                                     <button onClick={() => { deleteClick(dictationFU) }} className="sent-dictations-button sent-dictations-list-delete">
                                         מחיקה
                                     </button>

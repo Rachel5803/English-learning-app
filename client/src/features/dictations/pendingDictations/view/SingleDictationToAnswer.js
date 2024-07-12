@@ -20,7 +20,7 @@ const SingleDictationToAnswer = () => {
     const dictationEndTime = new Date().getTime() + remainingTime * 1000;
     const formSubmit = (e) => {
         if (e) {
-            if(window.confirm("בטוח שברצונך לסיים את מילוי ההכתבה")){
+            if(window.confirm("בטוח שברצונך להגיש את ההכתבה")){
                 e.preventDefault()
                 scoreCalculation()
                 const updateSingledictation = { ...singledictation, dictationWordsAnswers: dictationWordsAns, completed: true, score: Math.ceil(localScore) }
@@ -41,7 +41,7 @@ const SingleDictationToAnswer = () => {
         
     }
     const timeOver = () => {
-        alert("Time's up! The dictation will be submitted.");
+        alert("הזמן אזל, ההכתבה נשלחה");
         formSubmit()
         if (isUpdateSuccess) {
             navigate("/dash/dictations")
@@ -144,7 +144,7 @@ const SingleDictationToAnswer = () => {
             <div className="single-draft-form-container">
                 <form onSubmit={formSubmit} className="single-draft-form" >
                     <input name="_id" defaultValue={singledictation._id} type="hidden" />
-                    <p>Time Remaining: {formatTime(remainingTime)}</p>
+                    <p>הזמן שנשאר: {formatTime(remainingTime)}</p>
 
 
                     <table className="draft-word-dictation-list-table">
@@ -179,7 +179,7 @@ const SingleDictationToAnswer = () => {
                         </tbody>
                     </table>
 
-                    <button >עדכן</button>
+                    <button >הגשה</button>
                 </form>
             </div>
         </div>

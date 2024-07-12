@@ -22,7 +22,7 @@ const SingleClass = () => {
   } 
 
     if(isLoading) return <div className="error-page"> Loading ...</div>
-  if(isError) return <div className="error-page">{ JSON.stringify( error)}</div>
+  if(isError) return <div className="error-page"><h1>{ JSON.stringify( error)}</h1></div>
   const singleclass = classObject.data.find(oneClass => oneClass._id === classId)
   if(!singleclass) return <h1>{ "Not found"}</h1>
     return (

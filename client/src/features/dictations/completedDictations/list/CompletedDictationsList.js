@@ -1,13 +1,6 @@
 import "./completed-dictations-list.css"
 import { Link, useSearchParams } from 'react-router-dom';
-import { useState } from "react"
 import { useEffect } from 'react';
-// import {
-//     useGetDictationFromAllUsersInClassMutation
-//     , useUpdateDictationForSpecificUserMutation
-// } from "../sentDictationsApiSlice";
-//import Search from "../../../../components/search/Search";
-//import { MdCheck, MdClose } from "react-icons/md";
 import moment from 'moment';
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetCompletedDictationsForSpecificUserMutation } from "../../sentDictations/sentDictationsApiSlice";
@@ -25,15 +18,16 @@ const CompletedDictationsList = () => {
             getAllCompleteDictationsForUser({ user:_id})
         }
     }, [])
+    
     if (isLoading) return <div className="error-page"> טוען נתונים</div>
-    if (isError) return  <div>{error.data.massage}</div>
-    const filteredData = dictationsObject ? (q ? dictationsObject.data.filter(dictation => (dictation.name?.indexOf(q) > -1)) : dictationsObject.data) : [];
+    if (isError) return  <div className="error-page"><h1>{error.data.massage}</h1></div>
+    const filteredData = dictationsObject ? (q ? dictationsObject.data.filter(dictationFU => (dictationFU.dictation?.name?.indexOf(q) > -1)) : dictationsObject.data) : [];
     return (
         <div className="complete-dictations-for-student-list">
 
-            <div className="complete-dictations-for-student-top">
+            <div className="complete-dictations-for-student-list-top">
                
-                <Search placeholder="Search for a user..." />
+                <Search placeholder="חפש לפי שם הכתבה" />
             </div>
             <table className="complete-dictations-for-student-list-table">
                 <thead>

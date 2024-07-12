@@ -46,7 +46,7 @@ const AddDraft = () => {
 
 
     }
-    if (isClassesLoading) return <div className="error-page"> Loading ...</div>
+    if (isClassesLoading) return <h1> Loading ...</h1>
     return (
         <div className="add-draft-container">
             <form onSubmit={formSubmit} className="add-draft-form">
@@ -93,7 +93,7 @@ const AddDraft = () => {
                         <input
                             type="text"
                             name="meaning"
-                            placeholder="הכנס פרוש"
+                            placeholder="הכנס תרגום"
 
                         />
                     </span>

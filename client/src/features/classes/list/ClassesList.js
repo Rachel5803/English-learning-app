@@ -14,7 +14,7 @@ export const ClassesList = () => {
         }
 
     }
-    if (isLoading) return  <div className="error-page"> טוען נתונים</div>
+    if (isLoading) return  <h1> טוען נתונים</h1>
     
     if (isError) return <div className="error-classes-list"><h1>{error.data.massage}</h1><Link to="/dash/classes/add" className="classes-list-add-button ">
     הוספת כיתה

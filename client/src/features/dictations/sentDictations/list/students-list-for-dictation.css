@@ -1,23 +1,15 @@
-sent-dictation-from-all-users-list{
+.sent-dictation-from-all-users-list{
     background-color: var(--bgSoft);
     padding: 20px;
     border-radius: 10px;
     margin-top: 20px;
 }
-sent-dictation-from-all-users-list-top{
+.sent-dictation-from-all-users-list-top{
     display: flex;
     align-items: center;
     justify-content: space-between;
 
 }
-/* .sent-dictations-list-update{
-    padding: 10px;
-    background-color: #5d57c9;
-    color: var(--text);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-} */
 .sent-dictation-from-all-users-list-table{
     width: 100%;
 }
@@ -40,7 +32,7 @@ sent-dictation-from-all-users-list-top{
 
 .sent-dictation-from-all-users-list-view{
     padding: 10px;
-    background-color: #5d57c9;
+    background-color: teal;
     color: var(--text);
     border: none;
     border-radius: 5px;
@@ -48,7 +40,7 @@ sent-dictation-from-all-users-list-top{
 }
 .sent-dictation-from-all-users-list-change-input{
     padding: 10px;
-    background-color: #5d57c9;
+    background-color: teal;
     color: var(--text);
     border: none;
     border-radius: 5px;
@@ -57,7 +49,7 @@ sent-dictation-from-all-users-list-top{
     
 }
 .sent-dictation-from-all-users-list-change{
-    width: 100vw;
+width: 100vw;
     height: 100vh;
     top: 0;
     left: 0;
@@ -69,14 +61,32 @@ sent-dictation-from-all-users-list-top{
     gap: 5vw;
 }
 .sent-dictation-from-all-users-list-update {
+   
     padding: 10px;
-    background-color: #5d57c9;
+    background-color: teal;
     color: var(--text);
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 15vw;
+    width: 100%;
 }
 .sent-dictations-from-all-users-list-close{
     width: 20px;
+    background-color: rgba(19, 5, 36, 0);
+    color: white;
+    border: none;
 }
+.sent-dictations-from-all-users-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: rgba(28, 28, 40, 0.011);
+    padding: 50px;
+    border-radius: 20px;
+    border: solid 1px ;
+
+    
+
+
+}
+

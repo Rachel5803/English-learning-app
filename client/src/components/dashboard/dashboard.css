@@ -1,21 +1,18 @@
-.dash-board-page{
-    /* display: flex; */
-    /* justify-content: center;
-    align-items: center; */
-    /* flex-direction: column; */
+.dash-board-page {
+    content: "";
     height: 110vh;
     min-width: 100%;
-    background-image :url("../../../public/back_home2.jpg");
+    background-image :url("../../../public/back_home1.jpg");
+    opacity: 0.7;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     margin: 0;
     padding: 0;
-    /* justify-content: space-around; */
     text-align: center;
      
 }
 
-.dash-board-text{
+.dash-board-container {
     position: absolute;
     left: 0;
     top: 0;

@@ -50,7 +50,7 @@ const SingleDraft = () => {
     }
 
     if (isLoading || isClassesLoading) return <div> Loading ...</div>
-    if (isError) return <div className="error-page">{JSON.stringify(error)}</div>
+    if (isError) return <div className="error-page"><h1>{JSON.stringify(error)}</h1></div>
     const singledraft = draftsObject.data.find(draft => draft._id === draftId)
     if (!singledraft) return <div className="error-page">{"Not found"}</div>
     return (

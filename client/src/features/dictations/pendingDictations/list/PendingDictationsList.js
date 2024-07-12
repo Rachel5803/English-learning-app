@@ -12,18 +12,9 @@ import Search from "../../../../components/search/Search";
 const PendingDictationsList = () => {
     const { _id } = useAuth()
     const navigate=useNavigate()
-    //const { dictationId } = useParams()
-    //const [updateSingleDictation, { isSuccess: isUpdateSuccess }] = useUpdateDictationForSpecificUserMutation()
     const [getAllNotCompleteStudentDictations, { isSuccess, data: dictationsObject, isError, error, isLoading }] = useGetNotCompletedDictationsForSpecificUserMutation()
     const [searchParams] = useSearchParams()
     const q = searchParams.get("q")
-    //const navigate = useNavigate()
-    // useEffect(() => {
-    //     if (isSuccess) {
-    //         navigate("/dash/dictations/drafts")
-    //     }
-
-    // }, [isSuccess])
     useEffect(() => {
         if (_id) {
             getAllNotCompleteStudentDictations({ user: _id })
@@ -35,14 +26,14 @@ const PendingDictationsList = () => {
         }
     };
     if (isLoading) return <div className="error-page"> טוען נתונים</div>
-    if (isError) return  <div className="error-page">{error.data.massage}</div>
-    const filteredData = dictationsObject ? (q ? dictationsObject.data.filter(dictation => (dictation.name?.indexOf(q) > -1)) : dictationsObject.data) : [];
+    if (isError) return  <div className="error-page"><h1>{error.data.massage}</h1></div>
+    const filteredData = dictationsObject ? (q ? dictationsObject.data.filter(dictationFU => (dictationFU.dictation?.name?.indexOf(q) > -1)) : dictationsObject.data) : [];
     return (
         <div className="dictations-for-student-list">
 
             <div className="dictations-for-student-list-top">
 
-                <Search placeholder="Search for a dictation..." />
+                <Search placeholder="חפש לי שם הכתבה" />
             </div>
             <table className="dictations-for-student-list-table">
                 <thead>
