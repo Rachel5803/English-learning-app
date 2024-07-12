@@ -17,8 +17,6 @@ const AddUser = () => {
   }, [isSuccess])
   useEffect(()=>{
     if(isError){
-      // return <h1>{error.data.massage}</h1> 
-      //console.log(error.data.massage);
       window.alert(error.data.massage)
     }
 
@@ -26,7 +24,6 @@ const AddUser = () => {
   const formSubmit = (e) =>{
     e.preventDefault()
       const data = new FormData(e.target)
-      //const userObject =Object.fromEntries(data.entries())
       addUser(data)
       
 

@@ -1,6 +1,9 @@
 const express = require("express")
 const router = express.Router()
+const verifyJWT = require("../middleware/verifyJWT")
 const dictationFUController = require("../controller/dictationFUController")
+
+router.use(verifyJWT)
 router.get("/", dictationFUController.getAllDictations)
 router.post("/user", dictationFUController.getAllDictationsForSpecificUser)
 router.post("/user/not/complete", dictationFUController.getNotCompletedDictationsForSpecificUser)
