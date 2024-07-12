@@ -10,7 +10,6 @@ const SingleDraft = () => {
     const { draftId } = useParams()
     const { data: draftsObject, isError, error, isLoading, isSuccess } = useGetAllDraftsQuery()
     const [newInputsArray, setNewInputsArray] = useState([])
-    //const newInpuesArray=[]
     const { data: classes, isLoading: isClassesLoading } = useGetAllActiveClassesQuery()
     const [updateDraft, { isSuccess: isUpdateSuccess }] = useUpdateDraftMutation()
     const navigate = useNavigate()

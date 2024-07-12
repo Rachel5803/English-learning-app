@@ -1,7 +1,6 @@
 import "./completed-dictations-list.css"
 import { Link, useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import moment from 'moment';
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetCompletedDictationsForSpecificUserMutation } from "../../sentDictations/sentDictationsApiSlice";
 import useAuth from "../../../../hooks/useAuth";

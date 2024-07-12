@@ -48,15 +48,6 @@ const getClassesByYear = async (req, res) => {
         data: classes
     })
 }
-// const getClassById = async (req, res) => {
-//     const { id } = req.params
-//     const foundClass = await Class.findById(id).lean()
-//     if (!foundClass) {
-//         return res.status(400).json({ massage: 'No class found' })
-//     }
-//     res.json(foundClass)
-
-// }
 const createNewClass = async (req, res) => {
     const { school, grade, gradeNumber, schoolYear, active } = req.body
     if (!school || !grade || !gradeNumber || !schoolYear) {
@@ -195,16 +186,6 @@ const deleteClass = async (req, res) => {
 
         }
     }
-    // const deleteUsers = await User.deleteMany({ class: _id });
-    // if (!deleteUsers) {
-
-    //     return res.status(400).json({
-    //         error: true,
-    //         massage: 'Something worng',
-    //         data: null
-    //     })
-
-    // }
     const deleteSentDictations= await Dictation.deleteMany({ class:_id })
     if (!deleteSentDictations) {
        return res.status(400).json({

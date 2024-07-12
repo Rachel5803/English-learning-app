@@ -6,7 +6,6 @@ import { useGetAllClassesQuery } from "../../classes/classesApiSlice";
 import { useState } from "react"
 import useGetFilePath from "../../../hooks/useGetFilePath"
 import moment from 'moment';
-import { MdDelete } from "react-icons/md";
 const UsersList = () => {
   const [detailsClass, setDetailsClass] = useState({})
   const { data: usersObject, isError, error, isLoading, isSuccess } = useGetAllUsersQuery()

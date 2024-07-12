@@ -1,9 +1,7 @@
 import "./single-user-grades.css"
 import { Link, useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
-//import moment from 'moment';
 import { useNavigate, useParams } from "react-router-dom";
-//import { useGetCompletedDictationsForSpecificUserMutation } from "../../sentDictations/sentDictationsApiSlice";
 import { MdCheck, MdClose } from "react-icons/md";
 import { useGetAllDictationsForSpecificUserMutation } from "../../dictations/sentDictations/sentDictationsApiSlice";
 import useAuth from "../../../hooks/useAuth";
@@ -26,8 +24,8 @@ const SingleUserGrades = () => {
    return (
         <div className="dictations-for-student-list">
 
-            <div className="-dictations-for-student-top">
-                <Search placeholder="Search for a dictation..." />
+            <div className="dictations-for-student-list-top">
+                <Search placeholder="חיפוש לפי שם הכתבה" />
             </div>
             <table className="dictations-for-student-list-table">
                 <thead>

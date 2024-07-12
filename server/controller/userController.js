@@ -121,21 +121,6 @@ const updateUser = async (req, res) => {
         data: {user:user.username, id:user._id}
     })
 }
-// const updateDictationComplete = async (req, res) => {
-//     const { userId, dictationId, score} = req.body
-//     const user = await User.findOne({ _id: userId}).exec()
-//     if (!user) {
-//         return res.status(400).json({ massage: 'User not found' })
-//     }
-//     const dictation = user.dictations.find(dictation => dictation.dictationId.equals(dictationId));
-//     if (!dictation) {
-//         return res.status(400).json({ massage: 'Dictation not found for the user' })
-//     }
-//     dictation.completed = true;
-//     dictation.score = score;
-//     const updateUser= await user.save();
-//     res.json(`'${updateUser.name}' updated`)
-// }
 const updateUserForUser = async (req, res) => {
     const image = (req.file?.filename? req.file.filename: "")
     const { _id, password, name} = req.body

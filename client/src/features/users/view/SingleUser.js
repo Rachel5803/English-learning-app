@@ -1,6 +1,6 @@
 import "./single-user.css"
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetAllActiveClassesQuery } from "../../classes/classesApiSlice";
+import { useGetAllClassesQuery} from "../../classes/classesApiSlice";
 import { useGetAllUsersQuery, useUpdateUserMutation } from "../usersApiSlice";
 import { useEffect } from "react";
 import useGetFilePath from "../../../hooks/useGetFilePath";
@@ -8,7 +8,7 @@ import useGetFilePath from "../../../hooks/useGetFilePath";
 const SingleUser = () => {
     const { userId } = useParams()
     const { data: usersObject, isError, error, isLoading, isSuccess } = useGetAllUsersQuery()
-    const { data: classes, isLoading: isClassesLoading } = useGetAllActiveClassesQuery()
+    const { data: classes, isLoading: isClassesLoading, isError:isClassesError, error:classesError } = useGetAllClassesQuery()
     const [updateUser, { isSuccess: isUpdateSuccess }] = useUpdateUserMutation()
     const {getFilePath} = useGetFilePath()
     const navigate = useNavigate()
@@ -23,10 +23,8 @@ const SingleUser = () => {
         updateUser(data)
 
     }
-
-
     if (isLoading || isClassesLoading) return <h1> טוען נתונים</h1>
-    if (isError) return <h1>{error.data.massage}</h1> 
+    if (isError || isClassesError) return <h1>{error.data.massage}</h1> 
     const user = usersObject.data.find(u => u._id === userId)
     if (!user) return <div className="error-page"> משתמש לא נמצא</div>
 

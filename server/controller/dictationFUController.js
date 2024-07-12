@@ -137,7 +137,6 @@ const createNewDictationsForUsers = async (req, res) => {
         const dictationFU = await DictationForUser.create({
             dictation: dictationId,
             user: user._id, dictationWords, endDate
-            // , beginDate
         })
         if (!dictationFU) {
             return res.status(400).json({

@@ -6,10 +6,6 @@ const SingleDictationAnswers = () => {
 
     const { dictationId } = useParams()
     const { data: sentDictatoinsObject, isError, error, isLoading, isSuccess } = useGetAllSentDictationsFromAllUsersQuery()
-    
-    
-    
-
     if (isLoading ) return <div className="error-page"> טוען נתונים</div>
     if (isError) return <div className="error-page">{error.data.massage}</div>
     const singledictation = sentDictatoinsObject.data.find(dictation => dictation._id === dictationId)

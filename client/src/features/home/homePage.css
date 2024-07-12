@@ -7,9 +7,6 @@
     margin-right: 2%;
     margin-left: 2%;
     object-fit: cover;
-
-    /* object-fit: cover;
-    object-position: center; */
     transition: opacity 1000s ease-in-out;
     animation: image-fade 5s ease-in-out forwards;
     position:fixed;

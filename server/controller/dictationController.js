@@ -71,16 +71,6 @@ const createNewDictation = async (req, res) => {
         })
     }
 }
-// const updateWordDictation = async (req, res) => {
-//     const { id, words} = req.body
-//     const dictation = await Dictation.findOne({ _id: id}).exec()
-//     if (!dictation) {
-//         return res.status(400).json({ massage: 'Dictation not found' })
-//     }
-//     dictation.words = [...words];
-//     const updateDictation= await dictation.save();
-//     res.json(`'${dictation.name}' updated`)
-// }
 const updateDictation = async (req, res) => {
     const {  _id,name, dictationWords, classId, endDate,limitTime} = req.body
     
@@ -123,7 +113,6 @@ const deleteDictation = async (req, res) => {
             data: null
         })
     }
-    //
     const dictationsFU = await DictationForUser.find({ dictation: _id }).exec()
     if (dictationsFU.length) {
         const deleteDictations = await Promise.all(dictationsFU.map(async (dictFU) => {

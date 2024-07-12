@@ -42,9 +42,6 @@ const dictationForUserSchema = new mongoose.Schema({
             },
         },
     ],
-    // beginDate: {
-    //     type: Date
-    // },
     endDate: {
         type: Date
     },

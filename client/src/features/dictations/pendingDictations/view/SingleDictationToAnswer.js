@@ -80,16 +80,6 @@ const SingleDictationToAnswer = () => {
         }
     }, [remainingTime, dictationEndTime]);
 
-    // const reduceWord = (word) => {
-    //     return word.replace('א','','ה','ו','י');
-    // };
-    // const reduceArrayWord=(arrayWords)=>{
-    //     arrayWords.map(word => {
-    //         setNewWordsArray(...newWordsArray,reduceWord(word) )
-
-    //     })
-    // }
-
     const scoreCalculation = () => {
         let flag = false
         dictationWordsAns.map((obj, index) => {
@@ -151,7 +141,7 @@ const SingleDictationToAnswer = () => {
                         <thead>
                             <tr>
                                 <td>מילה</td>
-                                <td>פרושים</td>
+                                <td>תרגום</td>
                             </tr>
                         </thead>
                         <tbody> {dictationWordsAns?.map((obj, index) => (
