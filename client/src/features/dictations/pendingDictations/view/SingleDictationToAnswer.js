@@ -20,7 +20,7 @@ const SingleDictationToAnswer = () => {
     const dictationEndTime = new Date().getTime() + remainingTime * 1000;
     const formSubmit = (e) => {
         if (e) {
-            if(window.confirm("בטוח שברצונך להגיש את ההכתבה")){
+            if(window.confirm("?בטוח שברצונך להגיש את ההכתבה")){
                 e.preventDefault()
                 scoreCalculation()
                 const updateSingledictation = { ...singledictation, dictationWordsAnswers: dictationWordsAns, completed: true, score: Math.ceil(localScore) }
@@ -86,7 +86,6 @@ const SingleDictationToAnswer = () => {
             if (obj.meanings != "") {
                 obj.meanings?.map(word => {
                     if (compareDictationWordsAns[index].meanings.includes(word) && flag === false) {
-                        console.log("נמצאו ערכים זהים");
                         localScore += precentPerWord
                         flag = true
                         obj.correct = true
@@ -96,6 +95,9 @@ const SingleDictationToAnswer = () => {
 
             flag = false
         })
+        if(localScore>100){
+            localScore=100
+        }
     }
     const randomArray = (arr) => {
         setPrecentPerWord(100 / arr.length)
