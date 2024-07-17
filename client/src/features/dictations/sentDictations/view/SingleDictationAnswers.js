@@ -9,7 +9,8 @@ const SingleDictationAnswers = () => {
     if (isLoading ) return <div className="error-page"> טוען נתונים</div>
     if (isError) return <div className="error-page">{error.data.massage}</div>
     const singledictation = sentDictatoinsObject.data.find(dictation => dictation._id === dictationId)
-    if (!singledictation) return <h1>"הכתבה לא נמצאה"</h1>
+    if (!singledictation) return  <h1>הכתבה לא נמצאה</h1>
+    if(singledictation.dictationWordsAnswers.length==0) return <div className="error-page">הכתבה לא הושלמה</div>
     return (
         <div className="single-dictation-container">
             <div className="single-dictation-answers-container">
