@@ -140,10 +140,10 @@ const SingleDraft = () => {
                             ))}
 
 
-                            <button onClick={addInput} type="button" className="add-input-button" >הוסף מילה</button>
+                           
                         </tbody>
                     </table>
-
+                    <button onClick={addInput} type="button" className="add-input-button" >הוסף מילה</button>
                     <button>עדכן</button>
                 </form>
             </div>

@@ -3,6 +3,7 @@
     padding: 20px;
     border-radius: 10px;
     margin-top: 20px;
+    min-height: 90%;
 }
 .sent-dictation-from-all-users-list-top{
     display: flex;

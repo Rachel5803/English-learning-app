@@ -3,6 +3,8 @@
     padding: 20px;
     border-radius: 10px;
     margin-top: 20px;
+    min-height: 90%;
+    
   }
   .error-users-list{
     background-color: var(--bgSoft);

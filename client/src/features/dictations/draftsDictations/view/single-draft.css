@@ -41,11 +41,14 @@
     padding: 10px;
   }
   .add-input-button{
+    
     padding: 10px;
-    background-color: #bfbece;
+    margin-top:  40px;
+    background-color: teal;
     color: var(--text);
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 10vw;
+    width: 100%;
+    
   }

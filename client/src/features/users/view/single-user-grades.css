@@ -38,5 +38,59 @@
     border-radius: 5px;
     cursor: pointer;
 }
+.dictations-for-students-list-view-average{
+    padding: 10px;
+    background-color: teal;
+    color: var(--text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 20vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.dictations-for-students-list-average{
+width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.623);
+    display: grid;
+    position: fixed;
+    place-content: center;
+    z-index: 1000;
+    gap: 5vw;
+}
+.dictations-for-students-list-buttonShow {
+   
+    padding: 10px;
+    margin-top:  40px;
+    background-color: teal;
+    color: var(--text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+.dictations-for-students-list-close{
+    width: 20px;
+    background-color: rgba(19, 5, 36, 0);
+    color: white;
+    border: none;
+}
+.dictations-for-students-list-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: rgba(28, 28, 40, 0.011);
+    padding: 50px;
+    border-radius: 20px;
+    border: solid 1px ;
+}
+.dictations-for-student-list{
+    min-height: 90%;
+  }
 
 

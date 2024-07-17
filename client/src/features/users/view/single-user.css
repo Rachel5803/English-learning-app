@@ -2,6 +2,7 @@
     display: flex;
     gap: 50px;
     margin-top: 20px;
+    min-height: 90%;
   }
   
   .single-user-info {
@@ -68,3 +69,4 @@
   .users-list-table td{
     padding: 10px;
   }
+  
