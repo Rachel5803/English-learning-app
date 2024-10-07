@@ -20,8 +20,8 @@ const SingleDictationWords = () => {
             <table className="single-dictation-words-table">
                         <thead>
                             <tr>
-                                <td>מילה</td>
-                                <td>תרגום</td>
+                                <td>word</td>
+                                <td>translation</td>
                             </tr>
                         </thead>
                         <tbody> {singledictation.dictationWords?.map((obj, index) => (

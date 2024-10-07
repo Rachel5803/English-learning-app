@@ -40,7 +40,7 @@ const SentList = () => {
     };
     const deleteClick = (dictation) => {
 
-        if (window.confirm("שים לב, ההכתבה תמחק לכל התלמידים בכיתה. בטוח שברצונך למחוק הכתבה זו?")) {
+        if (window.confirm("Note: This dictation will be deleted for all students in the class. Are you sure you want to delete this dictation?")) {
             deleteDraft({ _id: dictation._id })
         }
 
@@ -57,17 +57,17 @@ const SentList = () => {
     return (
         <div className="sent-dictations-list">
             <div className="sent-dictations-list-top">
-                <Search placeholder="חיפוש לפי שם הכתבה" />
+                <Search placeholder="Search by dictation name   " />
             </div>
             <table className="sent-dictations-list-table">
                 <thead>
                     <tr>
-                        <td>שם ההכתבה</td>
+                        <td>dictation name </td>
 
-                        <td>כיתה</td>
-                        <td>תאריך שליחה</td>
-                        <td>תאריך הגשה</td>
-                        <td>הגבלת זמן</td>
+                        <td>class</td>
+                        <td className="sent_date"> sent date   </td>
+                        <td className="submission_date">submission date </td>
+                        <td className="limit_time">limit time </td>
 
 
                     </tr>
@@ -82,19 +82,19 @@ const SentList = () => {
                             <td>{dictationFU.sentDate ? moment(dictationFU.sentDate).format('DD-MM-YYYY') : ""}</td>
 
                             <td> {dictationFU.endDate ? moment(dictationFU.endDate).format('DD-MM-YYYY') : ""}</td>
-                            <td>{dictationFU.limitTime ? dictationFU.limitTime + " דקות" : ""}</td>
+                            <td>{dictationFU.limitTime ? dictationFU.limitTime + " min" : ""}</td>
                             <td>
                                 <div className="sent-dictations-list-buttons">
                                     <Link className='sent-dictations-list-button sent-dictations-list-view' to={`/dash/dictations/sent/words/${dictationFU._id}`}>
-                                        צפה במילים
+                                        View words
                                     </Link>
                                     <Link className='sent-dictations-list-button sent-dictations-list-view' to={`/dash/dictations/sent/${dictationFU._id}`}>
-                                        צפה בנתוני התלמידים
+                                        View student data
                                     </Link>
 
 
 
-                                    <button className='sent-dictations-list-button sent-dictations-list-view' onClick={() => { showDateInput(dictationFU) }}>עדכן תאריך הגשה</button>
+                                    <button className='sent-dictations-list-button sent-dictations-list-view' onClick={() => { showDateInput(dictationFU) }}>  Update submission date</button>
                                     <div className="changeDate">
                                         {isModalOpen && dictationFU == specificDictation && (
                                             <div className="sent-dictations-list-choose-date">
@@ -107,13 +107,13 @@ const SentList = () => {
                                                     className='sent-dictations-list-date-input '
                                                     onChange={(e) => { handleDateChange(e.target.value) }}
                                                 />
-                                                <button className='sent-dictations-list-update-date' onClick={() => { clickUpdate(dictationFU) }}>עדכן</button>
+                                                <button className='sent-dictations-list-update-date' onClick={() => { clickUpdate(dictationFU) }}>Update</button>
                                                 </div> 
                                             </div>
                                         )}
                                     </div>
                                     <button onClick={() => { deleteClick(dictationFU) }} className="sent-dictations-button sent-dictations-list-delete">
-                                        מחיקה
+                                       Delete
                                     </button>
                                 </div>
                             </td>

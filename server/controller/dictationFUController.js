@@ -2,14 +2,13 @@ const DictationForUser = require("../models/DictationForUser")
 const User = require("../models/User")
 const Dictation = require("../models/Dictation")
 
-//צפייה בכל ההכתבות של משתמש מסוים
 const getAllDictationsForSpecificUser = async (req, res) => {
     const { user } = req.body
     const dictations = await DictationForUser.find({ user }).populate("dictation", {name:1, limitTime:1}).lean()
     if (!dictations.length) {
         return res.status(400).json({
             error: true,
-            massage: 'לא נמצאו הכתבות',
+            massage: 'Dictation not found',
             data: null
         })
     }
@@ -19,7 +18,7 @@ const getAllDictationsForSpecificUser = async (req, res) => {
         data: dictations
     }) 
 }
-//צפייה בכל ההכתבות שלא נעשו עבור משתמש מסויים
+
 const getNotCompletedDictationsForSpecificUser = async (req, res) => {
     const { user } = req.body
     const currentDate = new Date();
@@ -27,7 +26,7 @@ const getNotCompletedDictationsForSpecificUser = async (req, res) => {
     if (!dictations.length) {
         return res.status(400).json({
             error: true,
-            massage: 'לא נמצאו הכתבות',
+            massage: 'Dictation not found',
             data: null
         })
     }
@@ -37,7 +36,6 @@ const getNotCompletedDictationsForSpecificUser = async (req, res) => {
         data: dictations
     }) 
 }
-//צפייה בכל ההכתבות שנעשו עי משתמש מסויים
 const getCompletedDictationsForSpecificUser = async (req, res) => {
     const { user } = req.body
     const currentDate = new Date();
@@ -48,7 +46,7 @@ const getCompletedDictationsForSpecificUser = async (req, res) => {
     if (!dictations.length) {
         return res.status(400).json({
             error: true,
-            massage: 'לא נמצאו ציונים',
+            massage: 'Grades not found',
             data: null
         })
     }
@@ -80,7 +78,6 @@ const getAllDictations = async (req, res) => {
         data: dictationsWithClasses
     })
 }
-//צפייה בסוג מסויים של הכתבות שנשלחו לתלמידות
 const getDictationsFromAllUsersInClass = async (req, res) => {
     const { dictation } = req.body
     const dictationsForUsers = await DictationForUser.find({ dictation })
@@ -114,22 +111,20 @@ const getDictationFUById = async (req, res) => {
         data: dictation
     })
 }
-//שליחת הכתבה שנוצרה לכל התלמידות בכיתה
 const createNewDictationsForUsers = async (req, res) => {
     const { dictationId, dictationWords, dictationClass,  endDate,limitTime } = req.body
     if (!dictationId || !dictationWords.length || !dictationClass|| !endDate|| !limitTime) {
         return res.status(400).json({
             error: true,
-            massage: 'יש למלא את כל פרטי ההכתבה לפני השליחה',
+            massage: "All dictation details must be filled out before submission.",
             data: null
         })
     }
-    // const beginDate = new Date();
     const users = await User.find({ class: dictationClass }, { _id: 1 }).lean()
     if (!users.length) {
         return res.status(400).json({
             error: true,
-            massage: 'לא נמצאו תלמידים לכיתה זו',
+            massage: "No students found for this class.",
             data: null
         })
     }
@@ -167,7 +162,6 @@ const createNewDictationsForUsers = async (req, res) => {
         })
     }
 }
-//עדכון פרטי הכתבה של תלמידה
 const updateDictationForSpecificUser = async (req, res) => {
     const { _id, dictationWordsAnswers,endDate, completed, score } = req.body
     if (!_id ) {

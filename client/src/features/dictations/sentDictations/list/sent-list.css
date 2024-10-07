@@ -119,3 +119,13 @@
 
 
 }
+.sent_date{
+    width: 120px;
+}
+.submission_date{
+    width: 145px;
+}
+.limit_time{
+    width: 95px;
+}
+

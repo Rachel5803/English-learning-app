@@ -83,12 +83,12 @@ const StudentsListForDictation = () => {
             <table className="sent-dictation-from-all-users-list-table">
                 <thead>
                     <tr>
-                        <td>שם התלמיד</td>
-                        <td>הושלם</td>
-                        <td>ציון</td>
+                        <td>student name </td>
+                        <td>completed</td>
+                        <td>score</td>
 
-                        <td>תאריך שליחה</td>
-                        <td>תאריך הגשה</td>
+                        <td>sent date </td>
+                        <td>submission date </td>
 
 
                     </tr>
@@ -110,13 +110,13 @@ const StudentsListForDictation = () => {
                             <td>
                                 <div className="sent-dictation-from-all-users-list-buttons">
                                     <Link className='sent-dictation-from-all-users-list-button sent-dictation-from-all-users-list-view' to={`/dash/dictations/sent/answers/${dictationFU._id}`}>
-                                        צפה בתשובות
+                                        View answers
                                     </Link>
 
-                                    <button className='sent-dictation-from-all-users-list-button sent-dictation-from-all-users-list-view' onClick={() => { showScoreInput(dictationFU) }}>עדכן ציון</button>
+                                    <button className='sent-dictation-from-all-users-list-button sent-dictation-from-all-users-list-view' onClick={() => { showScoreInput(dictationFU) }}>Update score </button>
 
 
-                                    <button className='sent-dictation-from-all-users-list-button sent-dictation-from-all-users-list-view' onClick={() => { showDateInput(dictationFU) }}>עדכן תאריך הגשה</button>
+                                    <button className='sent-dictation-from-all-users-list-button sent-dictation-from-all-users-list-view' onClick={() => { showDateInput(dictationFU) }}>  Update submission date</button>
                                     <div  className="change_update">
                                     {isModalDateOpen && dictationFU === specificDictation && (
                                         <div className="sent-dictation-from-all-users-list-change">
@@ -129,7 +129,7 @@ const StudentsListForDictation = () => {
                                                 className='sent-dictation-from-all-users-list-change-input '
                                                 onChange={(e) => { handleDateChange(e.target.value) }}
                                             />
-                                            <button className='sent-dictation-from-all-users-list-update' onClick={() => { clickUpdateDate(dictationFU) }}>עדכן</button>
+                                            <button className='sent-dictation-from-all-users-list-update' onClick={() => { clickUpdateDate(dictationFU) }}>Update</button>
                                             
                                             </div>
                                         </div>
@@ -143,11 +143,11 @@ const StudentsListForDictation = () => {
                                                 defaultValue={dictationFU.score}
                                                 type="number"
                                                 name="score"
-                                                placeholder="הכנס ציון"
+                                                placeholder="Enter score"
                                                 className='sent-dictation-from-all-users-list-change-input'
                                                 onChange={(e) => { handleScoreChange(e.target.value) }}
                                             />
-                                            <button className='sent-dictation-from-all-users-list-update' onClick={() => { clickUpdateScore(dictationFU) }}>עדכן</button>
+                                            <button className='sent-dictation-from-all-users-list-update' onClick={() => { clickUpdateScore(dictationFU) }}>Update</button>
                                             
                                            </div>
                                         </div>

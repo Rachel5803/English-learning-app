@@ -40,7 +40,7 @@
     width: 100%;
   }
   
-  .users-list-table td{
+  .users-list-table td, .users-list-user{
     padding: 10px;
   }
   

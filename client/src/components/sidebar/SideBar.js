@@ -39,37 +39,37 @@ const SideBar = () => {
   };
   const teacherMenuItems = [
     {
-      title: "דפים",
+      title: "Pages",
       list: [
         {
-          title: "ראשי",
+          title: "Home",
           path: "/dash",
           icon: <MdDashboard />,
         },
         {
-          title: "משתמשים",
+          title: "Users",
           path: "/dash/users",
           icon: <MdSupervisedUserCircle />,
         },
         {
-          title: "כיתות",
+          title: "Classes",
           path: "/dash/classes",
           icon: <MdOutlineBusinessCenter />,
         },
         {
-          title: "הכתבות",
+          title: "Tests",
           onClick:handleDictationsClick,
           icon: showExtendendMenu? <MdExpandLess/>: <MdExpandMore/>,
         },
      ... (showExtendendMenu
         ? [
             {
-              title: "טיוטות", 
+              title: "Drafts", 
               path: "/dash/dictations/drafts", 
               icon: <MdDrafts />, 
             },
             {
-              title: "נשלח", 
+              title: "Sent", 
               path: "/dash/dictations/sent", 
               icon: <MdOutlineMarkunread  />, 
             },
@@ -78,10 +78,10 @@ const SideBar = () => {
       ],
     },
     {
-      title: "משתמש",
+      title: "User",
       list: [
         {
-          title: "פרופיל",
+          title: "Profile",
           path: "/dash/profile",
           icon: <MdOutlinePerson />
           ,
@@ -94,17 +94,17 @@ const SideBar = () => {
       title: "דפים",
       list: [
         {
-          title: "ראשי",
+          title: "Home",
           path: "/dash",
           icon: <MdDashboard />,
         },
         {
-          title: "הכתבות",
+          title: "Tests",
           path: "/dash/dictations",
           icon: <MdListAlt />,
         },
         {
-          title: "ציונים",
+          title: "Grades",
           path: "/dash/dictations/complete",
           icon: <MdGrading />
           ,
@@ -112,10 +112,10 @@ const SideBar = () => {
       ],
     },
     {
-      title: "משתמש",
+      title: "User",
       list: [
         {
-          title: "פרופיל",
+          title: "Profile",
           path: "/dash/profile",
           icon: <MdOutlinePerson />
           ,
@@ -160,7 +160,7 @@ const SideBar = () => {
       
       <button onClick={logoutClick} className="side-bar-logout">
         <MdLogout />
-        יציאה
+        Logout
       </button>
 
     </div>

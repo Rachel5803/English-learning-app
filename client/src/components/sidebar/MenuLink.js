@@ -2,7 +2,7 @@ import {NavLink} from "react-router-dom"
 
 const MenuLink = ({item, onClick}) => {
   const handleMenuLinkClick = () => {
-    if (item.title==="הכתבות") {
+    if (item.title==="Tests") {
       onClick();
     }
   };

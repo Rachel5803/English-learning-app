@@ -18,7 +18,7 @@ const DraftsList = () => {
         }
     }, [isSentError])
     const deleteClick = (singleDraft) => {
-        if (window.confirm("בטוח שברצונך למחוק את ההכתבה")) {
+        if (window.confirm("Are you sure you want to delete the dictation?")) {
             deleteDraft({ _id: singleDraft._id })
         }
 
@@ -26,7 +26,7 @@ const DraftsList = () => {
     }
     const sentClick = (singleDraft) => {
         console.log(singleDraft);
-        if (window.confirm("בטוח שברצונך לשלוח את ההכתבה לכל התלמידים?")) {
+        if (window.confirm("Are you sure you want to send the dictation to all students?")) {
             sentDictationForUsers({
                 dictationId: singleDraft._id, dictationWords: singleDraft.dictationWords
                 , dictationClass: singleDraft.class._id, endDate: singleDraft.endDate, limitTime: singleDraft.limitTime
@@ -37,23 +37,23 @@ const DraftsList = () => {
     if (isLoading) return <div className="error-page"> Loading ...</div>
     if (isError) return <div className="error-drafts-list"><h1>{error.data.massage}</h1>
         <Link to="/dash/dictations/drafts/add" className="dictation-list-add-button">
-            צור הכתבה חדשה
+           Create new dictation
         </Link></div>
     const filteredData = !q ? [...draftsObject.data] : draftsObject.data.filter(singleDraft => singleDraft.name.indexOf(q) > -1)
     return (
         <div className='drafts-dictations-list'>
             <div className="drafts-dictations-list-top">
-                <Search placeholder="חיפוש לפי שם הכתבה" />
+                <Search placeholder="Search by draft name" />
                 <Link to="/dash/dictations/drafts/add" className="dictation-list-add-button">
-                    צור טיוטה חדשה
+                    Create new draft
                 </Link>
             </div>
             <table className="drafts-dictations-list-table">
                 <thead>
                     <tr>
-                        <td>שם</td>
-                        <td>כיתה</td>
-                        <td>נוצר ב</td>
+                        <td>name</td>
+                        <td>class</td>
+                        <td> created on</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,13 +72,13 @@ const DraftsList = () => {
                                 <div className="drafts-list-buttons">
 
                                     <Link to={`/dash/dictations/drafts/${draft._id}`} className="drafts-list-button drafts-list-view">
-                                        צפייה
+                                        View
                                     </Link>
                                     <button onClick={() => { sentClick(draft) }} className="drafts-list-button drafts-list-sent">
-                                        שלח לתלמידים
+                                        Send to students
                                     </button>
                                     <button onClick={() => { deleteClick(draft) }} className="drafts-list-button drafts-list-delete">
-                                        מחיקה
+                                        Delete
                                     </button>
 
                                 </div>

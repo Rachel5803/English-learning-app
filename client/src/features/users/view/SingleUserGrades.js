@@ -33,21 +33,21 @@ const SingleUserGrades = () => {
         
     };
 
-    if (isLoading) return <div className="error-page"> טוען נתונים</div>
+    if (isLoading) return <div className="error-page"> Loading...</div>
     if (isError) return <div className="error-page">{error.data.massage}</div>
     const filteredData = dictationsObject ? (q ? dictationsObject.data.filter(dictationFU => (dictationFU.dictation.name?.indexOf(q) > -1)) : dictationsObject.data) : [];
     return (
         <div className="dictations-for-student-list">
 
             <div className="dictations-for-student-list-top">
-                <Search placeholder="חיפוש לפי שם הכתבה" />
+                <Search placeholder="Search by test name" />
             </div>
             <table className="dictations-for-student-list-table">
                 <thead>
                     <tr>
-                        <td>שם ההכתבה</td>
-                        <td>הושלם</td>
-                        <td>ציון</td>
+                        <td>test name </td>
+                        <td>completed</td>
+                        <td>score</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,7 +63,7 @@ const SingleUserGrades = () => {
                             <td>
                                 <div className="dictations-for-student-list-buttons">
                                     <Link className='dictations-for-students-list-button complete-dictations-for-student-list-view' to={`/dash/dictations/sent/answers/${dictationFU._id}`}>
-                                        צפה בתשובות
+                                       View answers
                                     </Link>
 
                                 </div>
@@ -72,14 +72,14 @@ const SingleUserGrades = () => {
                     ))}
                 </tbody>
             </table>
-            <button className='dictations-for-students-list-buttonShow ' onClick={() => { calculateAverage() }}> חשב ממוצע</button>
+            <button className='dictations-for-students-list-buttonShow ' onClick={() => { calculateAverage() }}> Calculate Average</button>
             <div className="change_update">
                 {ShowAverage && (
                     <div className="dictations-for-students-list-average">
                         <div className="dictations-for-students-list-container">
                             <button className='dictations-for-students-list-close' onClick={() => { setShowAverage(!ShowAverage) }}><MdOutlineCancelPresentation /></button>
                             <h2 className="dictations-for-students-list-view-average">
-                        הממוצע הוא: {average}
+                        Average : {average}
                             </h2>
                            
                         </div>

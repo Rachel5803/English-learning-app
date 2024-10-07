@@ -19,18 +19,18 @@ const AddClass = () => {
     return (
         <div className="add-class-container">
             <form onSubmit={formSubmit} className="add-class-form">
-                <input type="text" required name="school" placeholder="בית ספר" />
-                <input type="text" required name="grade" placeholder="כיתה" />
-                <input type="number" required name="gradeNumber" placeholder="מספר כיתה" />
-                <input type="text" required name="schoolYear" placeholder="שנת לימודים" />
+                <input type="text" required name="school" placeholder="school " />
+                <input type="text" required name="grade" placeholder="class" />
+                <input type="number" required name="gradeNumber" placeholder="class number " />
+                <input type="text" required name="schoolYear" placeholder="school year " />
                 <select name="active" id="active">
                     <option value={true}>
-                        פעיל
+                        active
                     </option>
-                    <option value={true}>כן</option>
-                    <option value={false}>לא</option>
+                    <option value={true}>yes</option>
+                    <option value={false}>no</option>
                 </select>
-                <button type="submit">שלח</button>
+                <button type="submit">Submit</button>
             </form>
         </div>
     )

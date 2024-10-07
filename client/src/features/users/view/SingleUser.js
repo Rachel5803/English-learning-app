@@ -23,10 +23,10 @@ const SingleUser = () => {
         updateUser(data)
 
     }
-    if (isLoading || isClassesLoading) return <h1> טוען נתונים</h1>
+    if (isLoading || isClassesLoading) return <h1> Loading...</h1>
     if (isError || isClassesError) return <h1>{error.data.massage}</h1> 
     const user = usersObject.data.find(u => u._id === userId)
-    if (!user) return <div className="error-page"> משתמש לא נמצא</div>
+    if (!user) return <div className="error-page"> User not found</div>
 
     return (
         <div className="single-user-container">
@@ -39,13 +39,13 @@ const SingleUser = () => {
             <div className="single-user-form-container">
                 <form onSubmit={formSubmit} className="single-user-form">
                     <input name="_id" defaultValue={user._id} type="hidden" />
-                    <label>שם משתמש</label>
+                    <label>username </label>
                     <input readOnly={true} type="text" name="username" defaultValue={user.username}  />
-                    <label>סיסמא ריקה = ללא שינוי</label>
+                    <label> empty password = no change</label>
                     <input type="password" name="password" />
-                    <label>שם מלא</label>
-                    <input type="text" name="name" placeholder="שם מלא" defaultValue={user.name} required />
-                    <label>כיתה</label>
+                    <label>full name </label>
+                    <input type="text" name="name" placeholder="full name " defaultValue={user.name} required />
+                    <label>class</label>
                     <select name="classId" id="classId" required>
                         {classes.data.map(oneClass => {
                             return <option selected={oneClass._id === user.class?._id} value={oneClass._id}>{oneClass.school + " " + oneClass.grade + " " + oneClass.gradeNumber+ " " + oneClass.schoolYear}</option>
@@ -55,13 +55,13 @@ const SingleUser = () => {
                     
                     
                     
-                    <label>פעיל?</label>
+                    <label>active?</label>
                     <select name="active" id="active">
-                        <option value={true} selected={user.active}>כן</option>
-                        <option value={false} selected={!user.active}>לא</option>
+                        <option value={true} selected={user.active}>yes</option>
+                        <option value={false} selected={!user.active}>no</option>
                     </select>
                     <input type="file"  name="image"/>
-                    <button>עדכן</button>
+                    <button>Update</button>
                 </form>
             </div>
         </div>

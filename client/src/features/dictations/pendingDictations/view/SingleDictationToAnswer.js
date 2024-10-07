@@ -20,7 +20,7 @@ const SingleDictationToAnswer = () => {
     const dictationEndTime = new Date().getTime() + remainingTime * 1000;
     const formSubmit = (e) => {
         if (e) {
-            if(window.confirm("?בטוח שברצונך להגיש את ההכתבה")){
+            if(window.confirm("Are you sure you want to submit the dictation?")){
                 e.preventDefault()
                 scoreCalculation()
                 const updateSingledictation = { ...singledictation, dictationWordsAnswers: dictationWordsAns, completed: true, score: Math.ceil(localScore) }
@@ -41,7 +41,7 @@ const SingleDictationToAnswer = () => {
         
     }
     const timeOver = () => {
-        alert("הזמן אזל, ההכתבה נשלחה");
+        alert("Time is Up,  The dictation has been submitted");
         formSubmit()
         if (isUpdateSuccess) {
             navigate("/dash/dictations")
@@ -121,7 +121,6 @@ const SingleDictationToAnswer = () => {
     useEffect(() => {
         if (singledictation) {
             setDictationWordsAns(randomArray(singledictation.dictationWords))
-            //setLimitTime(singledictation.dictation.limitTime)
             setRemainingTime(singledictation.dictation.limitTime* 60)
         }
     }, [singledictation])
@@ -136,14 +135,14 @@ const SingleDictationToAnswer = () => {
             <div className="single-draft-form-container">
                 <form onSubmit={formSubmit} className="single-draft-form" >
                     <input name="_id" defaultValue={singledictation._id} type="hidden" />
-                    <p>הזמן שנשאר: {formatTime(remainingTime)}</p>
+                    <p>Time Remaining: {formatTime(remainingTime)}</p>
 
 
                     <table className="draft-word-dictation-list-table">
                         <thead>
                             <tr>
-                                <td>מילה</td>
-                                <td>תרגום</td>
+                                <td>word</td>
+                                <td>translation</td>
                             </tr>
                         </thead>
                         <tbody> {dictationWordsAns?.map((obj, index) => (
@@ -158,7 +157,7 @@ const SingleDictationToAnswer = () => {
                                     type="text"
                                     defaultValue={""}
                                     name="meaning"
-                                    placeholder="הכנס פרוש"
+                                    placeholder="enter translation "
                                     onChange={(e) => insertMeaning(e, index)}
                                 /></td>
 
@@ -171,7 +170,7 @@ const SingleDictationToAnswer = () => {
                         </tbody>
                     </table>
 
-                    <button >הגשה</button>
+                    <button >Submission</button>
                 </form>
             </div>
         </div>

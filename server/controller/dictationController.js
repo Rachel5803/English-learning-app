@@ -5,7 +5,7 @@ const getAllDraftsDictations = async (req, res) => {
     if (!dictations.length) {
         return res.status(400).json({
             error: true,
-            massage: 'לא נמצאו טיוטות',
+            massage: 'No drafts found',
             data: null
         })
     }
@@ -20,7 +20,7 @@ const getAllSentDictations = async (req, res) => {
     if (!dictations.length) {
         return res.status(400).json({
             error: true,
-            massage: 'לא נמצאו הכתבות שנשלחו לתלמידים',
+            massage: 'No dictations sent to students were found.',
             data: null
         })
     }

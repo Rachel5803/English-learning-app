@@ -50,21 +50,21 @@ const AddDraft = () => {
     return (
         <div className="add-draft-container">
             <form onSubmit={formSubmit} className="add-draft-form">
-                <label>הכנס שם הכתבה</label>
+                <label> Enter test name </label>
                 <input
                     type="text"
                     name="name"
                     
                     required
                 />
-<label>בחר כיתה</label>
+<label>select class </label>
                 <select name="classId" id="classId" required>
                 
                     {classesObject?.data?.map(oneClass => {
                         return <option value={oneClass._id}>{oneClass.school + " " + oneClass.grade + " " + oneClass.gradeNumber + " " + oneClass.schoolYear}</option>
                     })}
                 </select>
-                <label>בחר תאריך הגשה</label>
+                <label>select submission data  </label>
                 <input 
                 type="date" 
                  name="endDate"
@@ -73,19 +73,19 @@ const AddDraft = () => {
                 />
                
                 
-               <label>הכנס הגבלת זמן בדקות</label>
+               <label>  enter time limit in minutes </label>
                 <input
                     type="number"
                     name="limitTime"
                     
                 />
-                <label>מילות ההכתבה</label>
+                <label>dictation words </label>
                 {InputsArray?.map((item, index) => (
                     <span>
                         <input
                             type="text"
                             name="word"
-                            placeholder="הכנס מילה חדשה"
+                            placeholder="enter new word  "
                             onChange={() => addNewWordInput(index)}
                         />
 
@@ -93,7 +93,7 @@ const AddDraft = () => {
                         <input
                             type="text"
                             name="meaning"
-                            placeholder="הכנס תרגום"
+                            placeholder="enter translation "
 
                         />
                     </span>

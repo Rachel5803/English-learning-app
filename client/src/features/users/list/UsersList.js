@@ -6,6 +6,7 @@ import { useGetAllClassesQuery } from "../../classes/classesApiSlice";
 import { useState } from "react"
 import useGetFilePath from "../../../hooks/useGetFilePath"
 import moment from 'moment';
+import { MdCheck, MdClose } from "react-icons/md";
 const UsersList = () => {
   const [detailsClass, setDetailsClass] = useState({})
   const { data: usersObject, isError, error, isLoading, isSuccess } = useGetAllUsersQuery()
@@ -14,17 +15,17 @@ const UsersList = () => {
    const q = searchParams.get("q")
    const {getFilePath} = useGetFilePath()
   const deleteClick = (user) => {
-    if (window.confirm("בטוח שברצונך למחוק את המשתמש?")) {
+    if (window.confirm("Are you sure you want to delete the user?")) {
       deleteUser({ _id: user._id })
     }
 
   }
-  if (isLoading) return  <div className="error-users-list"> טוען נתונים</div>
+  if (isLoading) return  <div className="error-users-list"> Loading ...</div>
     
   if (isError) return <div className="error-users-list">
     <h1>{error.data.massage}</h1>
     <Link  to="/dash/users/add" className="users-list-add-button">
-  משתמש חדש
+ New user
 </Link></div>
 
 
@@ -35,20 +36,20 @@ const UsersList = () => {
   return (
     <div className="users-list">
       <div className="users-list-top">
-        <Search placeholder="חפש לפי שם תלמיד" />
-        <Link className="users-list-add-button" to="/dash/users/add">משתמש חדש</Link>
+        <Search placeholder="Search for student name" />
+        <Link className="users-list-add-button" to="/dash/users/add"> New user</Link>
         </div>
       <table className="users-list-table">
         <thead>
           <tr>
-            <td>שם</td>
-            <td>שם משתמש</td>
-            <td>בית ספר</td>
-            <td>כיתה</td>
-            <td>מספר כיתה</td>
-            <td>נוצר ב</td>
-            <td>הרשאה</td>
-            <td>פעיל</td>
+            <td>name</td>
+            <td>username </td>
+            <td>school </td>
+            <td>grade</td>
+            <td>class</td>
+            <td> created on</td>
+            <td>permission</td>
+            <td>active</td>
           </tr>
         </thead>
         <tbody>
@@ -61,7 +62,8 @@ const UsersList = () => {
                   width={40}
                   height={40}
                   className="users-list-user-image" />
-                {user.name}
+                
+                <td>{user.name}</td>
               </div>
               <td>{user.username}</td>
               
@@ -69,19 +71,23 @@ const UsersList = () => {
               <td>{user.class?.grade}</td>
               <td>{user.class?.gradeNumber}</td>
               <td>{moment(user.createdAt).format('DD/MM/YYYY')}</td>
-              <td>{user.roles === "Teacher" ? "מורה" : "תלמידה"}</td>
-              <td>{user.active ? "כן" : "לא"}</td>
+              <td>{user.roles === "Teacher" ? "teacher" : "student"}</td>
+              <td>{user.active ? (
+                                <MdCheck />
+                            ) : (
+                                <MdClose />
+                            )}</td>
               <td>
                 <div className="users-list-buttons">
                   <Link className='users-list-button users-list-view' to={`/dash/users/${user._id}`}>
-                   צפייה בפרטי משתמש
+                  View user details
                   </Link>
                   <Link className='users-list-button users-list-view' to={`/dash/users/grades/${user._id}`}>
-                   צפייה בציונים
+                  View grades
                   </Link>
 
                   <button onClick={() => deleteClick(user)} className="users-list-button users-list-delete">
-                    מחיקה
+                    Delete
                   </button>
 
                 </div>

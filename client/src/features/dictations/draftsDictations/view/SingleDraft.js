@@ -57,22 +57,22 @@ const SingleDraft = () => {
             <div className="single-draft-form-container">
                 <form onSubmit={formSubmit} className="single-draft-form">
                     <input name="_id" defaultValue={singledraft._id} type="hidden" />
-                    <label>שם ההכתבה</label>
+                    <label>dictation name </label>
                     <input
                         defaultValue={singledraft.name}
                         type="text"
                         name="name"
-                        placeholder="הכנס שם הכתבה"
+                        placeholder="enter dictation name"
                         required
                     />
-                    <label>כיתה</label>
+                    <label>class</label>
                     <select name="classId" id="classId" required>
                         {classes.data.map(oneClass => {
                             return <option selected={oneClass._id === singledraft.class?._id} value={oneClass._id}>{oneClass.school + " " + oneClass.grade + " " + oneClass.gradeNumber + " " + oneClass.schoolYear}</option>
 
                         })}
                     </select>
-                    <label>תאריך הגשה</label>
+                    <label>submission data </label>
                     <input
                         defaultValue={singledraft.endDate?DateTimeFormatter(singledraft.endDate):"dd/mm/yyyy"}
                         
@@ -82,18 +82,18 @@ const SingleDraft = () => {
 
 
                     />
-                    <label>הגבלת זמן</label>
+                    <label> limit time</label>
           <input
             defaultValue={singledraft.limitTime}
             type="number"
             name="limitTime"
-            placeholder="הכנס מספר דקות"
+            placeholder="enter limit time  "
           />
                     <table className="draft-word-dictation-list-table">
                         <thead>
                             <tr>
-                                <td>מילה</td>
-                                <td>פרושים</td>
+                                <td>word</td>
+                                <td>translation</td>
                             </tr>
                         </thead>
                         <tbody> {singledraft.dictationWords?.map((obj, index) => (
@@ -103,7 +103,7 @@ const SingleDraft = () => {
                                         type="text"
                                         defaultValue={obj.word}
                                         name="word"
-                                        placeholder="הכנס מילה חדשה"
+                                        placeholder="enter new word "
                                     />
                                 </td>
 
@@ -111,7 +111,7 @@ const SingleDraft = () => {
                                     type="text"
                                     defaultValue={obj.meanings ? obj.meanings.join(", ") : ""}
                                     name="meaning"
-                                    placeholder="הכנס פרוש"
+                                    placeholder="enter translation "
 
                                 /></td>
 
@@ -125,7 +125,7 @@ const SingleDraft = () => {
                                             type="text"
                                             defaultValue={""}
                                             name="word"
-                                            placeholder="הכנס מילה חדשה"
+                                            placeholder="enter new word"
                                         />
                                     </td>
 
@@ -133,7 +133,7 @@ const SingleDraft = () => {
                                         type="text"
                                         defaultValue={""}
                                         name="meaning"
-                                        placeholder="הכנס פרוש"
+                                        placeholder="enter translation"
                                     /></td>
 
                                 </tr>
@@ -143,8 +143,8 @@ const SingleDraft = () => {
                            
                         </tbody>
                     </table>
-                    <button onClick={addInput} type="button" className="add-input-button" >הוסף מילה</button>
-                    <button>עדכן</button>
+                    <button onClick={addInput} type="button" className="add-input-button" >Add word </button>
+                    <button>Update</button>
                 </form>
             </div>
         </div>

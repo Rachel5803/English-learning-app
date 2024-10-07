@@ -21,11 +21,11 @@ const PendingDictationsList = () => {
         }
     }, [])
     const confrimStartDictation = (dictationFU) => {
-        if(window.confirm("בטוח שברצונך להתחיל ניסיון מענה?")){
+        if(window.confirm("Are you sure you want to start the response trial?")){
             navigate(`/dash/dictations/to/answer/${dictationFU._id}`);
         }
     };
-    if (isLoading) return <div className="error-page"> טוען נתונים</div>
+    if (isLoading) return <div className="error-page"> Loading...</div>
     if (isError) return  <div className="error-page"><h1>{error.data.massage}</h1></div>
     const filteredData = dictationsObject ? (q ? dictationsObject.data.filter(dictationFU => (dictationFU.dictation?.name?.indexOf(q) > -1)) : dictationsObject.data) : [];
     return (
@@ -33,14 +33,14 @@ const PendingDictationsList = () => {
 
             <div className="dictations-for-student-list-top">
 
-                <Search placeholder="חפש לי שם הכתבה" />
+                <Search placeholder="Search by dictation name" />
             </div>
             <table className="dictations-for-student-list-table">
                 <thead>
                     <tr>
-                        <td>שם ההכתבה</td>
-                        <td>תאריך הגשה</td>
-                        <td>הגבלת זמן</td>
+                        <td>dictation name </td>
+                        <td>submission date </td>
+                        <td>limit time </td>
                         
 
 
@@ -51,16 +51,16 @@ const PendingDictationsList = () => {
                         <tr key={dictationFU._id}>
                             <td>{dictationFU.dictation.name}</td>
                             <td> {dictationFU.endDate ? moment(dictationFU.endDate).format('DD-MM-YYYY') : ""}</td>
-                            <td>{dictationFU.dictation.limitTime?dictationFU.dictation.limitTime+" דקות":""}</td>
+                            <td>{dictationFU.dictation.limitTime?dictationFU.dictation.limitTime+" min":""}</td>
                             <td>
                                 <div className="dictations-for-student-list-buttons">
                                     <Link className='dictations-for-student-list-button dictations-for-student-list-view' to={`/dash/dictations/sent/words/${dictationFU.dictation._id}`}>
-                                        צפה במילים
+                                        View words 
                                     </Link>
                                     <button
                                         className="dictations-for-student-button sent-dictation-from-all-users-list-view"
                                         onClick={ ()=>{confrimStartDictation(dictationFU)}}>
-                                        התחלת ניסיון מענה
+                                        started response trial
                                     </button>
                                     </div>
                             </td>

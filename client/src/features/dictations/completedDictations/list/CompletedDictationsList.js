@@ -18,7 +18,7 @@ const CompletedDictationsList = () => {
         }
     }, [])
     
-    if (isLoading) return <div className="error-page"> טוען נתונים</div>
+    if (isLoading) return <div className="error-page">  Loading...</div>
     if (isError) return  <div className="error-page"><h1>{error.data.massage}</h1></div>
     const filteredData = dictationsObject ? (q ? dictationsObject.data.filter(dictationFU => (dictationFU.dictation?.name?.indexOf(q) > -1)) : dictationsObject.data) : [];
     return (
@@ -26,14 +26,14 @@ const CompletedDictationsList = () => {
 
             <div className="complete-dictations-for-student-list-top">
                
-                <Search placeholder="חפש לפי שם הכתבה" />
+                <Search placeholder="Search by dictation name" />
             </div>
             <table className="complete-dictations-for-student-list-table">
                 <thead>
                     <tr>
-                        <td>שם ההכתבה</td>
-                        <td>הושלם</td>
-                        <td>ציון</td>
+                        <td>dictation name </td>
+                        <td>completed</td>
+                        <td>score</td>
                         </tr>
                 </thead>
                 <tbody>
@@ -49,10 +49,10 @@ const CompletedDictationsList = () => {
                             <td>
                                 <div className="complete-dictations-for-student-list-buttons">
                                 <Link className='complete-dictations-for-students-list-button complete-dictations-for-student-list-view' to={`/dash/dictations/sent/words/${dictationFU.dictation._id}`}>
-                                        צפה במילים
+                                       View words
                                     </Link>
                                     <Link className='complete-dictations-for-students-list-button complete-dictations-for-student-list-view' to={`/dash/dictations/sent/answers/${dictationFU._id}`}>
-                                        צפה בתשובות
+                                       View answers
                                     </Link>
                                      </div>
                             </td>

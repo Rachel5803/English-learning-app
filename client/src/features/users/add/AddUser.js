@@ -44,7 +44,7 @@ const AddUser = () => {
       />
       <input type="text" placeholder="name" name="name" required />
       <select name="classId" id="classId" required>
-        <option value=""> בחר כיתה</option>
+        <option value=""> select class </option>
         {classesObject?.data?.map(oneClass=>{
           return <option value={oneClass._id}>{oneClass.school+" "+ oneClass.grade+" "+oneClass.gradeNumber+" "+oneClass.schoolYear}</option>
         })}
@@ -52,10 +52,10 @@ const AddUser = () => {
      
       <select name="active" id="active">
         <option value={true}>
-          פעיל
+          active
         </option>
-        <option value={true}>כן</option>
-        <option value={false}>לא</option>
+        <option value={true}>yes</option>
+        <option value={false}>no</option>
       </select>
       <input type="file"  name="image"/>
       <button type="submit">Submit</button>

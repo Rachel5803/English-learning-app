@@ -7,7 +7,7 @@ const getClasses = async (req, res) => {
     if (!classes.length) {
         return res.status(400).json({
             error: true,
-            massage: 'לא נמצאו כיתות',
+            massage: 'No classes found',
             data: null
         })
     }
