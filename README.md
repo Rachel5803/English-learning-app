@@ -2,9 +2,8 @@
 ## Table of Contents
 
 - [About The Project](#features)
-- [Screenshots](#screenshots)
 - [Built With](#built-with)
-
+- [Screenshots](#screenshots)
 ## Built With
  
 - [React](#)
