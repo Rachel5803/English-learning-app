@@ -7,8 +7,10 @@
 
 ## Built With
  
-- [UVM](#)
-- [System Verilog](#) 
+- [React](#)
+- [Redux](#)
+- [MongoDB](#)
+- [Node.js](#) 
 
 ## Screenshots
 ![testsList](https://github.com/user-attachments/assets/21ed764a-828e-432d-9900-7ec7919ffc18)
